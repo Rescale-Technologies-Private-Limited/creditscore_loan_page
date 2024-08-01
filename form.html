@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- awesome-font CDN link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+
+
+    <link rel="stylesheet" href="form_style.css">
+
+    <title>Personal Loan</title>
+
+</head>
+
+<body>
+
+    <!-- navbar section start -->
+    <header class="nav-container container-fluid p-3">
+        <div class="nav">
+            <img src="images/logo.png" alt="logo">
+        </div>
+    </header>
+
+    <!-- navbar section end -->
+
+
+    <!-- Hero Section Start  -->
+    <section class="hero-section container-fluid">
+        <div class="hero-content-container">
+            <div class="hero-nav-box hiddn">
+                <div class="hero-nav d-flex align-items-center">
+                    <!-- <a href="#">
+                        <input type="button" id="submitotpbtn" value="Apply Now" class=" btn-next otpbtn"
+                            onclick="validateForm1()">
+                    </a> -->
+                    <i onclick="" class="fa-solid fa-arrow-left btn-prev nav-btn hidden"></i>&nbsp;&nbsp;&nbsp;
+                    <!-- <h4> Personal Loan</h4> -->
+                </div>
+            </div>
+            <div id="P-loan-box" class="hero-heading text-center">
+                <h3>Unlock Best Personal Loan Offers </h3>
+                <p>Avail a Loan of Your Choice Instantly.</p>
+            </div>
+            <div id="Congress-box" class="Congress-box text-center hidden">
+                <h1>Congratulations!!!</h1>
+                <p>Please check below.</p>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Hero Section End  -->
+
+    <!-- form section start -->
+
+    <section class="container-fluid">
+
+        <div class="container-md form-heading-container py- px-5 d-flex justify-content-center align-items-center">
+
+            <div class="form-section">
+                <!-- Progress Bar -->
+                <div id="progress-section" class="progress-container hidden">
+                    <div class="progress-bar" id="progress-bar"></div>
+                    <div class="progress-text" id="progress-text" style="display: none;">1/6</div>
+                    <div class=" position-absolute progress-heading" id="progress-heading">Basic Details</div>
+                </div>
+
+
+                <div class="d-flex form-box align-items-center justify-content-center ">
+
+                    <!-- form-1 -->
+                    <form id="form1" class="form-step align-items-center justify-content-center" style="display: nne;">
+
+                        <!-- <h6 style="font-weight: bold; padding: 10px 0; margin-left: 20px; ">Basic Details:</h6> -->
+                        <!-- <p style="font-size: 14px; margin: 0; margin-top: -7px;">Select your maximum qualification</p> -->
+                        <!-- <div class="personal-details "> -->
+
+                        <div class="basic-input-box ms-3">
+                            <input type="text" name="fullname" id="firstName" placeholder="Enter First Name" required>
+                            <label class="basic-input-box-title" for="firstName">First Name<sup>*</sup> :</label><br>
+                            <span class="error" id="firstNameError"></span>
+                        </div>
+                        <div class="basic-input-box ms-3">
+                            <input type="text" name="lastname" id="lastName" placeholder="Enter Last Name" required>
+                            <label class="basic-input-box-title" for="lastName">Last Name <sup>*</sup> :</label><br>
+                            <span class="error" id="lastNameError"></span>
+                        </div>
+
+                        <!-- <div class="input-box ms-3">
+                            <input style=" text-transform: uppercase;" type="text" name="pancard" id="panCard"
+                                placeholder="A F D Z T 1 2 3 4 F" required>
+                            <label class="input-box-title" for="panCard">Pan Card<sup>*</sup> :</label><br>
+                            <span style="font-size: 12px; padding-left: 10px; margin: 0;"> If incorrect Pan is
+                                provided,
+                                the loan will be rejected</span><br>
+                            <span class="error" id="panCardError"></span>
+                        </div> -->
+
+                        <div class="basic-input-box ms-3">
+                            <input type="text" id="mobile" name="mobileNumber" placeholder="Linked with Pan & Aadhar ">
+                            <label class="basic-input-box-title" for="mobile">Mobile Number<sup>*</sup> </label><br>
+                            <!-- <button class="genrateotpbtn">Get OTP </button><br> -->
+                            <span class="error" id="mobileError"></span>
+                        </div>
+
+
+
+                        <div class="basic-input-box btns-group text-center">
+                            <!-- <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
+                                class=" btn-next otpbtn" onclick="validateForm1()"></a> -->
+
+                            <a href="#"><input type="button" id="submitotpbtn" value="Get OTP" class=" btn-next otpbtn"
+                                    onclick="showOTPSection()"></a>
+
+                        </div>
+
+                        <div class="basic-input-checkbox text-center ms-3 pb-3">
+                            <i class="fa-solid fa-lock" style="color: #ff6f00;"></i>
+                            <p>Your data’s safety is our top priority. It is secured by cutting-edge encryption and
+                                stringent privacy protocols.</p>
+                        </div>
+
+                        <div class="credit-score-container  text-center mb-3">
+                            <b>Powered by <span><img src="images/Experian_logo.png" alt=""></span> </b>
+                        </div>
+                    </form>
+
+                    <!-- form-2 -->
+                    <form id="form2" class="form-step form-2 align-items-center justify-content-center"
+                        style="display: none;">
+
+                        <div class="basic-input-box ms-2">
+                            <input type="email" name="email" id="email" placeholder="xyz@gmail.com" required>
+                            <label class="basic-input-box-title" for="email">Email ID <sup>*</sup> :</label><br>
+                            <span class="error" id="emailError"></span>
+                        </div>
+                        <!-- <div class="basic-input-box dob-box ms-2">
+                            <input type="date" name="dob" id="dob" placeholder="mm/dd/yyyy" min="1960-01-01" max="2006-01-01" required>
+
+                            <label class="basic-input-box-title" for="dob">Date of Birth <sup>*</sup> :</label><br>
+                            <span class="error" id="dobError"></span>
+                        </div> -->
+
+                        <div class="basic-input-box ms-2">
+                            <h6 style="padding: 10px 0; font-size: 14px; margin-top: -20px;">Gender<sup>*</sup> :</h6>
+                            <!-- <label for="panCard">Pan Card<sup>*</sup> :</label><br> -->
+                            <div class="gender-container">
+                                <div class="gender-box">
+                                    <input class="gender-input hiddn" type="radio" id="male" name="gender" value="male"
+                                        required>
+                                    <label for="male">
+                                        <!-- Male SVG -->
+                                        <img src="images/male.png" alt="" srcset="">
+                                        <span>Male</span>
+                                    </label>
+                                </div>
+                                <div class="gender-box">
+                                    <input class="gender-input hiden" type="radio" id="female" name="gender"
+                                        value="female" required>
+                                    <label for="female">
+                                        <!-- Female SVG -->
+                                        <img src="images/female.png" alt="">
+                                        <span>Female</span>
+                                    </label>
+                                </div>
+                            </div><br>
+                            <span class="error" id="genderError"></span>
+                        </div>
+
+
+                        <div class="basic-input-box btns-group text-center">
+                            <!-- <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
+                                class=" btn-next otpbtn" onclick="validateForm1()"></a> -->
+
+                            <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
+                                    class=" btn-next otpbtn" onclick="validateForm2()"></a>
+
+                        </div>
+
+                    </form>
+
+
+                    <!-- form-3 -->
+                    <form id="form3" class="form-step align-items-center justify-content-center" style="display: none;">
+                        <div class="basic-input-box dob-box ms-2">
+                            <input type="date" name="dob" id="dob" placeholder="dd/mm/yyyy"  min="1960-01-01" max="2006-01-01" required>
+                            <label class="basic-input-box-title" for="dob">Date of Birth <sup>*</sup> :</label><br>
+                            <span class="error" id="dobError"></span>
+                        </div>
+
+                        <div class="basic-input-box ms-2">
+                            <h6 style="padding: 10px 0; font-size: 14px; margin-top: -20px;">Marital Status<sup>*</sup>
+                                :</h6>
+                            <!-- <label for="panCard">Pan Card<sup>*</sup> :</label><br> -->
+                            <div class="marital-container">
+                                <div class="marital-box">
+                                    <input class="marital-input" type="radio" id="married" name="marital-status"
+                                        value="married" required>
+                                    <label for="married">
+                                        <!-- Male SVG -->
+                                        <img src="images/married.png" alt="" srcset="">
+                                        <span>Married</span>
+                                    </label>
+                                </div>
+                                <div class="marital-box">
+                                    <input class="marital-input" type="radio" id="unmarried" name="marital-status"
+                                        value="female" required>
+                                    <label for="unmarried">
+                                        <!-- Female SVG -->
+                                        <img src="images/unmarried.png" alt="">
+                                        <span>Unmarried</span>
+                                    </label>
+                                </div>
+                            </div><br>
+                            <span class="error" id="maritalError"></span>
+                        </div>
+
+                        <div class="basic-input-box btns-group text-center">
+
+                            <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
+                                    class=" btn-next otpbtn" onclick="validateForm3()"></a>
+                        </div>
+                    </form>
+
+
+                    <!-- form-4 -->
+                    <form id="form4" class="form-step align-items-center justify-content-center" style="display: none;">
+
+
+
+                        <div class="basic-input-box ms-1" id="form-container">
+
+                            <!-- <h5>Education Qualification<sup>*</sup> :</h5> -->
+                            <h6 style="font-size: 14px; margin: 0; margin-top: -7px; margin-left: 20px;">Select your
+                                maximum qualification
+                            </h6>
+                            <div class="education-container -flex align-items-center justify-content-center">
+                                <label for="undergraduate" class=" education-boxs undergraduate ">
+                                    <!-- <label for="undergraduate"> -->
+                                    <div class="education-text">
+                                        <p>Undergraduate</p>
+                                        <!-- <span>Receive fixed amount of income every month</span> -->
+                                    </div>
+                                    <!-- </label> -->
+                                    <div class="education-img">
+                                        <input type="radio" name="education" id="undergraduate">
+                                    </div>
+                                </label>
+                                <label for="graduate" class=" education-boxs graduate">
+                                    <!-- <label for="graduate"> -->
+                                    <div class="education-text">
+                                        <p>Graduate</p>
+                                        <!-- <span>Run a business</span> -->
+                                    </div>
+                                    <!-- </label> -->
+                                    <div class="education-img">
+                                        <input type="radio" name="education" id="graduate">
+                                    </div>
+                                </label> <br>
+                                <label for="postgraduate" class=" education-boxs postgraduate ">
+                                    <!-- <label for="postgraduate"> -->
+                                    <div class="education-text">
+                                        <p>Post graduate</p>
+                                        <!-- <span>Receive fixed amount of income every month</span> -->
+                                    </div>
+                                    <!-- </label> -->
+                                    <div class="education-img">
+                                        <input type="radio" name="education" id="postgraduate">
+                                    </div>
+                                </label>
+                                <label for="others" class=" education-boxs others">
+                                    <!-- <label for="others"> -->
+                                    <div class="education-text">
+                                        <p>Doctorate</p>
+                                        <!-- <span>Run a business</span> -->
+                                    </div>
+                                    <!-- </label> -->
+                                    <div class="education-img">
+                                        <input type="radio" name="education" id="others">
+                                    </div>
+                                </label>
+                            </div><br>
+                            <span class="error" id="educationError"></span>
+                        </div>
+
+                        <!-- </div> -->
+
+                        <div class="basic-input-box btns-group text-center">
+                            <!-- <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
+                                class=" btn-next otpbtn" onclick="validateForm1()"></a> -->
+
+                            <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
+                                    class=" btn-next otpbtn" onclick="validateForm4()"></a>
+                        </div>
+                    </form>
+                    <!-- form-5 -->
+                    <form id="form5" class="form-step align-items-center justify-content-center" style="display: none;">
+
+                        <h6 style="padding: 20px; font-size: 14px; margin-top: 20px;">Type of Employment<sup>*</sup> :
+                        </h6>
+
+                        <div class="basic-input-box -flex align-items-center justify-content-center ms-2">
+                            <!-- <label for="panCard">Pan Card<sup>*</sup> :</label><br> -->
+                            <div class="employment-container">
+                                <div class="employment-box">
+                                    <label for="Self-employed">
+                                        <!-- self-employed SVG -->
+                                        <img src="images/self-employed.png" alt="" srcset="">
+                                        <h6>Self Employed Professional</h6>
+                                        <span>e.g. Doctor, C.A, etc.</span>
+                                        <input class="employment-input" type="radio" id="Self-employed"
+                                            name="employment" value="Self-employed" required>
+                                    </label>
+                                </div>
+
+                                <div class="employment-box">
+                                    <label for="independentworker">
+                                        <!-- independent worker SVG -->
+                                        <img src="images/independent-worker.png" alt="" srcset="">
+                                        <h6>Independent Worker</h6>
+                                        <span>e.g. Driver, Electrician, Shopkeeper, etc.</span>
+                                        <input class="employment-input" type="radio" id="independentworker"
+                                            name="employment" value="independentworker" required>
+                                    </label>
+                                </div>
+
+                                <div style="height: 100px;" class="employment-box">
+                                    <label for="salaried">
+                                        <!-- salaried SVG -->
+                                        <img src="images/salaried.png" alt="" srcset="">
+                                        <h6>Salaried</h6>
+                                        <!-- <span>Earn Regular Monthly Income</span> -->
+                                        <span></span>
+                                        <input class="employment-input" type="radio" id="salaried" name="employment"
+                                            value="salaried" required>
+                                    </label>
+                                </div>
+
+                                <div style="height: 100px;" class="employment-box">
+                                    <label for="businessowner">
+                                        <!-- business owner SVG -->
+                                        <img src="images/business-owner.png" alt="" srcset="">
+                                        <h6>Business Owner</h6>
+                                        <!-- <span>Run own Business</span> -->
+                                        <span></span>
+                                        <input class="employment-input" type="radio" id="businessowner"
+                                            name="employment" value="businessowner" required>
+                                    </label>
+                                </div>
+
+                                <div style="height: 100px;" class="employment-box">
+                                    <label for="student">
+                                        <!-- student SVG -->
+                                        <img src="images/student.png" alt="" srcset="">
+                                        <h6>Student</h6>
+                                        <span></span>
+                                        <input class="employment-input" type="radio" id="student" name="employment"
+                                            value="student" required>
+                                    </label>
+                                </div>
+                                <div style="height: 100px;" class="employment-box">
+                                    <label for="retired">
+                                        <!-- Male SVG -->
+                                        <img src="images/retired.png" alt="" srcset="">
+                                        <h6>Retired</h6>
+                                        <span></span>
+                                        <input class="employment-input" type="radio" id="retired" name="employment"
+                                            value="retired" required>
+                                    </label>
+                                </div>
+                                <div style="height: 100px;" class="employment-box">
+                                    <label for="homemaker">
+                                        <!-- Male SVG -->
+                                        <img src="images/home-maker.png" alt="" srcset="">
+                                        <h6>Homemaker</h6>
+                                        <span></span>
+                                        <input class="employment-input" type="radio" id="homemaker" name="employment"
+                                            value="homemaker" required>
+                                    </label>
+                                </div>
+                            </div><br>
+                            <span class="error" id="employmentError"></span>
+                        </div>
+
+
+                        <div class="basic-input-box btns-group text-center">
+                            <!-- <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
+                                class=" btn-next otpbtn" onclick="validateForm1()"></a> -->
+
+                            <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
+                                    class=" btn-next otpbtn" onclick="validateForm5()"></a>
+
+                        </div>
+
+                    </form>
+
+
+
+
+                    <!-- form-6 -->
+                    <form id="form6" class="form-step align-items-center justify-content-center "
+                        style="display: none;">
+
+                        <div class="basic-input-box ms-3">
+                            <input style=" text-transform: uppercase;" type="text" name="pancard" id="panCard"
+                                placeholder="A F D Z T 1 2 3 4 F" required>
+                            <label class="basic-input-box-title" for="panCard">Pan Card<sup>*</sup> :</label><br>
+                            <span style="font-size: 12px; padding-left: 10px; margin: 0;"> If incorrect Pan is
+                                provided,
+                                the loan will be rejected</span><br>
+                            <span class="error" id="panCardError"></span>
+                        </div>
+                        <!-- 
+                        <div class="basic-input-box ms-2">
+                            <h6 style="padding: 10px 0; font-size: 14px; margin-top: -20px;">Marital Status<sup>*</sup>
+                                :</h6>
+                            <div class="marital-container">
+                                <div class="marital-box">
+                                    <input class="marital-input" type="radio" id="married" name="marital-status"
+                                        value="married" required>
+                                    <label for="married">
+                                        <img src="images/married.png" alt="" srcset="">
+                                        <span>Married</span>
+                                    </label>
+                                </div>
+                                <div class="marital-box">
+                                    <input class="marital-input" type="radio" id="unmarried" name="marital-status"
+                                        value="female" required>
+                                    <label for="unmarried">
+                                        <img src="images/unmarried.png" alt="">
+                                        <span>Unmarried</span>
+                                    </label>
+                                </div>
+                            </div><br>
+                            <span class="error" id="maritalError"></span>
+                        </div> -->
+
+
+                        <div class="basic-input-box btns-group text-center">
+                            <!-- <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
+                                class=" btn-next otpbtn" onclick="validateForm1()"></a> -->
+
+                            <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
+                                    class=" btn-next otpbtn" onclick="validateForm6()"></a>
+
+                        </div>
+
+                    </form>
+
+                    <!-- form-7 -->
+                    <div id="form7"
+                        class="form-step align-items-center justify-content-center pt- brand-section hidden">
+                        <div class=" " style="display: block; flex-direction: column;">
+                            <h3 class="zeroscore text-center hidden">Opps!!! You don't have Credit Score.</h3>
+                            <h3 class="approve  text-center hidden">
+                                Your Credit Score is
+                                <input type="text" class="loan-price" id="rangeValue2" value="400"
+                                    oninput="updateSlider2(this.value)">
+                            </h3>
+                            <h3 class="not-approve  text-center hidden">Your Credit Score is
+                                <!-- <span> -->
+                                <input type="text" class="loan-price" id="rangeValue2" value="400"
+                                    oninput="updateSlider2(this.value)">
+                                <!-- </span> <br> -->
+                            </h3>
+                        </div>
+                        <div class=" credit-meter-section d-flex justify-content-center">
+
+                            <div class="credit-meter-container ">
+                                <div class=" range-box d-flex text-center justify-content-center position-relative">
+                                    <p class="range-text">POOR <br>300-579</p>
+                                    <p class="range-text">FAIR <br>580-669</p>
+                                    <p class="range-text">GOOD <br>670-739</p>
+                                    <!-- <p class="range-text">VERY GOOD <br>740-799</p> -->
+                                    <p class="range-text">EXCELLENT <br>
+                                        800-850</p>
+                                    <input class="ranges" type="range" name="" id="" min="300" max="850" value="400"
+                                        oninput="updateInput2(this.value)">
+                                </div>
+                                <div class="credit-meter-info d-flex py-2 align-items-center justify-content-center">
+                                    <h6 class="text-center">
+                                        <!-- Your Credit Score is
+                                        <span>
+                                            <input type="text" class="loan-price" id="rangeValue2" value="400"
+                                                oninput="updateSlider2(this.value)">
+                                        </span> <br> -->
+                                        <span class="zeroscore-sub-text hidden">Sorry! We cannot offer a loan right now,
+                                            please
+                                            try after 90 days.
+                                        </span>
+                                        <span class="approve-sub-text hidden">
+                                            <b>CONGRATULATIONS!!!</b> <br>you are eligible for Loan!
+                                        </span>
+                                        <span class="not-approve-sub-text hidden">
+                                            <b>SORRY!!!</b> not eligible for Loan <br> Try after 90 days!
+                                        </span>
+                                    </h6>
+
+                                </div>
+
+                                <!-- <div class="rangebar-values d-flex align-items-center justify-content-between">
+                                        <p>min <i class="fa-solid fa-indian-rupee-sign"></i> 1000</p>
+                                        <p>Max <i class="fa-solid fa-indian-rupee-sign"></i> 10 Lacs</p>
+                                    </div> -->
+                            </div>
+                        </div>
+                        <div class="basic-input-box btns-group text-center">
+                            <a href="#"><input type="button" id="submitotpbtn" value="Get Loan"
+                                    class=" btn-next otpbtn journey-btn hidden" onclick="validateForm()"></a>
+                        </div>
+                        <p style=" padding:  5px; margin: 0; font-size:12px ; " class="score-report hidden text-center">
+                            Your credit report is send on your mail Id</p>
+
+                    </div>
+
+
+                    <!-- form-7 -->
+                    <!-- <div id="form7"  class="form-step align-items-center justify-content-center pt-5 brand-section hidde">
+                        <div class="brand-container d-flex">
+                            <div class="brand-logo-box d-flex align-items-center">
+                                <img src="images/zype-logo.png" alt="">
+                                <h3>Zype  <img src="images/right-tick.png" alt=""></h3>
+                            </div>
+
+                            <div class="brand-loan-amount">
+                                <p>Loan Amount <span><b>- 1,00,000</b></span></p>
+                            </div>
+                            <div class="brand-kyc-btn-box">
+                                <a href="#"><input type="button" id="submitotpbtn" value="Complete KYC"
+                                    class=" btn btn-primary " onclick=""></a>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </section>
+
+    <!-- form section end -->
+
+
+    <!-- otp section start -->
+    <!-- <section id="otp-section-container"> -->
+    <section id="otp-section-container">
+        <div class="otp-section">
+            <div class="otp-container">
+                <h2>OTP Verification</h2>
+                <p>We have sent the 4-digit OTP to<br>
+                    <b>+91-95112XXX36</b>
+                    <a>
+                        <svg class="feather feather-edit" fill="none" height="20" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                            width="20" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer; margin-left: 4px;">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                    </a>
+                </p>
+                <form>
+                    <p class="invalid-otp" style="display: none; color: #2700c2;">Invalid OTP!</p>
+                    <div class="form-otp-box">
+                        <input autocomplete="one-time-code" maxlength="1" type="tel"
+                            style="text-align: center; font-weight: bold;" id="otp1" oninput="moveToNext(this, 'otp2')">
+                        <input autocomplete="one-time-code" maxlength="1" type="tel"
+                            style="text-align: center; font-weight: bold;" id="otp2" oninput="moveToNext(this, 'otp3')">
+                        <input autocomplete="one-time-code" maxlength="1" type="tel"
+                            style="text-align: center; font-weight: bold;" id="otp3" oninput="moveToNext(this, 'otp4')">
+                        <input autocomplete="one-time-code" maxlength="1" type="tel"
+                            style="text-align: center; font-weight: bold;" id="otp4" oninput="moveToNext(this, 'otp4')">
+                    </div>
+                    <div class="resend-otp-box">
+                        <p class="resend-timer-box">Resend OTP in <span id="timer">00:30</span></p>
+                        <a class="resend-otp" id="resendOtp"
+                            style="display: none; color: #007bff; cursor: pointer; pointer-events: auto;">Resend
+                            OTP</a>
+                    </div>
+
+                    <button type="button" class="primaryBtn btn btn-primary"
+                        style="background-color: #2a3485; opacity: 1;" onclick="validateForm()">Verify
+                        OTP</button>
+                    <!-- <button type="button" class="primaryBtn btn btn-primary"
+                                style="background-color: #2a3485; opacity: 1;" onclick="verifyOTP()">Verify
+                                OTP</button> -->
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- otp section end -->
+
+</body>
+
+<script src="form_script.js"></script>
+
+</html>
