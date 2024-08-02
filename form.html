@@ -15,7 +15,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-
+    <!-- bootstrap JS link -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="form_style.css">
 
@@ -34,9 +35,137 @@
 
     <!-- navbar section end -->
 
+    <!-- 1st main hero-section -->
+    <section class="hero-home-section ">
+        <div class="hero-home-page container-fluid p-0 d-flex">
+            <div class="hero-home-content ">
+                <h3>Your credit health matters…</h3>
+                <p>Your credit score is more than just a number. A better <br> score can help unlock the things you want
+                    most
+                    — <br>
+                    like a new credit card or the best loan rates in the <br> market.</p>
+                <a href="#" class="report-link text-center">Already downloaded a report? Click Here</a>
+
+                
+
+                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="credit-content d-flex">
+                                <div class="credit-number-box"> 1 </div>
+                                <div class="credit-content-text">
+                                    <h4>Track your Credit Health</h4>
+                                    <p>Fill the form on the right just once & <br> monitor your credit score for free
+                                        <br> without
+                                        any
+                                        hassles.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="credit-content d-flex">
+                                <div class="credit-number-box"> 2 </div>
+                                <div class="credit-content-text">
+                                    <h4>Get deep Insights</h4>
+                                    <p>See what makes your score change & <br> ways to improve your credit health.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="credit-content d-flex">
+                                <div class="credit-number-box"> 3 </div>
+                                <div class="credit-content-text">
+                                    <h4>Make Better Decisions</h4>
+                                    <p>Personalised recommendations based <br> on your credit history to help you save <br> money & spend wisely.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button> -->
+                </div>
+            </div>
+
+            <div class="hero-home-page-form mt-5">
+
+                <h2>Lifetime Free Credit Score</h2>
+                <p>Get your credit report for free, with monthly updates</p>
+
+
+                <form id="form1" class="form-step align-items-center mt-5 justify-content-center" style="display: nne;">
+
+                    <!-- <h6 style="font-weight: bold; padding: 10px 0; margin-left: 20px; ">Basic Details:</h6> -->
+                    <!-- <p style="font-size: 14px; margin: 0; margin-top: -7px;">Select your maximum qualification</p> -->
+                    <!-- <div class="personal-details "> -->
+
+                    <div class="basic-input-box ms-3">
+                        <input type="text" name="fullname" id="firstName" placeholder="Enter First Name" required>
+                        <label class="basic-input-box-title" for="firstName">First Name<sup>*</sup> :</label><br>
+                        <span class="error" id="firstNameError"></span>
+                    </div>
+                    <div class="basic-input-box ms-3">
+                        <input type="text" name="lastname" id="lastName" placeholder="Enter Last Name" required>
+                        <label class="basic-input-box-title" for="lastName">Last Name <sup>*</sup> :</label><br>
+                        <span class="error" id="lastNameError"></span>
+                    </div>
+
+                    <!-- <div class="input-box ms-3">
+                        <input style=" text-transform: uppercase;" type="text" name="pancard" id="panCard"
+                            placeholder="A F D Z T 1 2 3 4 F" required>
+                        <label class="input-box-title" for="panCard">Pan Card<sup>*</sup> :</label><br>
+                        <span style="font-size: 12px; padding-left: 10px; margin: 0;"> If incorrect Pan is
+                            provided,
+                            the loan will be rejected</span><br>
+                        <span class="error" id="panCardError"></span>
+                    </div> -->
+
+                    <div class="basic-input-box ms-3">
+                        <input type="text" id="mobile" name="mobileNumber" placeholder="Linked with Pan & Aadhar ">
+                        <label class="basic-input-box-title" for="mobile">Mobile Number<sup>*</sup> </label><br>
+                        <!-- <button class="genrateotpbtn">Get OTP </button><br> -->
+                        <span class="error" id="mobileError"></span>
+                    </div>
+
+
+
+                    <div class="basic-input-box btns-group text-center">
+                        <!-- <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
+                            class=" btn-next otpbtn" onclick="validateForm1()"></a> -->
+
+                        <a href="#"><input type="button" id="submitotpbtn" value="Get OTP" class=" btn-next otpbtn"
+                                onclick="showOTPSection()"></a>
+
+                    </div>
+
+                    <div class="basic-input-checkbox text-center ms-3 pb-3">
+                        <i class="fa-solid fa-lock" style="color: #ff6f00;"></i>
+                        <p>Your data’s safety is our top priority. It is secured by cutting-edge encryption and
+                            stringent privacy protocols.</p>
+                    </div>
+
+                    <div class="credit-score-container  text-center mb-3">
+                        <b>Powered by <span><img src="images/Experian_logo.png" alt=""></span> </b>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
 
     <!-- Hero Section Start  -->
-    <section class="hero-section container-fluid">
+    <section class="hero-section container-fluid hidden">
         <div class="hero-content-container">
             <div class="hero-nav-box hiddn">
                 <div class="hero-nav d-flex align-items-center">
@@ -52,7 +181,7 @@
                 <h3>Unlock Best Personal Loan Offers </h3>
                 <p>Avail a Loan of Your Choice Instantly.</p>
             </div>
-            <div id="Congress-box" class="Congress-box text-center hidden">
+            <div id="Congress-box" class="Congress-boxs text-center hidden">
                 <h1>Congratulations!!!</h1>
                 <p>Please check below.</p>
             </div>
@@ -62,9 +191,11 @@
 
     <!-- Hero Section End  -->
 
+
+
     <!-- form section start -->
 
-    <section class="container-fluid">
+    <section class="container-fluid form-container-form-2 hidden">
 
         <div class="container-md form-heading-container py- px-5 d-flex justify-content-center align-items-center">
 
@@ -79,62 +210,6 @@
 
                 <div class="d-flex form-box align-items-center justify-content-center ">
 
-                    <!-- form-1 -->
-                    <form id="form1" class="form-step align-items-center justify-content-center" style="display: nne;">
-
-                        <!-- <h6 style="font-weight: bold; padding: 10px 0; margin-left: 20px; ">Basic Details:</h6> -->
-                        <!-- <p style="font-size: 14px; margin: 0; margin-top: -7px;">Select your maximum qualification</p> -->
-                        <!-- <div class="personal-details "> -->
-
-                        <div class="basic-input-box ms-3">
-                            <input type="text" name="fullname" id="firstName" placeholder="Enter First Name" required>
-                            <label class="basic-input-box-title" for="firstName">First Name<sup>*</sup> :</label><br>
-                            <span class="error" id="firstNameError"></span>
-                        </div>
-                        <div class="basic-input-box ms-3">
-                            <input type="text" name="lastname" id="lastName" placeholder="Enter Last Name" required>
-                            <label class="basic-input-box-title" for="lastName">Last Name <sup>*</sup> :</label><br>
-                            <span class="error" id="lastNameError"></span>
-                        </div>
-
-                        <!-- <div class="input-box ms-3">
-                            <input style=" text-transform: uppercase;" type="text" name="pancard" id="panCard"
-                                placeholder="A F D Z T 1 2 3 4 F" required>
-                            <label class="input-box-title" for="panCard">Pan Card<sup>*</sup> :</label><br>
-                            <span style="font-size: 12px; padding-left: 10px; margin: 0;"> If incorrect Pan is
-                                provided,
-                                the loan will be rejected</span><br>
-                            <span class="error" id="panCardError"></span>
-                        </div> -->
-
-                        <div class="basic-input-box ms-3">
-                            <input type="text" id="mobile" name="mobileNumber" placeholder="Linked with Pan & Aadhar ">
-                            <label class="basic-input-box-title" for="mobile">Mobile Number<sup>*</sup> </label><br>
-                            <!-- <button class="genrateotpbtn">Get OTP </button><br> -->
-                            <span class="error" id="mobileError"></span>
-                        </div>
-
-
-
-                        <div class="basic-input-box btns-group text-center">
-                            <!-- <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
-                                class=" btn-next otpbtn" onclick="validateForm1()"></a> -->
-
-                            <a href="#"><input type="button" id="submitotpbtn" value="Get OTP" class=" btn-next otpbtn"
-                                    onclick="showOTPSection()"></a>
-
-                        </div>
-
-                        <div class="basic-input-checkbox text-center ms-3 pb-3">
-                            <i class="fa-solid fa-lock" style="color: #ff6f00;"></i>
-                            <p>Your data’s safety is our top priority. It is secured by cutting-edge encryption and
-                                stringent privacy protocols.</p>
-                        </div>
-
-                        <div class="credit-score-container  text-center mb-3">
-                            <b>Powered by <span><img src="images/Experian_logo.png" alt=""></span> </b>
-                        </div>
-                    </form>
 
                     <!-- form-2 -->
                     <form id="form2" class="form-step form-2 align-items-center justify-content-center"
@@ -194,7 +269,8 @@
                     <!-- form-3 -->
                     <form id="form3" class="form-step align-items-center justify-content-center" style="display: none;">
                         <div class="basic-input-box dob-box ms-2">
-                            <input type="date" name="dob" id="dob" placeholder="dd/mm/yyyy"  min="1960-01-01" max="2006-01-01" required>
+                            <input type="date" name="dob" id="dob" placeholder="dd/mm/yyyy" min="1960-01-01"
+                                max="2006-01-01" required>
                             <label class="basic-input-box-title" for="dob">Date of Birth <sup>*</sup> :</label><br>
                             <span class="error" id="dobError"></span>
                         </div>
@@ -587,13 +663,11 @@
                     </div>
                     <div class="resend-otp-box">
                         <p class="resend-timer-box">Resend OTP in <span id="timer">00:30</span></p>
-                        <a class="resend-otp" id="resendOtp"
-                            style="display: none; color: #007bff; cursor: pointer; pointer-events: auto;">Resend
-                            OTP</a>
+                        <a class="resend-otp" id="resendOtp" onclick="resendotp()" style="display: none; color: #007bff; cursor: pointer; pointer-events: auto;">Resend OTP</a>
                     </div>
 
-                    <button type="button" class="primaryBtn btn btn-primary"
-                        style="background-color: #2a3485; opacity: 1;" onclick="validateForm()">Verify
+                    <button type="button" id="verifyOTP"  class="primaryBtn btn btn-primary"
+                        style="background-color: #2a3485; opacity: 1;">Verify
                         OTP</button>
                     <!-- <button type="button" class="primaryBtn btn btn-primary"
                                 style="background-color: #2a3485; opacity: 1;" onclick="verifyOTP()">Verify

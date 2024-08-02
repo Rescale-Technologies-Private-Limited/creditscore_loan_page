@@ -13,7 +13,7 @@ function closeprogress() {
     // document.getElementById('progress-section').style.display = 'none';
     document.querySelector('.progress-container').classList.add('hidden');
     document.querySelector('.nav-btn').classList.add('hidden');
-    document.querySelector('.Congress-box').classList.remove('hidden');
+    document.querySelector('.Congress-boxs').classList.remove('hidden');
 }
 function openprogress() {
     document.querySelector('.progress-container').classList.remove('hidden');
@@ -61,39 +61,46 @@ function showForm(step) {
 }
 
 function validateForm1() {
-
-    // Validate first name
+    const showError = document.getElementById('firstNameError')  // Validate first name
     const firstName = document.getElementById('firstName').value;
     if (firstName === "") {
-        document.getElementById('firstNameError').textContent = 'First Name is required';
+        showError.textContent = 'First Name is required';
         isValid = false;
+        return false;
+    }
+    else {
+        showError.style.display = "none"
     }
 
     // Validate first name
     const lastName = document.getElementById('lastName').value;
+    const lastError = document.getElementById('lastNameError');
     if (lastName === "") {
-        document.getElementById('lastNameError').textContent = 'Last Name is required';
-        isValid = false;
+        lastError.textContent = 'Last Name is required';
+        return false;
+    } else {
+        lastError.style.display = 'none';
     }
 
 
     // Validate mobile number
     const mobile = document.getElementById('mobile').value;
     const mobilePattern = /^[0-9]{10}$/;
+    const showMobileError = document.getElementById('mobileError');
     if (mobile === "") {
-        document.getElementById('mobileError').textContent = 'Mobile Number is required';
-        isValid = false;
+        showMobileError.textContent = 'Mobile Number is required';
+        return false;
     } else if (!mobilePattern.test(mobile)) {
-        document.getElementById('mobileError').textContent = 'Enter a valid 10 digit mobile number';
-        isValid = false;
+        showMobileError.textContent = 'Required 10 digit number';
+        return false;
+    }
+    else {
+        showMobileError.style.display = 'none';
     }
 
 
-    if (firstName && lastName && mobile.match(/^\d{10}$/)) {
-        currentStep++;
-        showForm(currentStep);
-    } else {
-    }
+    return true
+
 }
 
 
@@ -102,43 +109,27 @@ function validateForm1() {
 
 
 function showOTPSection() {
+    console.log("called...")
+    if (!validateForm1()) {
+        return;
+    }
+    currentStep++;
+    showForm(currentStep);
+    console.log("API Calling..............1-FORM");
+    // console.log(currentStep)
     // Show the OTP section
     document.getElementById('otp-section-container').style.display = 'block';
     document.querySelector('.hero-heading').classList.add('hidden');
     document.querySelector('.nav-btn').classList.remove('hidden');
     document.querySelector('.progress-container').classList.remove('hidden');
-    // Validate first name
-    const firstName = document.getElementById('firstName').value;
-    if (firstName === "") {
-        document.getElementById('firstNameError').textContent = 'First Name is required';
-        isValid = false;
-    }
-
-    // Validate first name
-    const lastName = document.getElementById('lastName').value;
-    if (lastName === "") {
-        document.getElementById('lastNameError').textContent = 'Last Name is required';
-        isValid = false;
-    }
+    document.querySelector('.hero-section').classList.remove('hidden');
+    document.querySelector('.form-container-form-2').classList.remove('hidden');
+    document.querySelector('.hero-home-section').classList.add('hidden');
 
 
-    // Validate mobile number
-    const mobile = document.getElementById('mobile').value;
-    const mobilePattern = /^[0-9]{10}$/;
-    if (mobile === "") {
-        document.getElementById('mobileError').textContent = 'Mobile Number is required';
-        isValid = false;
-    } else if (!mobilePattern.test(mobile)) {
-        document.getElementById('mobileError').textContent = 'Enter a valid 10 digit mobile number';
-        isValid = false;
-    }
-
-
-    if (firstName && lastName && mobile.match(/^\d{10}$/)) {
-        currentStep++;
-        showForm(currentStep);
-    } else {
-    }
+    const thirtySeconds = 30,
+        display = document.querySelector('#timer');
+    startTimer(thirtySeconds, display);
 }
 
 function moveToNext(current, nextFieldId) {
@@ -158,7 +149,9 @@ document.querySelectorAll('.form-otp-box input').forEach((input, index, inputs) 
     // Automatically submit the form when the last OTP field is filled
     input.addEventListener('input', () => {
         if (index === inputs.length - 1 && input.value.length === input.maxLength) {
-            verifyOTP();
+            const validOtp = '1234'; // Replace with actual OTP verification logic
+            const isValidOTP = verifyOTP(validOtp);
+
         }
     });
 });
@@ -183,21 +176,20 @@ function closeModal() {
     document.getElementById('otp-section-container').style.display = 'none';
 }
 
-function verifyOTP() {
+function verifyOTP(curretOTP) {
     const otp = Array.from(document.querySelectorAll('.form-otp-box input')).map(input => input.value).join('');
     // const otp = document.getElementById('otp').value;
-    const validOtp = '1234'; // Replace with actual OTP verification logic
 
-    if (otp === validOtp) { // Example OTP for demonstration
+    if (otp === curretOTP) { // Example OTP for demonstration
         // alert('OTP verified successfully!');
         closeModal();
-        currentStep++;
         showForm(currentStep);
     } else {
         document.querySelector('.invalid-otp').style.display = 'block';
     }
 }
 
+document.getElementById('verifyOTP').style.display = 'none';
 
 function startTimer(duration, display) {
     let timer = duration, minutes, seconds;
@@ -214,15 +206,19 @@ function startTimer(duration, display) {
             clearInterval(interval);
             document.querySelector('.resend-timer-box').style.display = 'none';
             document.querySelector('.resend-otp').style.display = 'block';
+            document.getElementById('verifyOTP').style.display = 'block';
         }
     }, 1000);
 }
-
-window.onload = function () {
+function resendotp() {
     const thirtySeconds = 30,
         display = document.querySelector('#timer');
     startTimer(thirtySeconds, display);
-};
+    document.querySelector('.resend-timer-box').style.display = 'block';
+    document.querySelector('.resend-otp').style.display = 'none';
+
+}
+
 // otp section end 
 
 
@@ -240,71 +236,72 @@ function validateForm2() {
     const genderAllBox = Array.from(document.getElementsByClassName("gender-box"));
 
     // Select all box elements
-
+    console.log(genderAllBox)
     // Add click event listeners to each box
     genderAllBox.forEach(box => {
         box.addEventListener('click', () => {
             // Remove 'color' class from all boxes
-            genderAllBox.forEach(otherBox => {
-                if (otherBox !== box) {
-                    otherBox.classList.remove('color');
-                    otherBox.style.border = '1px solid #aeaeae'; // Reset background color
-                    otherBox.style.backgroundColor = '#fff';
-                }
-            });
-
+            // genderAllBox.forEach(otherBox => {
+            //     if (otherBox !== box) {
+            //         otherBox.classList.remove('color');
+            //         otherBox.style.border = '1px solid #aeaeae'; // Reset background color
+            //         otherBox.style.backgroundColor = '#fff';
+            //     }
+            // });
+            console.log(box)
             // Toggle 'color' class on the clicked box
-            box.classList.toggle('color');
-            console.log(box.querySelector("span").textContent)
+            // box.classList.toggle('color');
+            // console.log(box.querySelector("span").textContent)
 
-            // Set background color based on 'color' class
-            if (box.classList.contains('color')) {
-                box.style.border = '1px solid #235d80';
-                box.style.backgroundColor = '#EBF9FF';
-            } else {
-                box.style.border = '1px solid #aeaeae'; // Reset background color
-                box.style.backgroundColor = '#fff';
-            }
+            // // Set background color based on 'color' class
+            // if (box.classList.contains('color')) {
+            //     box.style.border = '1px solid #235d80';
+            //     box.style.backgroundColor = '#EBF9FF';
+            // } else {
+            //     box.style.border = '1px solid #aeaeae'; // Reset background color
+            //     box.style.backgroundColor = '#fff';
+            // }
         });
     });
 
 
-    // Validate Date of Birth
-    const dob = document.getElementById('dob').value;
-    if (dob === "") {
-        document.getElementById('dobError').textContent = 'Date of Birth is required';
-        isValid = false;
-    }
-    else {
-        document.getElementById('dobError').textContent = '';
-    }
 
-    // Validate Gender
-    const gender = document.querySelector('input[name="gender"]:checked');
-    if (!gender) {
-        document.getElementById('genderError').textContent = 'Gender is required';
-        isValid = false;
-    }
     // Validate email
+    const emailError = document.getElementById('emailError');
     const email = document.getElementById('email').value;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (email === "") {
-        document.getElementById('emailError').textContent = 'Email is required';
-        isValid = false;
+        emailError.textContent = 'Email is required';
+        // isValid = false;
+        return false;
     } else if (!emailPattern.test(email)) {
-        document.getElementById('emailError').textContent = 'Enter a valid email';
-        isValid = false;
+        emailError.textContent = 'Enter a valid email';
+        // isValid = false;
+        return false;
     }
     else {
-        document.getElementById('emailError').textContent = '';
+        emailError.style.display = 'none';
     }
+
+    // Validate Gender
+    const genderError = document.getElementById('genderError');
+    const gender = document.querySelector('input[name="gender"]:checked');
+    if (!gender) {
+        genderError.textContent = 'Gender is required';
+        isValid = false;
+        return false;
+    }
+    else {
+        genderError.style.display = 'none';
+    }
+
     if (email && gender) {
         currentStep++;
         showForm(currentStep);
+        console.log("API Calling..............2-FORM");
     } else {
         // alert('Please fill in all fields correctly.');
     }
-
 }
 
 function validateForm3() {
@@ -330,28 +327,33 @@ function validateForm3() {
         });
     });
 
-    let isValid = true;
-
-    const maritalStatus = document.querySelector('input[name="marital-status"]:checked');
-    if (!maritalStatus) {
-        document.getElementById('maritalError').textContent = 'Marital Status is required';
-        isValid = false;
-    } else {
-        document.getElementById('maritalError').textContent = '';
-    }
+    // let isValid = true;
     // Validate Date of Birth
+    const dobError = document.getElementById('dobError');
     const dob = document.getElementById('dob').value;
     if (dob === "") {
-        document.getElementById('dobError').textContent = 'Date of Birth is required';
-        isValid = false;
+        dobError.textContent = 'Date of Birth is required';
+        // isValid = false;
+        return false;
     }
     else {
-        document.getElementById('dobError').textContent = '';
+        dobError.style.display = 'none';
+    }
+
+    const maritalError = document.getElementById('maritalError');
+    const maritalStatus = document.querySelector('input[name="marital-status"]:checked');
+    if (!maritalStatus) {
+        maritalError.textContent = 'Marital Status is required';
+        // isValid = false;
+        return false;
+    } else {
+        maritalError.style.display = 'none';
     }
 
     if (dob && maritalStatus) {
         currentStep++;
         showForm(currentStep);
+        console.log("API Calling..............3-FORM");
     }
 
 }
@@ -391,14 +393,20 @@ function validateForm4() {
         });
     });
 
+    const educationError = document.getElementById('educationError');
     const education = document.querySelector('input[name="education"]:checked');
 
-    if (education) {
-        currentStep++;
-        showForm(currentStep);
-    } else {
-        document.getElementById('educationError').textContent = 'Please fill education type';
+    if (!education) {
+        educationError.textContent = 'Please fill education type';
+        return false;
     }
+    else {
+        educationError.style.display = 'none';
+    }
+
+    currentStep++;
+    showForm(currentStep);
+    console.log("API Calling..............4-FORM");
 }
 
 
@@ -434,20 +442,26 @@ function validateForm5() {
         });
     });
 
+    const employmentError = document.getElementById('employmentError');
     const employment = document.querySelector('input[name="employment"]:checked');
 
-    if (employment) {
-        currentStep++;
-        showForm(currentStep);
-    } else {
-        document.getElementById('employmentError').textContent = 'Please fill employment type';
+    if (!employment) {
+        employmentError.textContent = 'Please fill employment type';
+        return false;
     }
+    else {
+        employmentError.style.display = 'none';
+    }
+    currentStep++;
+    showForm(currentStep);
+    console.log("API Calling..............5-FORM");
+
 }
 
 
 function Congratulations() {
     // document.querySelectorAll('.Congress-box').classList.remove('hidden');
-    document.getElementById('congress-box').style.display = 'block';
+    document.getElementById('Congress-box').style.display = 'block';
 }
 
 function validateForm6() {
@@ -482,22 +496,24 @@ function validateForm6() {
     //     document.getElementById('maritalError').textContent = '';
     // }
 
+    const pancardError = document.getElementById('panCardError');
     const panCard = document.getElementById('panCard').value;
     const panCardPattern = /^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$/;
     if (panCard === "") {
-        document.getElementById('panCardError').textContent = 'PAN Card is required';
-        isValid = false;
+        pancardError.textContent = 'PAN Card is required';
+        return false;
     } else if (!panCardPattern.test(panCard)) {
-        document.getElementById('panCardError').textContent = 'Enter a valid PAN Card number';
-        isValid = false;
+        pancardError.textContent = 'Enter a valid PAN Card number';
+        return false;
     } else {
-        document.getElementById('panCardError').textContent = '';
+        pancardError.style.display = 'none';
     }
 
     if (panCard) {
         showForm(7);
         closeprogress();
         Congratulations();
+        console.log("API Calling..............6-FORM");
     }
 }
 
