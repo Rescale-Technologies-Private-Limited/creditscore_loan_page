@@ -38,17 +38,38 @@
     <!-- 1st main hero-section -->
     <section class="hero-home-section ">
         <div class="hero-home-page container-fluid p-0 d-flex">
-            <div class="hero-home-content ">
+            <div class="hero-home-content">
                 <h3>Your credit health matters…</h3>
                 <p>Your credit score is more than just a number. A better <br> score can help unlock the things you want
                     most
                     — <br>
                     like a new credit card or the best loan rates in the <br> market.</p>
-                <a href="#" class="report-link text-center">Already downloaded a report? Click Here</a>
+                <!-- <a href="#" class="report-link text-center">Already downloaded a report? Click Here</a> -->
 
-                
+                <div class="carousel mb-5">
+                    <div class="credit-content d-flex mb-4">
+                        <div class="credit-number-box"> 1 </div>
+                        <div class="credit-content-text">
+                            <h4>Track your Credit Health</h4>
+                        </div>
+                    </div>
 
-                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                    <div class="credit-content d-flex mb-4">
+                        <div class="credit-number-box"> 2 </div>
+                        <div class="credit-content-text">
+                            <h4>Get deep Insights</h4>
+                        </div>
+                    </div>
+
+                    <div class="credit-content d-flex mb-4">
+                        <div class="credit-number-box"> 3 </div>
+                        <div class="credit-content-text">
+                            <h4>Make Better Decisions</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="credit-content d-flex">
@@ -83,7 +104,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
                         data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
@@ -92,14 +113,37 @@
                         data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
-                    </button> -->
-                </div>
+                    </button>
+                </div> -->
             </div>
 
-            <div class="hero-home-page-form mt-5">
+            <div class="hero-home-page-form">
 
-                <h2>Lifetime Free Credit Score</h2>
-                <p>Get your credit report for free, with monthly updates</p>
+                <div class="container-md pt-4  position-relative hero-home-page-heading-web">
+                    <h2 style="font-weight: bold;">Lifetime Free Credit Score</h2>
+                    <p>Get your credit report for free, with monthly updates</p>
+                </div>
+                <div class="container-md pt-4 position-relative hero-home-page-heading-mob">
+                    <h2 style="margin-left: 0px; font-weight: bolder;" class="mb-0">Lifetime Free Credit Score</h2>
+                    <p style="margin-left: 0px;">Get your credit report for free, with monthly updates</p>
+                
+                    <div class="points ms-3 py-3 ">
+                        <div class="d-flex mt-2">
+                            <img height="18px" src="images/right-tick.png" alt="">
+                            <p style="font-size: 12px; font-weight:500;">Track your Credit Health</p>
+                        </div>
+                        <div class="d-flex mt-2">
+                            <img height="18px" src="images/right-tick.png" alt="">
+                            <p style="font-size: 12px; font-weight:500;">Get deep Insights</p>
+                        </div>
+                        <div class="d-flex mt-2">
+                            <img height="18px" src="images/right-tick.png" alt="">
+                            <p style="font-size: 12px; font-weight:500;">Make Better Decisions</p>
+                        </div>
+                    </div>
+                    <img  src="images/score_meter_phone.png" style="bottom: 0; right: 0; width: 150px;" class="position-absolute" alt="">
+                    
+                </div>
 
 
                 <form id="form1" class="form-step align-items-center mt-5 justify-content-center" style="display: nne;">
@@ -111,12 +155,12 @@
                     <div class="basic-input-box ms-3">
                         <input type="text" name="fullname" id="firstName" placeholder="Enter First Name" required>
                         <label class="basic-input-box-title" for="firstName">First Name<sup>*</sup> :</label><br>
-                        <span class="error" id="firstNameError"></span>
+                        <span class="error" id="firstNameError" style="display: none;">First Name is required</span>
                     </div>
                     <div class="basic-input-box ms-3">
                         <input type="text" name="lastname" id="lastName" placeholder="Enter Last Name" required>
                         <label class="basic-input-box-title" for="lastName">Last Name <sup>*</sup> :</label><br>
-                        <span class="error" id="lastNameError"></span>
+                        <span class="error" id="lastNameError" style="display: none;">Last Name is required</span>
                     </div>
 
                     <!-- <div class="input-box ms-3">
@@ -131,31 +175,48 @@
 
                     <div class="basic-input-box ms-3">
                         <input type="text" id="mobile" name="mobileNumber" placeholder="Linked with Pan & Aadhar ">
-                        <label class="basic-input-box-title" for="mobile">Mobile Number<sup>*</sup> </label><br>
+                        <label class="basic-input-box-title" for="mobile">Mobile Number<sup>*</sup> :</label><br>
                         <!-- <button class="genrateotpbtn">Get OTP </button><br> -->
-                        <span class="error" id="mobileError"></span>
+                        <span class="error" id="mobileError" style="display: none;">Mobile Number is required</span>
+                        <span class="error" id="showMobile10digitError" style="display: none;">Required 10 digit number</span>
                     </div>
 
 
 
+                    
+                    <div class="basic-input-checkbox privacy-checkbox d-flex mob-center pb-2 justify-content-center">
+                        <input type="checkbox" name="checkbox" id="checkbox" checked>
+                        <p>By Continuing, I agree to Fincash <a href="Terms_and_Conditions.html"> Privacy Policy</a> and <a href="Terms_and_Conditions.html"> Terms & Conditions</a> and sharing data with Experian for Credit Bureau.</p>
+                    </div>
+                    
                     <div class="basic-input-box btns-group text-center">
                         <!-- <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
                             class=" btn-next otpbtn" onclick="validateForm1()"></a> -->
 
                         <a href="#"><input type="button" id="submitotpbtn" value="Get OTP" class=" btn-next otpbtn"
                                 onclick="showOTPSection()"></a>
-
-                    </div>
-
-                    <div class="basic-input-checkbox text-center ms-3 pb-3">
-                        <i class="fa-solid fa-lock" style="color: #ff6f00;"></i>
-                        <p>Your data’s safety is our top priority. It is secured by cutting-edge encryption and
-                            stringent privacy protocols.</p>
                     </div>
 
                     <div class="credit-score-container  text-center mb-3">
                         <b>Powered by <span><img src="images/Experian_logo.png" alt=""></span> </b>
                     </div>
+                    
+                    <div class="basic-input-checkbox  pb-3 d-flex mob-center justify-content-center">
+                        <i class="fa-solid fa-lock" style="color: #ff6f00;"></i>
+                        <p>Your data’s safety is our top priority. It is secured by cutting-edge encryption and
+                            stringent privacy protocols.</p>
+                    </div>
+
+
+                    <div  class="whatsapp-container d-flex align-items-center pb-3 justify-content-center">
+                        <img style="height: 40px;" src="images/whatsapp_logo.png" alt="">&nbsp;&nbsp;
+                        <p>Get updates on Whatsapp</p>&nbsp;&nbsp;
+                        <div class="toggle-button">
+                            <input type="checkbox" id="toggle" class="toggle-checkbox">
+                            <label for="toggle" class="toggle-label"></label>
+                        </div>
+                    </div>
+
                 </form>
 
             </div>
@@ -218,7 +279,8 @@
                         <div class="basic-input-box ms-2">
                             <input type="email" name="email" id="email" placeholder="xyz@gmail.com" required>
                             <label class="basic-input-box-title" for="email">Email ID <sup>*</sup> :</label><br>
-                            <span class="error" id="emailError"></span>
+                            <span class="error" id="emailError" style="display: none;">Email is required</span>
+                            <span class="error" id="emailvalidError" style="display: none;">Enter a valid email</span>
                         </div>
                         <!-- <div class="basic-input-box dob-box ms-2">
                             <input type="date" name="dob" id="dob" placeholder="mm/dd/yyyy" min="1960-01-01" max="2006-01-01" required>
@@ -250,7 +312,7 @@
                                     </label>
                                 </div>
                             </div><br>
-                            <span class="error" id="genderError"></span>
+                            <span class="error" id="genderError" style="display: none;">Gender is required</span>
                         </div>
 
 
@@ -272,7 +334,7 @@
                             <input type="date" name="dob" id="dob" placeholder="dd/mm/yyyy" min="1960-01-01"
                                 max="2006-01-01" required>
                             <label class="basic-input-box-title" for="dob">Date of Birth <sup>*</sup> :</label><br>
-                            <span class="error" id="dobError"></span>
+                            <span class="error" id="dobError" style="display: none;">Date of Birth is required</span>
                         </div>
 
                         <div class="basic-input-box ms-2">
@@ -299,7 +361,7 @@
                                     </label>
                                 </div>
                             </div><br>
-                            <span class="error" id="maritalError"></span>
+                            <span class="error" id="maritalError" style="display: none;">Marital Status is required</span>
                         </div>
 
                         <div class="basic-input-box btns-group text-center">
@@ -310,8 +372,8 @@
                     </form>
 
 
-                    <!-- form-4 -->
-                    <form id="form4" class="form-step align-items-center justify-content-center" style="display: none;">
+                    <!-- form-6 -->
+                    <form id="form6" class="form-step align-items-center justify-content-center" style="display: none;">
 
 
 
@@ -367,7 +429,7 @@
                                     </div>
                                 </label>
                             </div><br>
-                            <span class="error" id="educationError"></span>
+                            <span class="error" id="educationError" style="display: none;">Please fill Education type</span>
                         </div>
 
                         <!-- </div> -->
@@ -377,11 +439,11 @@
                                 class=" btn-next otpbtn" onclick="validateForm1()"></a> -->
 
                             <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
-                                    class=" btn-next otpbtn" onclick="validateForm4()"></a>
+                                    class=" btn-next otpbtn" onclick="validateForm6()"></a>
                         </div>
                     </form>
-                    <!-- form-5 -->
-                    <form id="form5" class="form-step align-items-center justify-content-center" style="display: none;">
+                    <!-- form-4 -->
+                    <form id="form4" class="form-step align-items-center justify-content-center" style="display: none;">
 
                         <h6 style="padding: 20px; font-size: 14px; margin-top: 20px;">Type of Employment<sup>*</sup> :
                         </h6>
@@ -466,7 +528,7 @@
                                     </label>
                                 </div>
                             </div><br>
-                            <span class="error" id="employmentError"></span>
+                            <span class="error" id="employmentError" style="display: none;">Please fill Employment Type</span>
                         </div>
 
 
@@ -475,7 +537,7 @@
                                 class=" btn-next otpbtn" onclick="validateForm1()"></a> -->
 
                             <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
-                                    class=" btn-next otpbtn" onclick="validateForm5()"></a>
+                                    class=" btn-next otpbtn" onclick="validateForm4()"></a>
 
                         </div>
 
@@ -484,9 +546,23 @@
 
 
 
-                    <!-- form-6 -->
-                    <form id="form6" class="form-step align-items-center justify-content-center "
+                    <!-- form-5 -->
+                    <form id="form5" class="form-step align-items-center justify-content-center "
                         style="display: none;">
+
+                        <div class="basic-input-box ms-3">
+                            <select name="income" id="Income">
+                                <option value="">Select Your Income</option>
+                                <option value="No Income">No Income</option>
+                                <option value="Less than 2.5 Lakh">Less than 2.5 Lakh</option>
+                                <option value="2.5 Lakh to 7.5 Lakh">2.5 Lakh to 7.5 Lakh</option>
+                                <option value="7.5 Lakh to 15 Lakh">7.5 Lakh to 15 Lakh</option>
+                                <option value="15 Lakh to 30 lakh">15 Lakh to 30 lakh</option>
+                                <option value="30 Lakh & Above">30 Lakh & Above</option>
+                            </select>
+                            <label class="basic-input-box-title" for="panCard">Income<sup>*</sup> :</label><br>
+                            <span class="error" id="incomeError" style="display: none;">Please Select your Income</span>
+                        </div>
 
                         <div class="basic-input-box ms-3">
                             <input style=" text-transform: uppercase;" type="text" name="pancard" id="panCard"
@@ -495,8 +571,10 @@
                             <span style="font-size: 12px; padding-left: 10px; margin: 0;"> If incorrect Pan is
                                 provided,
                                 the loan will be rejected</span><br>
-                            <span class="error" id="panCardError"></span>
+                            <span class="error" id="panCardError" style="display: none;">PAN Card is required</span>
+                            <span class="error" id="panCardvalidError" style="display: none;">PAN Card is required</span>
                         </div>
+
                         <!-- 
                         <div class="basic-input-box ms-2">
                             <h6 style="padding: 10px 0; font-size: 14px; margin-top: -20px;">Marital Status<sup>*</sup>
@@ -528,7 +606,7 @@
                                 class=" btn-next otpbtn" onclick="validateForm1()"></a> -->
 
                             <a href="#"><input type="button" id="submitotpbtn" value="Apply Now"
-                                    class=" btn-next otpbtn" onclick="validateForm6()"></a>
+                                    class=" btn-next otpbtn" onclick="validateForm5()"></a>
 
                         </div>
 

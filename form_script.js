@@ -30,25 +30,25 @@ function updateProgressBar() {
 
     switch (currentStep) {
         case 1:
-            progressHeading.textContent = 'Basic Details';
+            progressHeading.textContent = '';
             break;
         case 2:
-            progressHeading.textContent = 'Email and Gender';
+            progressHeading.textContent = '';
             break;
         case 3:
-            progressHeading.textContent = 'Date of Birth';
+            progressHeading.textContent = '';
             break;
         case 4:
-            progressHeading.textContent = 'Education Qualification';
+            progressHeading.textContent = '';
             break;
         case 5:
-            progressHeading.textContent = 'Type of Employment';
+            progressHeading.textContent = '';
             break;
         case 6:
-            progressHeading.textContent = 'Pan Card';
+            progressHeading.textContent = '';
             break;
         case 7:
-            progressHeading.textContent = 'Credit Score';
+            progressHeading.textContent = '';
             break;
     }
 }
@@ -63,20 +63,19 @@ function showForm(step) {
 function validateForm1() {
     const showError = document.getElementById('firstNameError')  // Validate first name
     const firstName = document.getElementById('firstName').value;
-    if (firstName === "") {
-        showError.textContent = 'First Name is required';
-        isValid = false;
+    if (firstName === "") {;
+        showError.style.display = "block";
         return false;
     }
     else {
-        showError.style.display = "none"
+        showError.style.display = "none";
     }
 
     // Validate first name
     const lastName = document.getElementById('lastName').value;
     const lastError = document.getElementById('lastNameError');
     if (lastName === "") {
-        lastError.textContent = 'Last Name is required';
+        lastError.style.display = 'block';
         return false;
     } else {
         lastError.style.display = 'none';
@@ -87,15 +86,19 @@ function validateForm1() {
     const mobile = document.getElementById('mobile').value;
     const mobilePattern = /^[0-9]{10}$/;
     const showMobileError = document.getElementById('mobileError');
+    const showMobile10digitError = document.getElementById('showMobile10digitError');
     if (mobile === "") {
-        showMobileError.textContent = 'Mobile Number is required';
+        showMobileError.style.display = 'block';
+        showMobile10digitError.style.display = 'none';
         return false;
     } else if (!mobilePattern.test(mobile)) {
-        showMobileError.textContent = 'Required 10 digit number';
+        showMobile10digitError.style.display = 'block';
+        showMobileError.style.display = 'none';
         return false;
     }
     else {
         showMobileError.style.display = 'none';
+        showMobile10digitError.style.display = 'none';
     }
 
 
@@ -268,27 +271,30 @@ function validateForm2() {
 
     // Validate email
     const emailError = document.getElementById('emailError');
+    const emailvalidError = document.getElementById('emailvalidError');
     const email = document.getElementById('email').value;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (email === "") {
-        emailError.textContent = 'Email is required';
+        emailError.style.display = 'block';
+        emailvalidError.style.display = 'none';
         // isValid = false;
         return false;
     } else if (!emailPattern.test(email)) {
-        emailError.textContent = 'Enter a valid email';
+        emailvalidError.style.display = 'block';
+        emailError.style.display = 'none';
         // isValid = false;
         return false;
     }
     else {
         emailError.style.display = 'none';
+        emailvalidError.style.display = 'none';
     }
 
     // Validate Gender
     const genderError = document.getElementById('genderError');
     const gender = document.querySelector('input[name="gender"]:checked');
     if (!gender) {
-        genderError.textContent = 'Gender is required';
-        isValid = false;
+        genderError.style.display = 'block';
         return false;
     }
     else {
@@ -332,7 +338,7 @@ function validateForm3() {
     const dobError = document.getElementById('dobError');
     const dob = document.getElementById('dob').value;
     if (dob === "") {
-        dobError.textContent = 'Date of Birth is required';
+        dobError.style.display = 'block';
         // isValid = false;
         return false;
     }
@@ -343,7 +349,7 @@ function validateForm3() {
     const maritalError = document.getElementById('maritalError');
     const maritalStatus = document.querySelector('input[name="marital-status"]:checked');
     if (!maritalStatus) {
-        maritalError.textContent = 'Marital Status is required';
+        maritalError.style.display = 'block';
         // isValid = false;
         return false;
     } else {
@@ -360,7 +366,7 @@ function validateForm3() {
 
 
 
-function validateForm4() {
+function validateFor6() {
 
 
 
@@ -397,7 +403,7 @@ function validateForm4() {
     const education = document.querySelector('input[name="education"]:checked');
 
     if (!education) {
-        educationError.textContent = 'Please fill education type';
+        educationError.style.display = 'block';
         return false;
     }
     else {
@@ -410,7 +416,7 @@ function validateForm4() {
 }
 
 
-function validateForm5() {
+function validateForm4() {
 
 
     // Add click event listeners to each education box
@@ -446,7 +452,7 @@ function validateForm5() {
     const employment = document.querySelector('input[name="employment"]:checked');
 
     if (!employment) {
-        employmentError.textContent = 'Please fill employment type';
+        employmentError.style.display = 'block';
         return false;
     }
     else {
@@ -464,7 +470,7 @@ function Congratulations() {
     document.getElementById('Congress-box').style.display = 'block';
 }
 
-function validateForm6() {
+function validateForm5() {
     // const maritalAllBox = Array.from(document.getElementsByClassName("marital-box"));
 
     // maritalAllBox.forEach(box => {
@@ -496,20 +502,35 @@ function validateForm6() {
     //     document.getElementById('maritalError').textContent = '';
     // }
 
+        const incomeSelect = document.getElementById('Income');
+        const incomeError = document.getElementById('incomeError');
+
+        if (incomeSelect.value === "") {
+            incomeError.style.display = 'block';
+            return false;
+        } else {
+            incomeError.style.display = 'none';
+        }
+
     const pancardError = document.getElementById('panCardError');
+    const panCardvalidError = document.getElementById('panCardvalidError');
     const panCard = document.getElementById('panCard').value;
     const panCardPattern = /^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$/;
     if (panCard === "") {
         pancardError.textContent = 'PAN Card is required';
+        pancardError.style.display = 'block';
+        panCardvalidError.style.display = 'none';
         return false;
     } else if (!panCardPattern.test(panCard)) {
-        pancardError.textContent = 'Enter a valid PAN Card number';
+        panCardvalidError.style.display = 'block';
+        pancardError.style.display = 'none';
         return false;
     } else {
         pancardError.style.display = 'none';
+        panCardvalidError.style.display = 'none';
     }
 
-    if (panCard) {
+    if (incomeSelect && panCard) {
         showForm(7);
         closeprogress();
         Congratulations();
