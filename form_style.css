@@ -67,15 +67,15 @@
 
 .hero-home-content {
     flex-basis: 40%;
-    padding: 100px 0 180px 60px;
+    padding: 100px 0 110px 60px;
     background-repeat: no-repeat;
     color: #fff;
     background: no-repeat;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(2, 45, 72, 0.8),rgb(2, 45, 72)), url(images/credit-score-bg.jpg);
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(78, 124, 152, 0.8), rgb(78, 124, 152)), url(images/credit-score-bg.jpg);
 }
 
 .carousel {
-    margin-top: 60px;
+    margin-top: 100px;
 }
 
 .credit-number-box {
@@ -118,9 +118,10 @@
 
     .hero-home-content p {
         font-size: 15px;
-    }    
+    }
+
     .hero-home-content {
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(2, 45, 72, 0.8),rgb(2, 45, 72)), url(images/credit-score-bg-small-lp.jpg);
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(2, 45, 72, 0.8), rgb(2, 45, 72)), url(images/credit-score-bg-small-lp.jpg);
     }
 }
 
@@ -169,7 +170,7 @@
     }
 
     .hero-home-content {
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(2, 45, 72, 0.8),rgb(2, 45, 72)), url(images/credit-score-bg-table.jpg);
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(2, 45, 72, 0.8), rgb(2, 45, 72)), url(images/credit-score-bg-table.jpg);
     }
 }
 
@@ -197,13 +198,10 @@
     }
 
     .hero-home-page-form {
-        padding-left: 60px
+        padding-left: 60px;
     }
 
-    .hero-home-page-form h2 {
-        /* font-size: ; */
-
-    }
+    .hero-home-page-form h2 {}
 }
 
 
@@ -217,6 +215,8 @@
         display: none;
     }
 
+    .hero-home-page-form {}
+
     .hero-home-page-form h2 {
         padding-left: 10px;
     }
@@ -224,11 +224,12 @@
     .hero-home-page-form p {
         font-size: 12px;
         padding-left: 10px;
+        margin: 0;
 
     }
 
     .hero-home-page-form .form-step {
-        margin-left: 20px;
+        margin-left: 0px;
     }
 
 }
@@ -249,7 +250,7 @@
 }
 
 .hero-heading,
-.Congress-box {
+.Congress-boxs {
     padding: 0px 0;
     margin: 0;
     padding-bottom: 100px;
@@ -267,6 +268,29 @@
     padding: 0 40px;
 }
 
+.hero-home-page-heading-mob {
+    display: none;
+}
+
+.hero-home-page-form .form-step .basic-input-box .otpbtn {
+    /* margin: 0; */
+}
+
+.hero-home-page-form .form-step .basic-input-box {
+    text-align: center;
+}
+
+.hero-home-page-form .form-step .basic-input-box .error {
+    text-align: start;
+    margin-left: 50px;
+}
+.hero-home-page-form .form-step .basic-input-box .basic-input-box-title {  
+    left: 50px;
+}
+
+.hero-home-page-form .form-step .basic-input-box {
+    /* text-align: center; */
+}
 
 /* small laptop device */
 @media (min-width:900px) and (max-width:1200px) {}
@@ -316,10 +340,77 @@
         margin-bottom: 80px;
     }
 
+    .basic-input-checkbox input[type=checkbox] {
+        /* width: 12px; */
+        margin-top: -85px;
+    }
+
+    .hero-home-page-heading-mob {
+        display: block;
+        background-color: #80c8e7;
+        padding: 0 10px;
+    }
+
+    .hero-home-page-heading-mob h2 {
+        font-size: 20px;
+    }
+
+    .hero-home-page-heading-mob p {
+        font-size: 12px;
+    }
+
+    .hero-home-page-heading-web {
+        display: none;
+    }
+
+
+    .hero-home-page-form .form-step .basic-input-box .basic-input-box-title {  
+        left: 30px;
+    }
+
+}
+
+@media (min-width:330px) and (max-width:490px) {
+
+
+    .hero-home-page-form .form-step .basic-input-box .basic-input-box-title {  
+        left: 70px;
+    }
+    .hero-home-page-form .basic-input-box .otpbtn {
+        /* margin-left: -60px; */
+    }
 }
 
 /* hero section end */
 
+
+/* terms snd condition container start */
+.privacy-box {
+    flex-direction: column;
+}
+
+.input-checkbox {
+    display: flex;
+}
+
+.basic-input-checkbox input[type=checkbox] {
+    /* width: 12px; */
+    margin-top: -20px;
+    border-radius: 2px;
+}
+
+.basic-input-checkbox p {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.basic-input-checkbox p a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #000;
+}
+
+/* terms snd condition container end */
 
 
 /* process bar section start  */
@@ -410,8 +501,8 @@
 
 
 .basic-input-box .otpbtn {
-
-    margin-bottom: 10px;
+    margin-left: -35px;
+    /* margin-bottom: 10px; */
     padding: 7px 10px;
     font-size: 17px;
     font-weight: 500;
@@ -459,7 +550,12 @@
     .basic-input-box input[type=number],
     .basic-input-box select,
     .basic-input-checkbox p {
-        width: 250px;
+        width: 270px;
+    }
+
+    .basic-input-checkbox input[type=checkbox] {
+        margin-top: -35px;
+        /* margin-left: 20px; */
     }
 
 }
@@ -1273,3 +1369,126 @@ form:nth-child(3) {
 
 
 /* credit meter section end */
+
+
+
+
+/* Terms and Conditions page Start  */
+
+
+.container {
+    min-width: 300px;
+    max-width: 600px;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 7px;
+    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.296);
+    font-family: 'poppins';
+    font-weight: 500;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#terms {
+    max-height: 500px;
+    overflow-y: scroll;
+    padding: 15px;
+}
+
+#terms p {
+    font-size: 14px;
+}
+
+.actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#declineBtn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #dc3545;
+}
+
+#declineBtn a {
+    text-decoration: none;
+    color: #fff;
+
+}
+
+/* Terms and Conditions page end  */
+
+
+
+.toggle-button {
+    position: relative;
+}
+
+.toggle-checkbox {
+    display: none;
+}
+
+.toggle-label {
+    display: block;
+    width: 40px;
+    height: 20px;
+    background-color: #66bb6a;
+    /* background-color: #0085d7; */
+    border-radius: 30px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+.toggle-label::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 14px;
+    height: 14px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+
+.toggle-checkbox:checked+.toggle-label {
+    background-color: #ccc;
+}
+
+.toggle-checkbox:checked+.toggle-label::after {
+    transform: translateX(-20px);
+}
+
+.whatsapp-container,
+.mob-center {
+    justify-content: center;
+}
+
+.whatsapp-container p {
+    color: #525252;
+    font-size: 14px;
+    padding: 12px 0 0 0;
+}
+
+
+@media (min-width:300px) and (max-width:490px) {
+
+    .whatsapp-container p {
+        padding: 0;
+    }
+
+    .whatsapp-container,
+    .mob-center {
+        justify-content: start;
+        /* margin-left: 20px; */
+    }
+
+}
