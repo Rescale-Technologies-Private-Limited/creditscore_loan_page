@@ -39,7 +39,7 @@ function updateProgressBar() {
   const progressBar = document.getElementById("progress-bar");
   // const progressText = document.getElementById("progress-text");
   const progressHeading = document.getElementById("progress-heading");
-  const progressPercentage = (currentStep / 7) * 100;
+  const progressPercentage = (currentStep / 6) * 100;
 
   progressBar.style.width = progressPercentage + "%";
   // progressText.textContent = `${currentStep}/7`;
@@ -63,14 +63,11 @@ function updateProgressBar() {
     case 6:
       progressHeading.textContent = "";
       break;
-    case 7:
-      progressHeading.textContent = "";
-      break;
   }
 }
 
 function showForm(step) {
-  for (let i = 1; i <= 7; i++) {
+  for (let i = 1; i <= 6; i++) {
     document.getElementById(`form${i}`).style.display =
       i === step ? "block" : "none";
   }
@@ -401,24 +398,6 @@ function validateForm3() {
 }
 
 function validateForm4() {
-  const educationError = document.getElementById("educationError");
-  const education = document.querySelector('input[name="education"]:checked');
-
-  if (!education) {
-    educationError.style.display = "block";
-    return false;
-  } else {
-    educationError.style.display = "none";
-  }
-
-  console.log("API Calling..............4FORM", currentStep);
-  currentStep++;
-  showForm(currentStep);
-  formData.education = education.value;
-  formData.step = "step4";
-  console.log(formData);
-}
-function validateForm5() {
   const employmentError = document.getElementById("employmentError");
   const employment = document.querySelector('input[name="employment"]:checked');
 
@@ -428,14 +407,14 @@ function validateForm5() {
   } else {
     employmentError.style.display = "none";
   }
-  console.log("API Calling..............5FORM", currentStep);
+  console.log("API Calling..............4FORM", currentStep);
   showForm(++currentStep);
   formData.employment = employment.value;
-  formData.step = "step5";
+  formData.step = "step4";
   console.log(formData);
 }
 
-async function validateForm6() {
+async function validateForm5() {
   const incomeSelect = document.getElementById("Income");
   const incomeError = document.getElementById("incomeError");
 
@@ -467,8 +446,8 @@ async function validateForm6() {
   if (incomeSelect && panCard) {
     formData.salary = incomeSelect.value;
     formData.pan = panCard;
-    formData.step = "step6";
-    console.log("API Calling..............6FORM", currentStep);
+    formData.step = "step5";
+    console.log("API Calling..............5FORM", currentStep);
 
     try {
       console.log(formData);

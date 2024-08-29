@@ -1,0 +1,240 @@
+ 
+ #addressline-1Error,
+ #addressline-2Error,
+ #pincodeError,
+ #cityError,
+ #stateError,
+ #natureaddressError,
+ #yearsaddresserror,
+ #monthlyincomeError,
+ #salarymodeError,
+ #companynameError,
+ #companytypeError,
+ #DesignationError,
+ #workexpError,
+ #officepincodeError,
+ #officecityError,
+ #officestateError,
+ #form2,
+ #form3{
+    display: none;
+ }
+ 
+ /* loan amount section start */
+ .loan-amount-section {
+     width: 600px;
+     background-color: #d8f2ff;
+     padding: 20px 20px;
+     border-radius: 5px;
+ }
+ .loan-amount-container {
+     width: 100%;
+ }
+ .loan-amount-price {
+     position: relative;
+     background-color: #f2fcff;
+     border-radius: 5px;
+ }
+ .loan-amount-price i {
+     position: absolute;
+     padding: 5px 7px 5px 0;
+     margin: 10px 10px;
+     border-right: 1px solid rgba(0, 0, 0, 0.3);
+ }
+ .price-box {
+     width: 120px;
+     padding: 10px 35px;
+ }
+ .price-box input[type=text] {
+     appearance: none;
+     background: none;
+     outline-style: none;
+     border: none;
+     width: 90px;
+     font-size: 18px;
+     margin: 0;
+ }
+ .range {
+     margin: 20px 0;
+     width: 100%;
+     appearance: none;
+     border-radius: 60px;
+     outline: none;
+     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1), -5px -5px 10px #f2fcff, inset 5px 5px 3px rgba(4, 0, 71, 0.1);
+     background-color: #ffffff;
+     overflow: hidden;
+ }
+ .range::-webkit-slider-thumb {
+     appearance: none;
+     width: 17px;
+     height: 17px;
+     background-color: #ffffff;
+     border-radius: 50%;
+     border: 2px solid #0c8de9;
+     box-shadow: -507px 0 0 500px #0c8de9;
+     cursor: pointer;
+ }
+ .rangebar-values p {
+     margin: 0;
+ }
+ .salary-amount .basic-input-box i {
+     position: absolute;
+     padding: 14px 7px 5px 7px;
+     margin: 10px 10px;
+     border-right: 1px solid rgba(0, 0, 0, 0.3);
+     left: 0;
+ }
+ .salary-amount .basic-input-box input[type=text] {
+     padding-left: 35px;
+ }
+ .salary-amount .basic-input-box input[type=text],
+ .salary-amount .basic-input-box select {
+     width: 220px;
+ }
+
+ @media (min-width:768px) and (max-width:890px) {
+     .loan-amount-section {
+         width: 500px;
+     }
+ }
+ @media (min-width:500px) and (max-width:767px) {
+     .salary-amount {
+         flex-direction: column;
+     }
+     .salary-amount .basic-input-box input[type=text],
+     .salary-amount .basic-input-box select {
+         width: 100%;
+     }
+     .loan-amount-section {
+         width: 300px;
+     }
+     form {
+         flex-wrap: wrap;
+         padding: 0;
+     }
+ }
+ @media (min-width:300px) and (max-width:499px) {
+     .loan-amount-section {
+         width: 300px;
+     }
+     .loan-amount-info {
+         flex-direction: column;
+     }
+     .price-box {
+         width: 180px;
+     }
+     .rangebar-values p {
+         font-size: 12px;
+     }
+     .salary-amount {
+         flex-direction: column;
+     }
+     .salary-amount .basic-input-box input[type=text],
+     .salary-amount .basic-input-box select {
+         width: 270px;
+     }
+ }
+ /* loan section end */
+
+ /* personal address section start */
+ .personal-details {
+     width: 100%;
+     flex-wrap: wrap;
+     align-items: center;
+     justify-content: center;
+ }
+ .personal-details .basic-input-box input[type=text],
+ .personal-details .basic-input-box input[type=number] {
+     width: 330px;
+ }
+ .personal-details .basic-input-box-title {
+     font-size: 13px;
+     font-weight: 500;
+ }
+ .personal-details .radio-box {
+     width: 100px;
+     margin-left: 0px;
+ }
+ .city-info-box {
+     margin: 15px 0;
+ }
+ .city-info-box .basic-input-box-title {
+     position: absolute;
+     top: -7px;
+     left: 20px;
+     padding: 3px 10px;
+     font-size: 12px;
+     font-weight: 500;
+     background-color: #ffffff;
+ }
+ .city-info-box input,
+ .city-info-box select {
+     width: 220px;
+     padding: 14px 15px;
+     margin: 5px;
+     font-size: 14px;
+     font-weight: 400;
+     background-color: transparent;
+     border: none;
+     border-radius: 10px;
+     outline: none;
+     border: 1px solid #738cba;
+ }
+ #address-box {
+     padding: 0 100px;
+ }
+ .address-checkbox {
+     display: flex;
+ }
+ .address-checkbox p {
+     width: 350px;
+     font-size: 12px;
+     margin-left: 5px;
+     margin-bottom: 0;
+ }
+ /* small laptop device */
+ @media (min-width:1010px) and (max-width:1200px) {
+     .personal-details .basic-input-box input[type=text],
+     .personal-details .basic-input-box input[type=number] {
+         width: 200px;
+     }
+     .city-info-box input,
+     .city-info-box select {
+         width: 200px;
+     }
+ }
+ /* tablet device */
+ @media (min-width:768px) and (max-width:1009px) {
+     #address-box {
+         padding: 0 100px;
+     }
+     .personal-details .basic-input-box input[type=text],
+     .personal-details .basic-input-box input[type=number] {
+         width: 300px;
+     }
+     .city-info-box input,
+     .city-info-box select {
+         width: 300px;
+     }
+     .personal-details {
+         justify-content: center;
+     }
+ }
+ /* mobile device */
+ @media (min-width:300px) and (max-width:499px) {
+     .personal-details {
+         justify-content: start;
+         margin-left: 20px;
+     }
+     .personal-details .basic-input-box input[type=text],
+     .personal-details .basic-input-box input[type=number] {
+         width: 250px;
+     }
+     .city-info-box input,
+     .city-info-box select {
+         width: 250px;
+     }
+     .address-checkbox input[type="checkbox"] {
+         margin-top: -10px;
+     }
+ }
