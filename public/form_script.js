@@ -469,6 +469,11 @@ async function validateForm6() {
     formData.pan = panCard;
     formData.step = "step6";
     console.log("API Calling..............6FORM", currentStep);
+    // Disable the button
+    submitButton6.disabled = true;
+      // Show the loading indicator
+  const loadingIndicator = document.getElementById("loadingIndicator");
+  loadingIndicator.style.display = "block";
 
     try {
       console.log(formData);
@@ -496,6 +501,8 @@ async function validateForm6() {
       //     "fetch_date": "2024-08-23T08:30:48.358408Z"
       // }
       // Log the data or use it as needed
+      submitButton6.disabled = false;
+      loadingIndicator.style.display = "none";
       console.log(data);
       showForm(++currentStep);
       closeprogress();
