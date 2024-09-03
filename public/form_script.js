@@ -78,11 +78,39 @@ function showForm(step) {
 }
 
 submitButton1.addEventListener("click", async () => {
+    const showError = document.getElementById("NameError"); // Validate first name
+  const fullname = document.getElementById("name").value;
+  if (fullname === "") {
+    showError.style.display = "block";
+    return false;
+  } else {
+    showError.style.display = "none";
+  }
+
+  // Validate mobile number
+  const mobile = document.getElementById("mobile").value;
+  const mobilePattern = /^[0-9]{10}$/;
+  const showMobileError = document.getElementById("mobileError");
+  const showMobile10digitError = document.getElementById(
+    "showMobile10digitError"
+  );
+  if (mobile === "") {
+    showMobileError.style.display = "block";
+    showMobile10digitError.style.display = "none";
+    return false;
+  } else if (!mobilePattern.test(mobile)) {
+    showMobile10digitError.style.display = "block";
+    showMobileError.style.display = "none";
+    return false;
+  } else {
+    showMobileError.style.display = "none";
+    showMobile10digitError.style.display = "none";
+  }
+
   currentStep++;
   showForm(currentStep);
   
     // console.log(response);
-    const mobile = document.getElementById("mobile").value;
     document.getElementById("phone-number").textContent = `+91-${mobile}`;
     // console.log("Genereate OTP");
     // console.log(currentStep)
