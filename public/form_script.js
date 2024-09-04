@@ -443,7 +443,17 @@ async function validateForm5() {
     panCardvalidError.style.display = "none";
   }
 
-  if (incomeSelect && panCard) {
+  
+  const currentpincode = document.getElementById("current-pincode");
+  const currentpincodeError = document.getElementById("currentpincodeError");
+  if (currentpincode.value === "") {
+    currentpincodeError.style.display = "block";
+    return false;
+  } else {
+    currentpincodeError.style.display = "none";
+  }
+
+  if (incomeSelect && panCard && currentpincode) {
     formData.salary = incomeSelect.value;
     formData.pan = panCard;
     formData.step = "step5";
