@@ -14,12 +14,6 @@ prevBtns.forEach((btn) => {
     if (currentStep >= 2) {
       currentStep--;
     }
-    // if(currentStep===1){
-    //   document.querySelector("#form1").style.display="block !important"
-    //   document.querySelector(".form-section").style.display="none"
-    //   document.querySelector(".hero-section").style.display="none"
-    //   document.querySelector(".hero-home-section").style.display="block"
-    // }
     showForm(currentStep == 1 ? currentStep + 1 : currentStep);
     console.log(currentStep);
   });
@@ -138,7 +132,8 @@ async function verifyOTP(curretOTP) {
   // alert('OTP verified successfully!');
   try {
     const response = await fetch(
-      "https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/verifyotp",
+      // "https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/verifyotp",
+      "http://localhost/verifyotp",
       {
         method: "POST",
         headers: {
@@ -287,7 +282,8 @@ async function validateForm1() {
 
   try {
     const response = await fetch(
-      "https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/getotp",
+      // "https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/getotp",
+      "http://localhost/getotp",
       {
         method: "POST",
         headers: {
@@ -428,6 +424,8 @@ async function validateForm5() {
   const pancardError = document.getElementById("panCardError");
   const panCardvalidError = document.getElementById("panCardvalidError");
   const panCard = document.getElementById("panCard").value;
+  // const pincode= document.getElementById("current-pincode").value;
+  // const pincodeError= document.getElementById("currentpincodeError");
   const panCardPattern = /^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$/;
   if (panCard === "") {
     pancardError.textContent = "PAN Card is required";
@@ -456,14 +454,15 @@ async function validateForm5() {
   if (incomeSelect && panCard && currentpincode) {
     formData.salary = incomeSelect.value;
     formData.pan = panCard;
+    formData.pincode = currentpincode.value;
     formData.step = "step5";
     console.log("API Calling..............5FORM", currentStep);
 
     try {
       console.log(formData);
       const response = await fetch(
-        "https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/submitForm",
-        // "http://localhost/submitForm",
+        // "https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/submitForm",
+        "http://localhost/submitForm",
         {
           method: "POST",
           headers: {

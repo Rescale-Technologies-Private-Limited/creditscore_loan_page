@@ -516,7 +516,7 @@
   <!-- <script src="form_script.js"></script> -->
 
   <script>
-   
+    let currentStep = 1;
     // loan amount section start
     function loanInput1(value) {
       document.getElementById("rangeValue1").value = value;
@@ -551,9 +551,9 @@
       if (monthlyIncome && salarymode) {
         document.getElementById("form1").style.display = "none";
         document.getElementById("form2").style.display = "block";
-        console.log("API Calling..............1FORM");  
-        currentStep++;
-        showForm(currentStep);
+        console.log("API Calling..............1FORM");
+        // currentStep++;
+        // showForm(currentStep);
       }
     }
 
@@ -639,8 +639,8 @@
         document.getElementById("form3").style.display = "block";
         // showForm(++currentStep);
         console.log("API Calling..............2FORM");
-        currentStep++;
-        showForm(currentStep);
+        // currentStep++;
+        // showForm(currentStep);
       }
     }
 

@@ -379,9 +379,10 @@
                   type="date"
                   name="dob"
                   id="dob"
-                  placeholder="dd/mm/yyyy"
+                  placeholder="yy-mm-dd"
                   min="1960-01-01"
                   max="2006-01-01"
+                  onchange="convertDate()"
                   required
                 />
                 <label class="basic-input-box-title" for="dob"
@@ -657,8 +658,11 @@
                   name="currentpincode"
                   id="current-pincode"
                   placeholder="400607"
+                  pattern="[1-9][0-9]{5}"
+                  title="Please enter a valid 6-digit PIN code"
+                  inputmode="numeric"
+                  maxlength="6"
                   required
-                  onclick=""
                 />
                 <label class="basic-input-box-title" for="current-pincode"
                   >Current Pincode<sup>*</sup> :</label
@@ -882,5 +886,32 @@
     <!-- otp section end -->
   </body>
 
+  <script>
+    function convertDate() {
+      // Get the input value
+      const dobInput = document.getElementById("dob").value;
+    
+      // Check if the date is in dd-mm-yyyy format using a regular expression
+      const regex = /^(\d{2})-(\d{2})-(\d{4})$/;
+      const match = dobInput.match(regex);
+    
+      if (match) {
+        // Convert dd-mm-yyyy to yyyy-mm-dd
+        const day = match[1];
+        const month = match[2];
+        const year = match[3];
+        const convertedDate = `${year}-${month}-${day}`;
+        
+        // Set the converted date back to the input field
+        document.getElementById("dob").value = convertedDate;
+    
+        // Optionally, log the converted date for testing
+        console.log("Converted Date:", convertedDate);
+      } 
+      // else {
+      //   alert("Please enter a valid date in dd-mm-yyyy format.");
+      // }
+    }
+    </script>
   <script src="form_script.js"></script>
 </html>
