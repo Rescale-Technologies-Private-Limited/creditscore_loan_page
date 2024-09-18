@@ -525,6 +525,9 @@ async function validateForm5() {
       showForm(++currentStep);
       closeprogress();
       Congratulations();
+      // if (data?.score === 0 || data?.score == null || data === null) {
+      document.getElementById("nocredit_remove").style.display = "none";
+      // }
       updateVisibility(data?.score ?? 300);
       updateSlider2(data?.score ?? 300);
       updateInput2(data?.score ?? 300);
@@ -553,6 +556,7 @@ showForm(currentStep);
 
 function updateInput2(value) {
   document.getElementById("rangeValue2").value = value;
+
   updateVisibility(value);
 }
 
