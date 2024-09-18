@@ -5,7 +5,6 @@ const submitButton2 = document.getElementById("submitotpbtn2");
 const submitButton3 = document.getElementById("submitotpbtn3");
 const submitButton4 = document.getElementById("submitotpbtn4");
 const submitButton5 = document.getElementById("submitotpbtn5");
-const submitButton6 = document.getElementById("submitotpbtn6");
 const verifyOTPSubmitButton = document.getElementById("verifyOTP");
 const resendOtpButton = document.getElementById("resendOtp");
 const prevBtns = document.querySelectorAll(".btn-prev");
@@ -14,12 +13,6 @@ prevBtns.forEach((btn) => {
     if (currentStep >= 2) {
       currentStep--;
     }
-    // if(currentStep===1){
-    //   document.querySelector("#form1").style.display="block !important"
-    //   document.querySelector(".form-section").style.display="none"
-    //   document.querySelector(".hero-section").style.display="none"
-    //   document.querySelector(".hero-home-section").style.display="block"
-    // }
     showForm(currentStep == 1 ? currentStep + 1 : currentStep);
     console.log(currentStep);
   });
@@ -39,7 +32,7 @@ function updateProgressBar() {
   const progressBar = document.getElementById("progress-bar");
   // const progressText = document.getElementById("progress-text");
   const progressHeading = document.getElementById("progress-heading");
-  const progressPercentage = (currentStep / 7) * 100;
+  const progressPercentage = (currentStep / 6) * 100;
 
   progressBar.style.width = progressPercentage + "%";
   // progressText.textContent = `${currentStep}/7`;
@@ -63,14 +56,11 @@ function updateProgressBar() {
     case 6:
       progressHeading.textContent = "";
       break;
-    case 7:
-      progressHeading.textContent = "";
-      break;
   }
 }
 
 function showForm(step) {
-  for (let i = 1; i <= 7; i++) {
+  for (let i = 1; i <= 6; i++) {
     document.getElementById(`form${i}`).style.display =
       i === step ? "block" : "none";
   }
@@ -78,7 +68,7 @@ function showForm(step) {
 }
 
 submitButton1.addEventListener("click", async () => {
-    const showError = document.getElementById("NameError"); // Validate first name
+  const showError = document.getElementById("NameError"); // Validate first name
   const fullname = document.getElementById("name").value;
   if (fullname === "") {
     showError.style.display = "block";
@@ -109,27 +99,27 @@ submitButton1.addEventListener("click", async () => {
 
   currentStep++;
   showForm(currentStep);
-  
-    // console.log(response);
-    document.getElementById("phone-number").textContent = `+91-${mobile}`;
-    // console.log("Genereate OTP");
-    // console.log(currentStep)
-    // Show the OTP section
-    document.getElementById("otp-section-container").style.display = "block";
-    document.querySelector(".hero-heading").classList.add("hidden");
-    document.querySelector(".nav-btn").classList.remove("hidden");
-    document.querySelector(".progress-container").classList.remove("hidden");
-    document.querySelector(".hero-section").classList.remove("hidden");
-    document.querySelector(".form-container-form-2").classList.remove("hidden");
-    document.querySelector(".hero-home-section").classList.add("hidden");
 
-    const thirtySeconds = 30,
+  // console.log(response);
+  document.getElementById("phone-number").textContent = `+91-${mobile}`;
+  // console.log("Genereate OTP");
+  // console.log(currentStep)
+  // Show the OTP section
+  document.getElementById("otp-section-container").style.display = "block";
+  document.querySelector(".hero-heading").classList.add("hidden");
+  document.querySelector(".nav-btn").classList.remove("hidden");
+  document.querySelector(".progress-container").classList.remove("hidden");
+  document.querySelector(".hero-section").classList.remove("hidden");
+  document.querySelector(".form-container-form-2").classList.remove("hidden");
+  document.querySelector(".hero-home-section").classList.add("hidden");
+
+  const thirtySeconds = 30,
     display = document.querySelector("#timer");
-    startTimer(thirtySeconds, display);
-  const button = document.getElementById('submitotpbtn1');
-    button.disabled = true;
-    await validateForm1();
-    button.disabled = false;
+  startTimer(thirtySeconds, display);
+  const button = document.getElementById("submitotpbtn1");
+  button.disabled = true;
+  await validateForm1();
+  button.disabled = false;
 });
 // otp section start
 
@@ -169,7 +159,8 @@ async function verifyOTP(curretOTP) {
   // alert('OTP verified successfully!');
   try {
     const response = await fetch(
-      "https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/verifyotp",
+      "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/creditscore_verifyotp",
+      // "http://localhost/creditscore_verifyotp",
       {
         method: "POST",
         headers: {
@@ -318,7 +309,9 @@ async function validateForm1() {
 
   try {
     const response = await fetch(
-      "https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/getotp",
+      "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/creditscore_getotp",
+      // https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/getotp
+      // "http://localhost/creditscore_getotp",
       {
         method: "POST",
         headers: {
@@ -429,24 +422,6 @@ function validateForm3() {
 }
 
 function validateForm4() {
-  const educationError = document.getElementById("educationError");
-  const education = document.querySelector('input[name="education"]:checked');
-
-  if (!education) {
-    educationError.style.display = "block";
-    return false;
-  } else {
-    educationError.style.display = "none";
-  }
-
-  console.log("API Calling..............4FORM", currentStep);
-  currentStep++;
-  showForm(currentStep);
-  formData.education = education.value;
-  formData.step = "step4";
-  console.log(formData);
-}
-function validateForm5() {
   const employmentError = document.getElementById("employmentError");
   const employment = document.querySelector('input[name="employment"]:checked');
 
@@ -456,14 +431,14 @@ function validateForm5() {
   } else {
     employmentError.style.display = "none";
   }
-  console.log("API Calling..............5FORM", currentStep);
+  console.log("API Calling..............4FORM", currentStep);
   showForm(++currentStep);
   formData.employment = employment.value;
-  formData.step = "step5";
+  formData.step = "step4";
   console.log(formData);
 }
 
-async function validateForm6() {
+async function validateForm5() {
   const incomeSelect = document.getElementById("Income");
   const incomeError = document.getElementById("incomeError");
 
@@ -477,6 +452,8 @@ async function validateForm6() {
   const pancardError = document.getElementById("panCardError");
   const panCardvalidError = document.getElementById("panCardvalidError");
   const panCard = document.getElementById("panCard").value;
+  // const pincode= document.getElementById("current-pincode").value;
+  // const pincodeError= document.getElementById("currentpincodeError");
   const panCardPattern = /^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$/;
   if (panCard === "") {
     pancardError.textContent = "PAN Card is required";
@@ -492,22 +469,32 @@ async function validateForm6() {
     panCardvalidError.style.display = "none";
   }
 
-  if (incomeSelect && panCard) {
+  const currentpincode = document.getElementById("current-pincode");
+  const currentpincodeError = document.getElementById("currentpincodeError");
+  if (currentpincode.value === "") {
+    currentpincodeError.style.display = "block";
+    return false;
+  } else {
+    currentpincodeError.style.display = "none";
+  }
+
+  if (incomeSelect && panCard && currentpincode) {
     formData.salary = incomeSelect.value;
     formData.pan = panCard;
-    formData.step = "step6";
-    console.log("API Calling..............6FORM", currentStep);
     // Disable the button
-    submitButton6.disabled = true;
-      // Show the loading indicator
-  const loadingIndicator = document.getElementById("loadingIndicator");
-  loadingIndicator.style.display = "block";
+    submitButton5.disabled = true;
+    // Show the loading indicator
+    const loadingIndicator = document.getElementById("loadingIndicator");
+    loadingIndicator.style.display = "block";
+    formData.pincode = currentpincode.value;
+    formData.step = "step5";
+    console.log("API Calling..............5FORM", currentStep);
 
     try {
       console.log(formData);
       const response = await fetch(
-        "https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/submitForm",
-        // "http://localhost/submitForm",
+        "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/creditscore_submitForm",
+        // "http://localhost/creditscore_submitForm",
         {
           method: "POST",
           headers: {
@@ -528,16 +515,19 @@ async function validateForm6() {
       //     "credit_score": 724,
       //     "fetch_date": "2024-08-23T08:30:48.358408Z"
       // }
+      // Storing the object in localStorage as a JSON string
+      localStorage.setItem("loan", JSON.stringify(formData));
+
       // Log the data or use it as needed
-      submitButton6.disabled = false;
+      submitButton5.disabled = false;
       loadingIndicator.style.display = "none";
       console.log(data);
       showForm(++currentStep);
       closeprogress();
       Congratulations();
-      updateVisibility(data?.credit_score ?? 300);
-      updateSlider2(data?.credit_score ?? 300);
-      updateInput2(data?.credit_score ?? 300);
+      updateVisibility(data?.score ?? 300);
+      updateSlider2(data?.score ?? 300);
+      updateInput2(data?.score ?? 300);
       console.log(formData);
     } catch (error) {
       showForm(++currentStep);
