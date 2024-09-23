@@ -114,8 +114,8 @@
           </div>
         </div>
         <div id="P-loan-box" class="hero-heading text-center">
-          <h3>Unlock Best Personal Loan Offers</h3>
-          <p>Avail a Loan of Your Choice Instantly.</p>
+          <!-- <h3>Unlock Best Personal Loan Offers</h3>
+          <p>Avail a Loan of Your Choice Instantly.</p> -->
         </div>
         <div id="Congress-box" class="Congress-boxs text-center hidden">
           <h1>Congratulations!!!</h1>
@@ -202,7 +202,7 @@
                 <span class="error" id="loanAmountError"></span>
               </div>
 
-              <!-- <div
+              <div
                 class="ms-2 salary-amount d-flex align-items-start justify-content-between"
               >
                 <div class="basic-input-box">
@@ -242,13 +242,13 @@
                     >Please select Salary Mode</span
                   >
                 </div>
-              </div> -->
+              </div>
 
               <div class="basic-input-box btns-group text-center">
                 <input
                   type="button"
-                  id="getOtpButton"
-                  value="GET OTP"
+                  id="submitotpbtn1"
+                  value="Next"
                   class="mb-3 btn-next otpbtn"
                 />
               </div>
@@ -342,8 +342,14 @@
                 <div class="city-info-box position-relative">
                   <select name="natureaddress" id="natureAddress">
                     <option value="">Select</option>
-                    <option value="Self-Owned">Self-Owned</option>
-                    <option value="Residential">Rented</option>
+                    <option value="Self Owned">Self Owned</option>
+                    <option value="Rented">Rented</option>
+                    <!-- <option value="With Parents">With Parents</option>
+                    <option value="With Relatives">With Relatives</option>
+                    <option value="With Friends">With Friends</option>
+                    <option value="Paying Guest">Paying Guest</option>
+                    <option value="Leased">Leased</option>
+                    <option value="Pagadi">Pagadi</option> -->
                   </select>
                   <label class="basic-input-box-title" for="natureAddress"
                     >Nature of Address<sup>*</sup> :</label
@@ -383,9 +389,9 @@
                 <input
                   type="button"
                   id="submitotpbtn2"
-                  value="SUBMIT"
+                  value="Next"
                   class="mb-3 btn-next otpbtn"
-                  onclick="validateForm2() "
+                  onclick="validateForm2()"
                 />
               </div>
             </form>
@@ -420,10 +426,14 @@
                 <div class="city-info-box position-relative">
                   <select name="company-type" id="company-type">
                     <option value="">Select Type</option>
-                    <option value="Private Sector">Private Sector</option>
-                    <option value="Public Sector">Public Sector</option>
-                    <option value="Partnership">Partnership</option>
-                    <option value="Propritership">Propritership</option>
+                    <option value="Private Limited">Private Limited</option>
+                    <option value="Proprietor">Proprietor</option>
+                    <option value="Government/PSU">Government/PSU</option>
+                    <option value="LLP">LLP</option>
+                    <option value="Public">Public</option>
+                    <option value="Partnership Company">
+                      Partnership Company
+                    </option>
                   </select>
                   <label class="basic-input-box-title" for="company-type"
                     >Company Type<sup>*</sup> :</label
@@ -513,7 +523,7 @@
               <div class="basic-input-box btns-group text-center">
                 <input
                   type="button"
-                  id="submitotpbtn3"
+                  id="getOtpButton"
                   value="SUBMIT"
                   class="mb-3 btn-next otpbtn"
                   onclick="validateForm3() "
@@ -672,6 +682,7 @@
   </script>
   <script>
     let id = "";
+    let loanData = {};
     // loan amount section start
     function loanInput1(value) {
       document.getElementById("rangeValue1").value = value;
@@ -684,10 +695,6 @@
     document.getElementById("form2").style.display = "none";
     document.getElementById("form3").style.display = "none";
 
-    // const monthlyIncome = document.getElementById("monthly-income");
-    // const monthlyincomeError = document.getElementById("monthlyincomeError");
-    // const salarymode = document.getElementById("salarymode");
-    // const salarymodeError = document.getElementById("salarymodeError");
     function moveToNext(current, nextFieldId) {
       if (current.value.length >= current.maxLength) {
         document.getElementById(nextFieldId).focus();
@@ -754,7 +761,7 @@
       try {
         const response = await fetch(
           `https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/loan_verifyotp`,
-          // `http://localhost/laon_verifyotp`,
+         
           {
             method: "POST",
             headers: {
@@ -796,26 +803,40 @@
         function redirectUser() {
           // Check if the `offers` array has at least one entry
           if (
-            approval?.approval?.offers &&
-            approval?.approval?.offers.length > 0
+            approval?.approval?.redirection &&
+            approval?.approval?.redirection?.should_redirect
           ) {
             loadingIndicator.style.display = "none";
             console.log(approval.approval);
             // Get the link from the first offer
-            const firstOfferLink = approval?.approval?.offers[1].link;
+            const firstOfferLink =
+              approval?.approval?.redirection?.redirect_link;
             // Redirect the user to the link
             document.getElementById("waitforredirection").style.display =
               "flex";
-            document.getElementById("loan_not_approval").style.display =
-              "flex";
+            document.getElementById("loan_not_approval").style.display = "flex";
 
-            setTimeout(() => {
-              window.location.href = firstOfferLink;
-            }, 100); // Small delay before redirect
+            // Check if the firstOfferLink is not null or undefined
+            if (firstOfferLink) {
+              setTimeout(() => {
+                // Redirect the user to the link after a small delay
+                window.location.href = firstOfferLink;
+              }, 100); // Delay before redirect
+            } else {
+              alert("No Redirection link1");
+              console.log("No valid offer link available, no redirection.");
+            }
           } else {
+            localStorage.removeItem("loan")
             // document.getElementById("");
+            alert("No Redirection link2");
+
             document.getElementById("loan-not-approval").style.display =
               "block";
+
+            //TODO
+            // sachin here you will show all lenders
+
             console.error("No offers available to redirect.");
           }
         }
@@ -877,8 +898,8 @@
     }
 
     //get otp
-    const getOtpButton = document.getElementById("getOtpButton");
-    getOtpButton.addEventListener("click", async () => {
+    const submitotpbtn1 = document.getElementById("submitotpbtn1");
+    submitotpbtn1.addEventListener("click", async () => {
       await validateForm1();
     });
 
@@ -899,7 +920,10 @@
     async function validateForm1() {
       const loanAmount = document.getElementById("rangeValue1").value;
       const loanAmountError = document.getElementById("loanAmountError");
-
+      const monthlyIncome = document.getElementById("monthly-income").value;
+      const monthlyincomeError = document.getElementById("monthlyincomeError");
+      const salaryMode = document.getElementById("salarymode").value;
+      const salarymodeError = document.getElementById("salarymodeError");
       if (loanAmount === "") {
         loanAmountError.style.display = "block";
         return false;
@@ -907,83 +931,118 @@
         loanAmountError.style.display = "none";
       }
 
-      if (loanAmount !== "") {
-        document.getElementById("form2").style.display = "none";
-        console.log("API Calling..............1FORM");
+      if (monthlyIncome === "") {
+        monthlyincomeError.style.display = "block";
+        return false;
       } else {
-        alert("Please fill loan amount!");
-        return;
+        monthlyincomeError.style.display = "none";
       }
 
-      const button = document.getElementById("getOtpButton");
-      button.disabled = true;
-      try {
-        // Fetch and parse the object from local storage
-        const loanDataString = localStorage.getItem("loan");
-        let newData = JSON.parse(loanDataString) || {};
-        console.log("Loan Amount: ", loanAmount);
-        newData = { loanAmount: loanAmount, ...newData };
+      if (salaryMode === "") {
+        salarymodeError.style.display = "block";
+        return false;
+      } else {
+        salarymodeError.style.display = "none";
+      }
 
-        // Save the updated formData back to localStorage
-        localStorage.setItem("loan", JSON.stringify(newData));
-        if (!loanDataString) {
-          throw new Error("Loan data not found in local storage.");
-        }
+      if (loanAmount !== "" && monthlyIncome !== "" && salaryMode !== "") {
+        document.getElementById("form1").style.display = "none";
+        document.getElementById("form2").style.display = "block";
+        const getPin = JSON.parse(localStorage.getItem("loan")).pincode;
+        const pincode = document.getElementById("pincode");
+        const State = document.getElementById("State");
+        // https://api.postalpincode.in/pincode/276302
+        // console.log(currentMobile, loanAmount);
+        // const response = await fetch(
+        //   ` https://api.postalpincode.in/pincode/${getPin}`,
+        //   {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     mode: 'no-cors'
+        //   }
+        // );
+        // if (response.ok) {
+        //   console.log("OTP Response : ", response);
+        // }
+        // const responseData = await response();
+        // console.log("OTP Data: ",responseData);
+        pincode.value = getPin;
+        console.log("Pin: ", getPin);
+        console.log("API Calling..............1FORM");
 
-        // Parse the stringified JSON object
-        const loanData = JSON.parse(loanDataString);
-        // console.log(loanData);
-        // Extract the mobile number from the object
-        const currentMobile = loanData.mobile;
+        // button.disabled = true;
+        loanData.desired_loan_amount = loanAmount;
+        loanData.net_monthly_income = monthlyIncome;
+        loanData.salary_type = salaryMode;
 
-        if (!currentMobile) {
-          throw new Error("Mobile number not found in loan data.");
-        }
-        console.log(currentMobile, loanAmount);
-        const response = await fetch(
-          `https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/loan_getotp`,
-          // `http://localhost/loan_getotp`, // Endpoint with source_id as parameter
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              mobile: currentMobile, // Using mobile number from local storage
-            }),
-          }
-        );
-        console.log("Response: ", response);
-        if (response.ok) {
-          document.getElementById("form-section").style.display = "none";
-          document.getElementById(
-            "hero-section container-fluid"
-          ).style.display = "none";
-          document.getElementById("otp-section-container").style.display =
-            "block";
-          // console.log(response);
-          document.getElementById(
-            "phone-number"
-          ).textContent = `+91-${currentMobile}`;
-          const data = await response.json();
-          console.log("Get OTP: ", data);
-          document.getElementById("form1").style.display = "none";
-          const thirtySeconds = 30,
-            display = document.querySelector("#timer");
-          startTimer(thirtySeconds, display);
+        // try {
+        //   // Fetch and parse the object from local storage
+        //   const loanDataString = localStorage.getItem("loan");
+        //   let newData = JSON.parse(loanDataString) || {};
+        //   console.log("Loan Amount: ", loanAmount);
+        //   newData = { loanAmount: loanAmount, ...newData };
 
-          // await validateForm1();
-          button.disabled = false;
-          // Handle the successful response here
-        } else {
-          console.error("API request failed with status:", response.status);
-          // Handle different status codes here
-        }
-      } catch (error) {
-        console.error("Error: ", error);
-        console.error("An error occurred:", error.message);
-        // Handle the error (e.g., show an error message to the user)
+        //   // Save the updated formData back to localStorage
+        //   localStorage.setItem("loan", JSON.stringify(newData));
+        //   if (!loanDataString) {
+        //     throw new Error("Loan data not found in local storage.");
+        //   }
+
+        //   // Parse the stringified JSON object
+        //   const loanData = JSON.parse(loanDataString);
+        //   // console.log(loanData);
+        //   // Extract the mobile number from the object
+        //   const currentMobile = loanData.mobile;
+
+        //   if (!currentMobile) {
+        //     throw new Error("Mobile number not found in loan data.");
+        //   }
+        //   console.log(currentMobile, loanAmount);
+        //   const response = await fetch(
+        //     `https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/loan_getotp`,
+        //     // `http://localhost/loan_getotp`, // Endpoint with source_id as parameter
+        //     {
+        //       method: "POST",
+        //       headers: { "Content-Type": "application/json" },
+        //       body: JSON.stringify({
+        //         mobile: currentMobile, // Using mobile number from local storage
+        //       }),
+        //     }
+        //   );
+        //   console.log("Response: ", response);
+        //   if (response.ok) {
+        //     document.getElementById("form-section").style.display = "none";
+        //     document.getElementById(
+        //       "hero-section container-fluid"
+        //     ).style.display = "none";
+        //     document.getElementById("otp-section-container").style.display =
+        //       "block";
+        //     // console.log(response);
+        //     document.getElementById(
+        //       "phone-number"
+        //     ).textContent = `+91-${currentMobile}`;
+        //     const data = await response.json();
+        //     console.log("Get OTP: ", data);
+        //     document.getElementById("form1").style.display = "none";
+        //     const thirtySeconds = 30,
+        //       display = document.querySelector("#timer");
+        //     startTimer(thirtySeconds, display);
+
+        //     // await validateForm1();
+        //     button.disabled = false;
+        //     // Handle the successful response here
+        //   } else {
+        //     console.error("API request failed with status:", response.status);
+        //     // Handle different status codes here
+        //   }
+        // } catch (error) {
+        //   console.error("Error: ", error);
+        //   console.error("An error occurred:", error.message);
+        //   // Handle the error (e.g., show an error message to the user)
+        // }
+        console.log(loanData);
       }
     }
-
     // personal details section start
 
     const addressline1 = document.getElementById("addressline-1");
@@ -1052,7 +1111,14 @@
       } else {
         yearsaddresserror.style.display = "none";
       }
-
+      loanData.comm_address_line1 = addressline1.value;
+      loanData.comm_address_line2 = addressline2.value;
+      loanData.comm_pincode = pincode.value;
+      loanData.comm_city = City.value;
+      loanData.comm_state = State.value;
+      loanData.comm_address_type = natureAddress.value;
+      loanData.comm_year_at_current_address = yearscurrentAddress.value;
+      console.log("Loand Data: ", loanData);
       if (
         addressline1 &&
         addressline2 &&
@@ -1087,7 +1153,7 @@
     const officestate = document.getElementById("officestate");
     const officestateError = document.getElementById("officestateError");
 
-    function validateForm3() {
+    async function validateForm3() {
       if (companyname.value === "") {
         companynameError.style.display = "block";
         return false;
@@ -1137,6 +1203,15 @@
         officestateError.style.display = "none";
       }
 
+      loanData.company_name = companyname.value;
+      loanData.company_type = companyType.value;
+      loanData.designation = Designation.value;
+      loanData.work_experience = workExp.value;
+      loanData.office_city = officecity.value;
+      loanData.office_pincode = officepincode.value;
+      loanData.office_state = officestate.value;
+      console.log("Office Details: ", loanData);
+
       if (
         companyname &&
         companyType &&
@@ -1147,7 +1222,73 @@
         officestate
       ) {
         // document.getElementById("form3").style.display = "none";
-        console.log("API Calling..............2FORM");
+        console.log("API Calling..............3FORM");
+      }
+      const button = document.getElementById("getOtpButton");
+      button.disabled = true;
+      try {
+        // Fetch and parse the object from local storage
+        const loanDataString = localStorage.getItem("loan");
+        let newData = JSON.parse(loanDataString) || {};
+        // console.log("Loan Amount: ", loanAmount);
+        newData = { ...loanData, ...newData };
+
+        // Save the updated formData back to localStorage
+        localStorage.setItem("loan", JSON.stringify(newData));
+        if (!loanDataString) {
+          throw new Error("Loan data not found in local storage.");
+        }
+
+        // Parse the stringified JSON object
+        // const loanData = JSON.parse(loanDataString);
+        // console.log(loanData);
+        // Extract the mobile number from the object
+        const currentMobile = newData.mobile;
+
+        if (!currentMobile) {
+          throw new Error("Mobile number not found in loan data.");
+        }
+        console.log(currentMobile);
+        const response = await fetch(
+          `https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/loan_getotp`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              mobile: currentMobile, // Using mobile number from local storage
+            }),
+          }
+        );
+        console.log("Response: ", response);
+        if (response.ok) {
+          document.getElementById("form-section").style.display = "none";
+          document.getElementById(
+            "hero-section container-fluid"
+          ).style.display = "none";
+          document.getElementById("otp-section-container").style.display =
+            "block";
+          // console.log(response);
+          document.getElementById(
+            "phone-number"
+          ).textContent = `+91-${currentMobile}`;
+          const data = await response.json();
+          console.log("Get OTP: ", data);
+          document.getElementById("form1").style.display = "none";
+          const thirtySeconds = 30,
+            display = document.querySelector("#timer");
+          startTimer(thirtySeconds, display);
+
+          // await validateForm1();
+          button.disabled = false;
+          // Handle the successful response here
+        } else {
+          console.error("API request failed with status:", response.status);
+          // Handle different status codes here
+        }
+      } catch (error) {
+        console.error("Error: ", error);
+        console.error("An error occurred:", error.message);
+        // Handle the error (e.g., show an error message to the user)
       }
     }
   </script>
