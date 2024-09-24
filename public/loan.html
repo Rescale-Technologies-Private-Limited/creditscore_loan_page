@@ -1,19 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script>
-      function hideElement(_id) {
-        document.getElementById(_id).className.display = "none";
-      }
-      function showElement(_id) {
-        document.getElementById(_id).style.display = "block";
-      }
-      function myOnloadFunc() {
-        hideElement("cityDiv");
-        hideElement("stateDiv");
-      }
-      window.onload = myOnloadFunc;
-    </script>
+   
     <!-- Google tag (gtag.js) -->
     <script
       async
@@ -651,7 +639,7 @@
         <div id="progressBar"></div>
       </div> -->
     </div>
-    <div class="container" id="loan-not-approval">
+    <!-- <div class="container" id="loan-not-approval">
       <h1>Loan Not Approved</h1>
       <p class="message">
         Unfortunately, your loan request has not been approved at this time.
@@ -661,10 +649,9 @@
       </p>
 
       <div class="button-container">
-        <!-- <a href="./loan.html" class="retry-btn">Retry</a> -->
         <button class="home-btn">View Loan Requirements</button>
       </div>
-    </div>
+    </div> -->
     <!-- form section end -->
   </body>
 
@@ -761,7 +748,7 @@
       try {
         const response = await fetch(
           `https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/loan_verifyotp`,
-         
+
           {
             method: "POST",
             headers: {
@@ -827,16 +814,19 @@
               console.log("No valid offer link available, no redirection.");
             }
           } else {
-            localStorage.removeItem("loan")
-            // document.getElementById("");
-            alert("No Redirection link2");
+            // localStorage.removeItem("loan");
 
-            document.getElementById("loan-not-approval").style.display =
-              "block";
+
+            
+            // document.getElementById("");
+            // alert("No Redirection link2");
+
+            // document.getElementById("loan-not-approval").style.display =
+            //   "block";
 
             //TODO
             // sachin here you will show all lenders
-
+            window.location = "lenders.html";
             console.error("No offers available to redirect.");
           }
         }
