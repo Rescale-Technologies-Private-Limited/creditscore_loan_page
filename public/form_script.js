@@ -516,7 +516,6 @@ async function validateForm5() {
       //     "fetch_date": "2024-08-23T08:30:48.358408Z"
       // }
       // Storing the object in localStorage as a JSON string
-      localStorage.setItem("loan", JSON.stringify(formData));
 
       // Log the data or use it as needed
       submitButton5.disabled = false;
@@ -531,6 +530,8 @@ async function validateForm5() {
       updateVisibility(data?.score ?? 300);
       updateSlider2(data?.score ?? 300);
       updateInput2(data?.score ?? 300);
+      formData.credit_score = data?.score || null;
+      localStorage.setItem("loan", JSON.stringify(formData));
       console.log(formData);
     } catch (error) {
       showForm(++currentStep);
