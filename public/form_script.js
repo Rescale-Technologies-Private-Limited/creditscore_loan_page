@@ -590,6 +590,7 @@ function updateVisibility(value) {
   // Show/hide elements based on credit score
   if (value == 300) {
     zeroscore.classList.remove("hidden");
+    zeroscoreText.classList.remove("hidden");
   } else if (value > 300 && value < 600) {
     notApprove.classList.remove("hidden");
     scoreReport.classList.remove("hidden");
