@@ -948,6 +948,7 @@
         document.getElementById("form2").style.display = "block";
         const getPin = JSON.parse(localStorage.getItem("loan")).pincode;
         const pincode = document.getElementById("pincode");
+        //fetchCityFromPincode(pincode.value);
         const State = document.getElementById("State");
         // https://api.postalpincode.in/pincode/276302
         // console.log(currentMobile, loanAmount);
@@ -1040,8 +1041,39 @@
         // }
         console.log(loanData);
         await getState();
+        fetchCityFromPincode(getPin)
       }
     }
+    //fetch city
+    function fetchCityFromPincode(pincode) {
+      const apiUrl = `https://api.postalpincode.in/pincode/${pincode}`;
+    
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0].Status === 'Success') {
+            // Extract Block and District from the API response
+            const blockName = data[0].PostOffice[0].Block;
+            const districtName = data[0].PostOffice[0].District;
+    
+            // Check if Block is valid (not 'NA' or null), otherwise use District
+            const cityName = blockName && blockName !== 'NA' ? blockName : districtName;
+    
+            // Set the city input value
+            document.getElementById('City').value = cityName;
+          } else {
+            console.error('Invalid pincode or no data found');
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+    }
+    
+    
+    
+
+
     // personal details section start
 
     const addressline1 = document.getElementById("addressline-1");
@@ -1269,6 +1301,8 @@
       loanData.office_city = officecity.value;
       loanData.office_pincode = officepincode.value;
       // loanData.office_state = officestate.value;
+
+
       console.log("Office Details: ", loanData);
 
       if (
