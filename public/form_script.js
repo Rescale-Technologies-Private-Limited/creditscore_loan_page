@@ -143,30 +143,32 @@ document
   });
 
 verifyOTPSubmitButton.addEventListener("click", async () => {
+  const mobile = document.getElementById("mobile").value;
+  console.log('mobile :'+mobile);
   const otp = Array.from(document.querySelectorAll(".form-otp-box input"))
     .map((input) => input.value)
     .join("");
-  if (otp.length === 4) await verifyOTP(otp);
+  if (otp.length === 4) await verifyOTP(mobile,otp);
 });
 function closeModal() {
   document.getElementById("otp-section-container").style.display = "none";
 }
 
-async function verifyOTP(curretOTP) {
+async function verifyOTP(mobile,curretOTP) {
   // const otp = document.getElementById('otp').value;
 
   // Example OTP for demonstration
   // alert('OTP verified successfully!');
   try {
     const response = await fetch(
-      "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/creditscore_verifyotp",
+      "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/creditscore_verifyotp",
       // "http://localhost/creditscore_verifyotp",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ otp: curretOTP }),
+        body: JSON.stringify({ mobile:mobile,otp: curretOTP }),
       }
     );
 
@@ -309,7 +311,7 @@ async function validateForm1() {
 
   try {
     const response = await fetch(
-      "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/creditscore_getotp",
+      "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/creditscore_getotp",
       // https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/getotp
       // "http://localhost/creditscore_getotp",
       {
@@ -317,7 +319,7 @@ async function validateForm1() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ phone: formData.mobile, name: fullname }),
+        body: JSON.stringify({ mobile: formData.mobile, name: fullname }),
       }
     );
 
@@ -493,7 +495,7 @@ async function validateForm5() {
     try {
       console.log(formData);
       const response = await fetch(
-        "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/creditscore_submitForm",
+        "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/creditscore_submitForm",
         // "http://localhost/creditscore_submitForm",
         {
           method: "POST",

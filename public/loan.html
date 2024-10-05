@@ -730,7 +730,8 @@
         alert("please enter correct OTP!");
       }
     });
-    async function verifyOTP(curretOTP) {
+    
+    async function submitApplication() {
       // const otp = document.getElementById('otp').value;
       // const progressBar = document.getElementById("progressBar");
       const loadingMessage = document.getElementById("loadingMessage");
@@ -767,7 +768,7 @@
       const loadingIndicator = document.getElementById("loadingIndicator");
       try {
         const response = await fetch(
-          `https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/loan_verifyotp`,
+          `https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/loan_submit_application`,
           // `http://localhost/loan_verifyotp`,
 
           {
@@ -777,7 +778,6 @@
             },
             body: JSON.stringify({
               mobile: currentMobile,
-              otp: curretOTP,
               data,
             }),
           }
@@ -804,6 +804,7 @@
           return;
         }
 
+       //Chandra : Jump directly here
         document.getElementById("otp-section-container").style.display = "none";
 
         document.querySelector(".invalid-otp").style.display = "none";
@@ -1352,7 +1353,11 @@
           throw new Error("Mobile number not found in loan data.");
         }
         console.log(currentMobile);
-        const response = await fetch(
+
+        
+        /* 
+	Chandra START - By pass the OTP input again  
+	const response = await fetch(
           `https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/loan_getotp`,
           {
             method: "POST",
@@ -1388,6 +1393,11 @@
           console.error("API request failed with status:", response.status);
           // Handle different status codes here
         }
+	//Chandra End
+	*/
+        console.log('calling submitApplication');
+	await submitApplication();
+
       } catch (error) {
         console.error("Error: ", error);
         console.error("An error occurred:", error.message);
