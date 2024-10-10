@@ -2,13 +2,20 @@
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
-   <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "odvgno9xys");
-</script>
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "odvgno9xys");
+    </script>
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-LHHNXBN6B2"
@@ -80,15 +87,20 @@
 
     <title>Personal Loan</title>
 
-
-
     <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
       })(window, document, "clarity", "script", "odvgno9xys");
-  </script>
+    </script>
   </head>
 
   <body>
@@ -737,7 +749,7 @@
         alert("please enter correct OTP!");
       }
     });
-    
+
     async function submitApplication() {
       // const otp = document.getElementById('otp').value;
       // const progressBar = document.getElementById("progressBar");
@@ -811,7 +823,7 @@
           return;
         }
 
-       //Chandra : Jump directly here
+        //Chandra : Jump directly here
         document.getElementById("otp-section-container").style.display = "none";
 
         document.querySelector(".invalid-otp").style.display = "none";
@@ -851,7 +863,6 @@
             // document.getElementById("loan-not-approval").style.display =
             //   "block";
 
-          
             window.location = "lenders.html";
             console.error("No offers available to redirect.");
           }
@@ -1059,39 +1070,54 @@
         // }
         console.log(loanData);
         await getState();
-        fetchCityFromPincode(getPin)
+        fetchCityFromPincode(getPin, "City");
       }
     }
     //fetch city
-    function fetchCityFromPincode(pincode) {
+    async function fetchCityFromPincode(pincode, id) {
+      if (pincode == null) {
+        return;
+      }
       const apiUrl = `https://api.postalpincode.in/pincode/${pincode}`;
-    
+
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
-          if (data[0].Status === 'Success') {
+          if (data[0].Status === "Success") {
             // Extract Block and District from the API response
             const blockName = data[0].PostOffice[0].Block;
             const districtName = data[0].PostOffice[0].District;
-    
+
             // Check if Block is valid (not 'NA' or null), otherwise use District
-            const cityName = blockName && blockName !== 'NA' ? blockName : districtName;
-    
+            const cityName =
+              blockName && blockName !== "NA" ? blockName : districtName;
             // Set the city input value
-            document.getElementById('City').value = cityName;
+            document.getElementById(id).value = cityName;
           } else {
-            console.error('Invalid pincode or no data found');
+            console.error("Invalid pincode or no data found");
           }
         })
         .catch((error) => {
-          console.error('Error fetching data:', error);
+          console.error("Error fetching data:", error);
         });
     }
-    
-    
-    
 
-
+    let commPin = document.getElementById("pincode");
+    commPin.addEventListener("change", async () => {
+      if (commPin.value.length === 6) {
+        let pincode = commPin.value;
+        console.log("Comm Pincode: ", pincode);
+        await fetchCityFromPincode(pincode, "City");
+      }
+    });
+    let officePin = document.getElementById("officepincode");
+    officePin.addEventListener("change", async () => {
+      if (officePin.value.length === 6) {
+        let pincode = officePin.value;
+        console.log("Office Pincode: ", pincode);
+        await fetchCityFromPincode(pincode, "officecity");
+      }
+    });
     // personal details section start
 
     const addressline1 = document.getElementById("addressline-1");
@@ -1235,7 +1261,8 @@
         pincode &&
         City &&
         natureAddress &&
-        yearscurrentAddress&&commState
+        yearscurrentAddress &&
+        commState
       ) {
         document.getElementById("form2").style.display = "none";
         document.getElementById("form3").style.display = "block";
@@ -1320,7 +1347,6 @@
       loanData.office_pincode = officepincode.value;
       // loanData.office_state = officestate.value;
 
-
       console.log("Office Details: ", loanData);
 
       if (
@@ -1361,7 +1387,6 @@
         }
         console.log(currentMobile);
 
-        
         /* 
 	Chandra START - By pass the OTP input again  
 	const response = await fetch(
@@ -1402,9 +1427,8 @@
         }
 	//Chandra End
 	*/
-        console.log('calling submitApplication');
-	await submitApplication();
-
+        console.log("calling submitApplication");
+        await submitApplication();
       } catch (error) {
         console.error("Error: ", error);
         console.error("An error occurred:", error.message);
