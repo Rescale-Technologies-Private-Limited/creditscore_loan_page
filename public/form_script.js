@@ -185,6 +185,10 @@ async function verifyOTP(mobile,curretOTP) {
     formData.secretId = data.secretId;
     closeModal();
     showForm(currentStep);
+    clarity('set', 'mobile', formData.mobile);
+    clarity('set', 'application_id', formData.secretId);
+    clarity('set', 'name', formData.name);
+    console.log(`clarity : analytics : mobile : ${formData.mobile} ,name : ${formData.name} , applicationId = ${formData.secretId}`); 
   } catch (error) {
     console.error("Error in verifying OTP:", error);
     document.querySelector(".invalid-otp").style.display = "block";

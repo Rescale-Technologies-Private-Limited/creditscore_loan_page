@@ -2,3 +2,4 @@ npm install -g firebase-tools
 firebase login
 firebase use ads-ai-101
 firebase deploy
+
