@@ -1,5 +1,15 @@
 {
   "projects": {
-    "default": "fincash-credit-score"
-  }
+    "default": "ads-ai-101"
+  },
+  "targets": {
+    "ads-ai-101": {
+      "hosting": {
+        "credit-score": [
+          "loans-credit-score"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
