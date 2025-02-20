@@ -856,18 +856,18 @@ src="https://www.facebook.com/tr?id=3476568695975636&ev=PageView&noscript=1"
             loadingIndicator.style.display = "none";
             console.log(approval.approval);
             // Get the link from the first offer
-            const firstOfferLink =
-              approval?.approval?.redirection?.redirect_link;
+            const approvedLink = approval?.approval?.redirection?.redirect_link ;
+            localStorage.setItem("approvedLinks", approval?.approval?.redirection?.redirect_link);
             // Redirect the user to the link
             document.getElementById("waitforredirection").style.display =
               "flex";
             document.getElementById("loan_not_approval").style.display = "flex";
 
             // Check if the firstOfferLink is not null or undefined
-            if (firstOfferLink) {
+            if (approvedLink) {
               setTimeout(() => {
                 // Redirect the user to the link after a small delay
-                window.location.href = firstOfferLink;
+                window.location.href = "lenders.html";
               }, 100); // Delay before redirect
             } else {
               alert("No Redirection link1");
@@ -882,7 +882,7 @@ src="https://www.facebook.com/tr?id=3476568695975636&ev=PageView&noscript=1"
             // document.getElementById("loan-not-approval").style.display =
             //   "block";
 
-            window.location = "lenders.html";
+            window.location = "rejected.html";
             console.error("No offers available to redirect.");
           }
         }

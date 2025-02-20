@@ -71,34 +71,27 @@
     <link rel="stylesheet" href="./form_style.css" />
     <style>
       /* loan-provider section start */
-      .venders-box {
-        background-color: rgb(227, 244, 255);
+      .sorry-box {
         width: 650px;
-        display: flex;
         padding: 20px;
-        margin: 20px 0;
-        border: 1px solid #071d4a;
+        /* margin: 20px 0; */
         border-radius: 7px;
         align-items: center;
+        text-align: center;
         justify-content: space-between;
       }
-      .venders-logo {
-        width: 100px;
-        height: 100px;
+      .sorry-box img {
+        width: 200px;
+        border: 1px solid #0000;
       }
-      .venders-logo img {
-        width: 100%;
-        height: auto;
-        filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+      .sorry-box h5 {
+        font-weight: 500;
+        text-align: center;
+        line-height: 27px;
+        padding-bottom: 20px;
+        color: #2a2a2a;
       }
-      .venders-amount-box {
-        margin: 0;
-        font-weight: bold;
-      }
-      .venders-amount-box span {
-        color: #01d024;
-      }
-      .venders-btn {
+      .sorry-btn {
         text-decoration: none;
         padding: 10px 20px;
         border-radius: 7px;
@@ -106,22 +99,19 @@
       }
       /* tablet device */
       @media (min-width: 768px) and (max-width: 1009px) {
-        .venders-box {
+        .sorry-box {
           width: 500px;
         }
       }
       @media (min-width: 500px) and (max-width: 767px) {
-        .venders-box {
+        .sorry-box {
           width: 400px;
         }
       }
       /* mobile device */
       @media (min-width: 300px) and (max-width: 499px) {
-        .venders-box {
-          width: 200px;
-          flex-wrap: wrap;
-          gap: 7px;
-          justify-content: center;
+        .sorry-box {
+          width: 300px;
         }
         .venders-amount-box {
           font-size: 20px;
@@ -146,24 +136,7 @@
     <!-- Hero Section Start  -->
     <section class="hero-section container-fluid">
       <div class="hero-content-container">
-        <div class="hero-nav-box hiddn">
-          <div class="hero-nav d-flex align-items-center">
-            <i
-              onclick=""
-              class="fa-solid fa-arrow-left btn-prev nav-btn hidden"
-            ></i
-            >&nbsp;&nbsp;&nbsp;
-            <!-- <h4> Personal Loan</h4> -->
-          </div>
-        </div>
-        <!-- <div id="P-loan-box" class="hero-heading text-center">
-          <h3>Unlock Best Personal Loan Offers</h3>
-          <p>Avail a Loan of Your Choice Instantly.</p>
-        </div> -->
-        <div id="Congress-box" class="Congress-boxs text-center hidde">
-          <h1>Congratulations! Your loan is approved</h1>
-          <!-- <p>Complete your KYC</p> -->
-        </div>
+        <div id="Congress-box" class="Congress-boxs text-center"></div>
       </div>
     </section>
 
@@ -171,11 +144,11 @@
 
     <!-- form section start -->
 
-    <section class="container-fluid form-container-form-2 hidde">
+    <section class="container-fluid form-container-form-2">
       <div
         class="container-md form-heading-container py- px-5 d-flex justify-content-center align-items-center"
       >
-        <div class="form-section">
+        <div class="form-section" style="padding: 20px;">
           <div
             class="d-flex form-box align-items-center justify-content-center"
           >
@@ -184,9 +157,18 @@
               id="form4"
               class="loan-provider-section align-items-center justify-content-center"
             >
-              <div class="loan-provider-container">
-                <!-- vender zype -->
-                
+              <!-- sorry box -->
+              <div class="sorry-box">
+                <img
+                  src="images/oops-vector-image.jpg"
+                  width="100%"
+                  alt=""
+                />
+                <h5>
+                  We are sorry to inform you that our lenders are not able to
+                  offer you a loan now, <b> please try after 90 days </b>
+                </h5>
+                <!-- <a href="index.html" class="btn btn-primary">Back to Home</a> -->
               </div>
             </div>
             <!-- loan-provider section end -->
@@ -194,58 +176,7 @@
         </div>
       </div>
     </section>
-      
+
     <!-- form section end -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        let approvedLink = localStorage.getItem("approvedLinks");
-    
-        if (!approvedLink) {
-          // Redirect to rejected.html if no approved link is found
-          window.location.href = "rejected.html";
-          return; // Stop further execution
-        }
-    
-        const lenderLogoMap = {
-          "https://portal.getzype.com/?referrer=singular_click_id%3Dd565471d-5227-4b75-ab53-a827c53c50d4": "./images/zype_logo.png",
-          "https://web.fatakpay.com/authentication/login": "./images/fatakpay_logo.png",
-          "https://web.mpokket.in/?utm_source=Kashti&utm_medium=KashtiCA": "./images/mpokket_logo.png",
-          "https://www.fibe.in/": "./images/fibe_logo.png",
-          "https://moneyview.in/": "./images/moneyview_logo.png",
-          "https://web.cashe.co.in/VjcvdkZ0b0ZFVDZDMlFGOE1LQzRmTlo0WmRDRUpDdHErcm5IUytZWWgwV0c0cVR4TlpMRlBObjNaVUdUVFlDSm1RZUM0SXR5NWRzZExDanl4ZmR3M1dQM1A1SFBhSVN6TFdEQWVYbXgxYUk4SFlOMFd3bzJJQjdqQm1uSkw5MjQ=": "./images/cashe_logo.png",
-          "https://www.incred.com/personal-loan/?partnerId=2230241356271012P&": "./images/incred_logo.png",
-          "https://www.olyv.co.in/": "./images/olyv_logo.png",
-          "https://www.kreditbee.in/signin": "./images/KreditBee_logo.png",
-          "https://web.moneytap.com/": "./images/moneytap_logo.png",
-          "https://www.muthootfinance.com/personal-loan": "./images/muthoot_logo.png",
-          "https://lendingplate.com/": "./images/lendingplate_logo.png"
-        };
-    
-        const lenderContainer = document.querySelector(".loan-provider-container");
-    
-        lenderContainer.innerHTML = ""; // Clear existing content
-    
-        const lenderBox = document.createElement("div");
-        lenderBox.className = "venders-box";
-    
-        // Get the logo path from the mapping
-        const logoPath = lenderLogoMap[approvedLink] ; // Fallback to a default logo if no match is found
-    
-        lenderBox.innerHTML = `
-          <div class="venders-logo">
-            <img src="${logoPath}" alt="Lender Logo" />
-          </div>
-          <p class="venders-amount-box text-center">
-            <a href="${approvedLink}" class="venders-btn btn btn-primary">Complete KYC</a>
-          </p>
-          <p class="venders-amount-box text-center" style="font-size: 16px">
-            To get loan in your account
-          </p>
-        `;
-    
-        lenderContainer.appendChild(lenderBox);
-      });
-    </script>
-    
   </body>
 </html>
