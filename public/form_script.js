@@ -161,7 +161,7 @@ async function verifyOTP(mobile,curretOTP) {
   // alert('OTP verified successfully!');
   try {
     const response = await fetch(
-      "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/creditscore_verifyotp",
+      "http://localhost:3000/loan_api_1/creditscore_verifyotp",
       // "http://localhost/creditscore_verifyotp",
       {
         method: "POST",
@@ -315,8 +315,8 @@ async function validateForm1() {
 
   try {
     const response = await fetch(
-      "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/creditscore_getotp",
-      // https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/getotp
+      "http://localhost:3000/loan_api_1/creditscore_getotp",
+      // http://localhost:3000/card_api/getotp
       // "http://localhost/creditscore_getotp",
       {
         method: "POST",
@@ -499,7 +499,7 @@ async function validateForm5() {
     try {
       console.log(formData);
       const response = await fetch(
-        "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/creditscore_submitForm",
+        "http://localhost:3000/loan_api_1/creditscore_submitForm",
         // "http://localhost/creditscore_submitForm",
         {
           method: "POST",

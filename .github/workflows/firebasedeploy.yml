@@ -1,0 +1,30 @@
+# .github/workflows/firebase-hosting-manual.yml
+name: Manual Deploy (Static HTML)
+
+on:
+  workflow_dispatch:      # Runs only when you click “Run workflow” in Actions
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1 - Grab your code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2- Node is required by the Firebase CLI action (no build step needed)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # 3- Deploy everything in your hosting “public” folder
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+          projectId: 'ads-ai-101'            # 🔁 your Firebase project ID
+          hostingSite: 'testloan-offer'     # 🔁 the Hosting site (if you created one)
+          channelId: 'live'           # deploy to the live channel
