@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy EMI Loan - Buy Electronics</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Added Fincash-style header logo -->
+    <header class="nav-container container-fluid p-3">
+      <div class="nav">
+        <img src="images/logo.png" alt="logo" />
+      </div>
+    </header>
+
+    <!-- Changed to split-screen layout matching Fincash design -->
+    <div class="split-container">
+        <!-- Left Section - Credit Health Info -->
+        <div class="left-panel">
+            <div class="left-content">
+                <h1 class="credit-title">Buy Now, Pay in Easy EMIs</h1>
+                <p class="credit-subtitle">Select a product, verify your PAN-linked mobile number, and instantly check your EMI loan eligibility — all in a few simple steps.</p>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-number">1</div>
+                        <h3>Choose Your Product</h3>
+                        <!-- <p>Pick the product you want to buy on easy EMI.</p> -->
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">2</div>
+                        <h3>Quick PAN-Based Verification</h3>
+                        <!-- <p>Enter your name and mobile number linked with PAN to receive an OTP.</p> -->
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">3</div>
+                        <h3>Instant Eligibility Check</h3>
+                        <!-- <p>Verify OTP and view your EMI loan offer in seconds.</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section - Product Selection Form -->
+        <div class="right-panel">
+            <div class="form-card">
+                <h2>Check your Easy EMI Loan offer</h2>
+                <p class="form-subtitle">Select the product you want to buy</p>
+
+                <!-- Product Grid -->
+                <div class="product-grid" id="productGrid">
+                    <div class="product-card" data-product="Smartphone">
+                        <img src="images/smart-phones-v1.avif" alt="Smartphone">
+                        <p>Smartphone</p>
+                    </div>
+                    <div class="product-card" data-product="Washing Machine">
+                        <img src="images/washing-machine-updated.avif" alt="Washing Machine">
+                        <p>Washing Machine</p>
+                    </div>
+                    <div class="product-card" data-product="Smart TV">
+                        <img src="images/smart-tv-9.avif" alt="Smart TV">
+                        <p>Smart TV</p>
+                    </div>
+                    <div class="product-card" data-product="Laptop">
+                        <img src="images/laptop-27.avif" alt="Laptop">
+                        <p>Laptop</p>
+                    </div>
+                    <div class="product-card" data-product="Kitchen Appliances">
+                        <img src="images/kitchen-appliances-23.avif" alt="Kitchen Appliances">
+                        <p>Kitchen Appliances</p>
+                    </div>
+                    <div class="product-card" data-product="Home Appliances">
+                        <img src="images/home-appliances-5.avif" alt="Home Appliances">
+                        <p>Home Appliances</p>
+                    </div>
+                    <div class="product-card" data-product="Smart Watch">
+                        <img src="images/smart-watch-4.avif" alt="Smart Watch">
+                        <p>Smart Watch</p>
+                    </div>
+                    <div class="product-card" data-product="Headphone">
+                        <img src="images/headphones-2.avif" alt="Headphone">
+                        <p>Headphone</p>
+                    </div>
+                    <div class="product-card" data-product="Refrigerator">
+                        <img src="images/refridgerator-1.avif" alt="Refrigerator">
+                        <p>Refrigerator</p>
+                    </div>
+                    <div class="product-card" data-product="Air Conditioner">
+                        <img src="images/ac-36.avif" alt="Air Conditioner">
+                        <p>Air Conditioner</p>
+                    </div>
+                </div>
+
+                <!-- Form Fields -->
+                <div class="form-fields">
+                    <div class="input-group">
+                        <label for="fullName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="fullName" placeholder="Enter Full Name as Per Pan" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="mobileNumber">Mobile Number <span class="required">*</span></label>
+                        <input type="tel" id="mobileNumber" placeholder="Linked with Pan" maxlength="10" required>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="termsCheckbox" required>
+                        <label for="termsCheckbox">
+                            By Continuing, I agree to <a href="#">Privacy Policy</a> and <a href="#">Terms & Conditions</a> and sharing data with Experian for Credit Bureau.
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button class="submit-btn" id="submitBtn">CHECK ELIGIBILITY >>></button>
+
+                <div class="security-note">
+                    <span class="lock-icon">🔒</span>
+                    <p>Your data's safety is our top priority. It is secured by cutting-edge encryption and stringent privacy protocols.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OTP Modal -->
+    <div class="modal-overlay" id="otpModal">
+        <div class="modal-content">
+            <h2>Enter OTP</h2>
+            <p class="otp-message">We've sent a 6-digit OTP to your mobile number</p>
+            <p class="mobile-display" id="mobileDisplay"></p>
+            
+            <div class="otp-inputs">
+                <input type="text" maxlength="1" class="otp-input" data-index="0">
+                <input type="text" maxlength="1" class="otp-input" data-index="1">
+                <input type="text" maxlength="1" class="otp-input" data-index="2">
+                <input type="text" maxlength="1" class="otp-input" data-index="3">
+                <input type="text" maxlength="1" class="otp-input" data-index="4">
+                <input type="text" maxlength="1" class="otp-input" data-index="5">
+            </div>
+
+            <p class="error-message" id="errorMessage"></p>
+
+            <button class="verify-btn" id="verifyBtn">Verify OTP</button>
+            <button class="resend-btn">Resend OTP</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

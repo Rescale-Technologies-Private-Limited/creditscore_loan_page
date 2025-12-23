@@ -1,151 +1,986 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <!-- <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "odvgno9xys");
+</script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-LHHNXBN6B2"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-LHHNXBN6B2");
+    </script> -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAgZJREFUWEftl19LFFEYxn/vjLsoCQlF2K6uYNYXKG/6CHklFURZ4G3QVdS1BkkU0mXZjUWin0AM6qqgP1cFStEfwTaFjdYcTQd3ndkTZwqL9rgzi0Nrsedy5pzzPuc97/Oc9xGAzOmBTmXLNaBXoEF/2+4oKcWetjSd3d2IyJ/bfRNkyG1suintpwZSkpQ7KHq2G/T39SEAUCIrgn9JMn2D1xEuAtbfBPAjlryRzNnBOaAjzuB6r7AM/IznaQAeYNcIABqAMgVPNNicP3aUrvReSiXjFCNmyxJef8wxMvWM3anUVkW4udYIoAQ0JxPcv3yGI4cyVSfn8fQs/cMTNO9v5YCZBf8ggKVVl9EHL3DWXIQyXv86kQjzeYdHr97Tko7xCvSmx6+Mkv3iINbWAAJyCVgilYSo+itYyDucvHqXbH4Zu1zZyuokIg3NLDAVYR3ADsnAPT7lnaDAwkbsNeCuF3kyM4tb2DCTUKBQ9Lg1+ZQPucVgToXnuHoWhJ1Y/19bL3LuxhjP32bjp2HNAURRwg3f5+HLd+Sc1QBvrFcQVQlty0ILZexFuENoWJfiegb+0wwY2/KmZILbF05w+GA7SsHC4jL9w+PMf12JvSExGhP94nXsa2FXYxIUFDyfuc9LaLWLMiIKkVfRmvlKBacP+jztXkJ6wWq84aY1q7k51Uhqac+/AzXsusZMK+AIAAAAAElFTkSuQmCC"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAgZJREFUWEftl19LFFEYxn/vjLsoCQlF2K6uYNYXKG/6CHklFURZ4G3QVdS1BkkU0mXZjUWin0AM6qqgP1cFStEfwTaFjdYcTQd3ndkTZwqL9rgzi0Nrsedy5pzzPuc97/Oc9xGAzOmBTmXLNaBXoEF/2+4oKcWetjSd3d2IyJ/bfRNkyG1suintpwZSkpQ7KHq2G/T39SEAUCIrgn9JMn2D1xEuAtbfBPAjlryRzNnBOaAjzuB6r7AM/IznaQAeYNcIABqAMgVPNNicP3aUrvReSiXjFCNmyxJef8wxMvWM3anUVkW4udYIoAQ0JxPcv3yGI4cyVSfn8fQs/cMTNO9v5YCZBf8ggKVVl9EHL3DWXIQyXv86kQjzeYdHr97Tko7xCvSmx6+Mkv3iINbWAAJyCVgilYSo+itYyDucvHqXbH4Zu1zZyuokIg3NLDAVYR3ADsnAPT7lnaDAwkbsNeCuF3kyM4tb2DCTUKBQ9Lg1+ZQPucVgToXnuHoWhJ1Y/19bL3LuxhjP32bjp2HNAURRwg3f5+HLd+Sc1QBvrFcQVQlty0ILZexFuENoWJfiegb+0wwY2/KmZILbF05w+GA7SsHC4jL9w+PMf12JvSExGhP94nXsa2FXYxIUFDyfuc9LaLWLMiIKkVfRmvlKBacP+jztXkJ6wWq84aY1q7k51Uhqac+/AzXsusZMK+AIAAAAAElFTkSuQmCC"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="https://www.fincash.com/assets/icon/apple-touch-icon.png"
+    />
+    <link
+      rel="mask-icon"
+      href="https://www.fincash.com/assets/icon/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <link
+      rel="shortcut icon"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAgZJREFUWEftl19LFFEYxn/vjLsoCQlF2K6uYNYXKG/6CHklFURZ4G3QVdS1BkkU0mXZjUWin0AM6qqgP1cFStEfwTaFjdYcTQd3ndkTZwqL9rgzi0Nrsedy5pzzPuc97/Oc9xGAzOmBTmXLNaBXoEF/2+4oKcWetjSd3d2IyJ/bfRNkyG1suintpwZSkpQ7KHq2G/T39SEAUCIrgn9JMn2D1xEuAtbfBPAjlryRzNnBOaAjzuB6r7AM/IznaQAeYNcIABqAMgVPNNicP3aUrvReSiXjFCNmyxJef8wxMvWM3anUVkW4udYIoAQ0JxPcv3yGI4cyVSfn8fQs/cMTNO9v5YCZBf8ggKVVl9EHL3DWXIQyXv86kQjzeYdHr97Tko7xCvSmx6+Mkv3iINbWAAJyCVgilYSo+itYyDucvHqXbH4Zu1zZyuokIg3NLDAVYR3ADsnAPT7lnaDAwkbsNeCuF3kyM4tb2DCTUKBQ9Lg1+ZQPucVgToXnuHoWhJ1Y/19bL3LuxhjP32bjp2HNAURRwg3f5+HLd+Sc1QBvrFcQVQlty0ILZexFuENoWJfiegb+0wwY2/KmZILbF05w+GA7SsHC4jL9w+PMf12JvSExGhP94nXsa2FXYxIUFDyfuc9LaLWLMiIKkVfRmvlKBacP+jztXkJ6wWq84aY1q7k51Uhqac+/AzXsusZMK+AIAAAAAElFTkSuQmCC"
+      type="image/png"
+    />
+    <!-- awesome-font CDN link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- bootstrap CSS link -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- bootstrap JS link -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="form_style.css" />
+
     <title>Easy EMI Loan - Buy Electronics</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Added Fincash-style header logo -->
+
+
+
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "odvgno9xys");
+  </script>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '3476568695975636');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=3476568695975636&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+  </head>
+
+  <body>
+    <!-- navbar section start -->
     <header class="nav-container container-fluid p-3">
       <div class="nav">
         <img src="images/logo.png" alt="logo" />
       </div>
     </header>
 
-    <!-- Changed to split-screen layout matching Fincash design -->
-    <div class="split-container">
-        <!-- Left Section - Credit Health Info -->
-        <div class="left-panel">
-            <div class="left-content">
-                <h1 class="credit-title">Buy Now, Pay in Easy EMIs</h1>
-                <p class="credit-subtitle">Select a product, verify your PAN-linked mobile number, and instantly check your EMI loan eligibility — all in a few simple steps.</p>
-                
-                <div class="features-list">
-                    <div class="feature-item">
-                        <div class="feature-number">1</div>
-                        <h3>Choose Your Product</h3>
-                        <!-- <p>Pick the product you want to buy on easy EMI.</p> -->
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-number">2</div>
-                        <h3>Quick PAN-Based Verification</h3>
-                        <!-- <p>Enter your name and mobile number linked with PAN to receive an OTP.</p> -->
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-number">3</div>
-                        <h3>Instant Eligibility Check</h3>
-                        <!-- <p>Verify OTP and view your EMI loan offer in seconds.</p> -->
-                    </div>
-                </div>
+    <!-- navbar section end -->
+
+    <!-- 1st main hero-section -->
+    <section class="hero-home-section">
+      <div class="hero-home-page container-fluid p-0 d-flex">
+        <div class="hero-home-content">
+          <h3 style="margin-bottom: 20px;">Buy Electronics on  Easy EMI Loan in Bajaj Finance</h3>
+          <h4>Instant Approval up to Rs. 5 lakhs</h4>
+          <!-- <p>
+            Select a product, verify your PAN-linked mobile number, and instantly check your EMI loan eligibility — all in a few simple steps.
+          </p> -->
+          <!-- <a href="#" class="report-link text-center">Already downloaded a report? Click Here</a> -->
+
+          <div class="carousel mb-5">
+            <div class="credit-content d-flex mb-4">
+              <div class="credit-number-box">1</div>
+              <div class="credit-content-text">
+                <h4>Choose Your Product</h4>
+              </div>
             </div>
+
+            <div class="credit-content d-flex mb-4">
+              <div class="credit-number-box">2</div>
+              <div class="credit-content-text">
+                <h4>Quick PAN-Based Verification</h4>
+              </div>
+            </div>
+
+            <div class="credit-content d-flex mb-4">
+              <div class="credit-number-box">3</div>
+              <div class="credit-content-text">
+                <h4>Instant Eligibility Check</h4>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Right Section - Product Selection Form -->
-        <div class="right-panel">
-            <div class="form-card">
-                <h2>Check your Easy EMI Loan offer</h2>
-                <p class="form-subtitle">Select the product you want to buy</p>
+        <div class="hero-home-page-form">
+          <div
+            class="container-md pt-4 position-relative hero-home-page-heading-web"
+          >
+            <h2 style="font-weight: bold">Check your Easy EMI Loan offer</h2>
+            <p>Select the product you want to buy</p>
+          </div>
+          <div
+            class="container-md pt-4 position-relative hero-home-page-heading-mob"
+          >
+            <h2 style="margin-left: 0px; font-weight: bolder" class="mb-0">
+              Check your Easy EMI Loan offer
+            </h2>
+            <p style="margin-left: 0px">
+              Select the product you want to buy
+            </p>
 
-                <!-- Product Grid -->
-                <div class="product-grid" id="productGrid">
-                    <div class="product-card" data-product="Smartphone">
-                        <img src="images/smart-phones-v1.avif" alt="Smartphone">
-                        <p>Smartphone</p>
-                    </div>
-                    <div class="product-card" data-product="Washing Machine">
-                        <img src="images/washing-machine-updated.avif" alt="Washing Machine">
-                        <p>Washing Machine</p>
-                    </div>
-                    <div class="product-card" data-product="Smart TV">
-                        <img src="images/smart-tv-9.avif" alt="Smart TV">
-                        <p>Smart TV</p>
-                    </div>
-                    <div class="product-card" data-product="Laptop">
-                        <img src="images/laptop-27.avif" alt="Laptop">
-                        <p>Laptop</p>
-                    </div>
-                    <div class="product-card" data-product="Kitchen Appliances">
-                        <img src="images/kitchen-appliances-23.avif" alt="Kitchen Appliances">
-                        <p>Kitchen Appliances</p>
-                    </div>
-                    <div class="product-card" data-product="Home Appliances">
-                        <img src="images/home-appliances-5.avif" alt="Home Appliances">
-                        <p>Home Appliances</p>
-                    </div>
-                    <div class="product-card" data-product="Smart Watch">
-                        <img src="images/smart-watch-4.avif" alt="Smart Watch">
-                        <p>Smart Watch</p>
-                    </div>
-                    <div class="product-card" data-product="Headphone">
-                        <img src="images/headphones-2.avif" alt="Headphone">
-                        <p>Headphone</p>
-                    </div>
-                    <div class="product-card" data-product="Refrigerator">
-                        <img src="images/refridgerator-1.avif" alt="Refrigerator">
-                        <p>Refrigerator</p>
-                    </div>
-                    <div class="product-card" data-product="Air Conditioner">
-                        <img src="images/ac-36.avif" alt="Air Conditioner">
-                        <p>Air Conditioner</p>
-                    </div>
-                </div>
-
-                <!-- Form Fields -->
-                <div class="form-fields">
-                    <div class="input-group">
-                        <label for="fullName">Full Name <span class="required">*</span></label>
-                        <input type="text" id="fullName" placeholder="Enter Full Name as Per Pan" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="mobileNumber">Mobile Number <span class="required">*</span></label>
-                        <input type="tel" id="mobileNumber" placeholder="Linked with Pan" maxlength="10" required>
-                    </div>
-
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="termsCheckbox" required>
-                        <label for="termsCheckbox">
-                            By Continuing, I agree to <a href="#">Privacy Policy</a> and <a href="#">Terms & Conditions</a> and sharing data with Experian for Credit Bureau.
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Submit Button -->
-                <button class="submit-btn" id="submitBtn">CHECK ELIGIBILITY >>></button>
-
-                <div class="security-note">
-                    <span class="lock-icon">🔒</span>
-                    <p>Your data's safety is our top priority. It is secured by cutting-edge encryption and stringent privacy protocols.</p>
-                </div>
+            <div class="points ms-3 py-3">
+              <div class="d-flex mt-2">
+                <img height="18px" src="images/right-tick.png" alt="" />
+                <p style="font-size: 12px; font-weight: 500">
+                 Choose Your Product
+                </p>
+              </div>
+              <div class="d-flex mt-2">
+                <img height="18px" src="images/right-tick.png" alt="" />
+                <p style="font-size: 12px; font-weight: 500">
+                  Quick PAN-Based Verification
+                </p>
+              </div>
+              <div class="d-flex mt-2">
+                <img height="18px" src="images/right-tick.png" alt="" />
+                <p style="font-size: 12px; font-weight: 500">
+                  Instant Eligibility Check
+                </p>
+              </div>
             </div>
+            <img
+              src="images/score_meter_phone.png"
+              style="bottom: 0; right: 0; width: 150px"
+              class="position-absolute"
+              alt=""
+            />
+          </div>
+          <div class="product-grid" id="productGrid">
+              <div class="product-card" data-product="Smartphone">
+                  <img src="images/smart-phones-v1.avif" alt="Smartphone">
+                  <p>Smartphone</p>
+              </div>
+              <div class="product-card" data-product="Washing Machine">
+                  <img src="images/washing-machine-updated.avif" alt="Washing Machine">
+                  <p>Washing Machine</p>
+              </div>
+              <div class="product-card" data-product="Smart TV">
+                  <img src="images/smart-tv-9.avif" alt="Smart TV">
+                  <p>Smart TV</p>
+              </div>
+              <div class="product-card" data-product="Laptop">
+                  <img src="images/laptop-27.avif" alt="Laptop">
+                  <p>Laptop</p>
+              </div>
+              <div class="product-card" data-product="Kitchen Appliances">
+                  <img src="images/kitchen-appliances-23.avif" alt="Kitchen Appliances">
+                  <p>Kitchen Appliances</p>
+              </div>
+              <div class="product-card" data-product="Home Appliances">
+                  <img src="images/home-appliances-5.avif" alt="Home Appliances">
+                  <p>Home Appliances</p>
+              </div>
+              <div class="product-card" data-product="Smart Watch">
+                  <img src="images/smart-watch-4.avif" alt="Smart Watch">
+                  <p>Smart Watch</p>
+              </div>
+              <div class="product-card" data-product="Headphone">
+                  <img src="images/headphones-2.avif" alt="Headphone">
+                  <p>Headphone</p>
+              </div>
+              <div class="product-card" data-product="Refrigerator">
+                  <img src="images/refridgerator-1.avif" alt="Refrigerator">
+                  <p>Refrigerator</p>
+              </div>
+              <div class="product-card" data-product="Air Conditioner">
+                  <img src="images/ac-36.avif" alt="Air Conditioner">
+                  <p>Air Conditioner</p>
+              </div>
+          </div>
+          <span class="error text-center" id="productError" style="display: none; width: 100%;">Please select a product</span>
+          <form
+            id="form1"
+            class="form-step align-items-center mt-5 justify-content-center"
+          >
+          
+            <div class="basic-input-box ms-3">
+              <input
+                type="text"
+                name="fullname"
+                id="name"
+                placeholder="Enter Full Name as Per Pan"
+                required
+              />
+              <label class="basic-input-box-title" for="name"
+                >Full Name<sup>*</sup> :</label
+              ><br />
+              <span class="error" id="NameError">Name is required</span>
+            </div>
+
+            <div class="basic-input-box ms-3">
+              <input
+                type="text"
+                id="mobile"
+                name="mobileNumber"
+                placeholder="Linked with Pan "
+              />
+              <label class="basic-input-box-title" for="mobile"
+                >Mobile Number<sup>*</sup> :</label
+              ><br />
+              <!-- <button class="genrateotpbtn">Get OTP </button><br> -->
+              <span class="error" id="mobileError"
+                >Mobile Number is required</span
+              >
+              <span class="error" id="showMobile10digitError"
+                >Required 10 digit number</span
+              >
+            </div>
+
+            <div
+              class="basic-input-checkbox privacy-checkbox d-flex mob-center pb-2 justify-content-center"
+            >
+              <input type="checkbox" name="checkbox" id="checkbox" checked />
+              <p>
+                By Continuing, I agree to Fincash
+                <a href="Terms_and_Conditions.html"> Privacy Policy</a> and
+                <a href="Terms_and_Conditions.html"> Terms & Conditions</a> and
+                sharing data with Experian for Credit Bureau.
+              </p>
+            </div>
+
+            <div class="basic-input-box btns-group text-center">
+              <a href="#"
+                ><input
+                  type="button"
+                  id="submitotpbtn1"
+                  value="Get OTP"
+                  class="btn-next otpbtn"
+              /></a>
+            </div>
+
+            <div class="credit-score-container text-center mb-3">
+              <b
+                >Powered by
+                <span><img src="images/Experian_logo.png" alt="" /></span>
+              </b>
+            </div>
+
+            <div
+              class="basic-input-checkbox pb-3 d-flex mob-center justify-content-center"
+            >
+              <i class="fa-solid fa-lock" style="color: #ff6f00"></i>
+              <p>
+                Your data’s safety is our top priority. It is secured by
+                cutting-edge encryption and stringent privacy protocols.
+              </p>
+            </div>
+
+            <div
+              class="whatsapp-container d-flex align-items-center pb-3 justify-content-center"
+            >
+              <img
+                style="height: 40px"
+                src="images/whatsapp_logo.png"
+                alt=""
+              />&nbsp;&nbsp;
+              <p>Get updates on Whatsapp</p>
+              &nbsp;&nbsp;
+              <div class="toggle-button">
+                <input type="checkbox" id="toggle" class="toggle-checkbox" />
+                <label for="toggle" class="toggle-label"></label>
+              </div>
+            </div>
+          </form>
         </div>
+      </div>
+    </section>
+
+    <!-- Hero Section Start  -->
+    <section class="hero-section container-fluid hidden">
+      <div class="hero-content-container">
+        <div class="hero-nav-box hiddn">
+          <div class="hero-nav d-flex align-items-center">
+            <i
+              onclick=""
+              class="fa-solid fa-arrow-left btn-prev nav-btn hidden"
+            ></i
+            >&nbsp;&nbsp;&nbsp;
+            <!-- <h4> Personal Loan</h4> -->
+          </div>
+        </div>
+        <div id="P-loan-box" class="hero-heading text-center">
+          <!-- <h3>Unlock Best Personal Loan Offers</h3> -->
+          <!-- <p>Avail a Loan of Your Choice Instantly.</p> -->
+        </div>
+        <div id="Congress-box" class="Congress-boxs text-center hidden">
+          <!-- <h1>Your credit score</h1> -->
+          <!-- <p>Your below loans are approved.</p> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Hero Section End  -->
+
+    <!-- form section start -->
+
+    <section class="container-fluid form-container-form-2 hidden">
+      <div
+        class="container-md form-heading-container py- px-5 d-flex justify-content-center align-items-center"
+      >
+        <div class="form-section">
+          <!-- Progress Bar -->
+          <div id="progress-section" class="progress-container hidden">
+            <div class="progress-bar" id="progress-bar"></div>
+            <!-- <div class="progress-text" id="progress-text">1/6</div> -->
+            <div
+              class="position-absolute progress-heading"
+              id="progress-heading"
+            >
+              Basic Details
+            </div>
+          </div>
+
+          <div
+            class="d-flex form-box align-items-center justify-content-center"
+          >
+            <!-- form-2 -->
+            <form
+              id="form2"
+              class="form-step form-2 align-items-center justify-content-center"
+            >
+              <div class="basic-input-box ms-2">
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="xyz@gmail.com"
+                  required
+                />
+                <label class="basic-input-box-title" for="email"
+                  >Email ID <sup>*</sup> :</label
+                ><br />
+                <span class="error" id="emailError">Email is required</span>
+                <span class="error" id="emailvalidError"
+                  >Enter a valid email</span
+                >
+              </div>
+
+              <div class="basic-input-box ms-2">
+                <h6 style="padding: 10px 0; font-size: 14px; margin-top: -20px">
+                  Gender<sup>*</sup> :
+                </h6>
+                <div class="gender-container">
+                  <div class="gender-box">
+                    <input
+                      class="gender-input hiddn"
+                      type="radio"
+                      id="male"
+                      name="gender"
+                      value="male"
+                      required
+                    />
+                    <label for="male">
+                      <!-- Male SVG -->
+                      <img src="images/male.png" alt="" srcset="" />
+                      <span>Male</span>
+                    </label>
+                  </div>
+                  <div class="gender-box">
+                    <input
+                      class="gender-input hiden"
+                      type="radio"
+                      id="female"
+                      name="gender"
+                      value="female"
+                      required
+                    />
+                    <label for="female">
+                      <!-- Female SVG -->
+                      <img src="images/female.png" alt="" />
+                      <span>Female</span>
+                    </label>
+                  </div>
+                </div>
+                <br />
+                <span class="error" id="genderError">Gender is required</span>
+              </div>
+
+              <div class="basic-input-box btns-group text-center">
+                <a href="#"
+                  ><input
+                    type="button"
+                    id="submitotpbtn2"
+                    value="Apply Now"
+                    class="btn-next otpbtn"
+                    onclick="validateForm2()"
+                /></a>
+              </div>
+            </form>
+
+            <!-- form-3 -->
+            <form
+              id="form3"
+              class="form-step align-items-center justify-content-center"
+            >
+              <div class="basic-input-box dob-box ms-2">
+                <input
+                  type="date"
+                  name="dob"
+                  id="dob"
+                  placeholder="yy-mm-dd"
+                  min="1960-01-01"
+                  max="2006-01-01"
+                  onchange="convertDate()"
+                  required
+                />
+                <label class="basic-input-box-title" for="dob"
+                  >Date of Birth <sup>*</sup> :</label
+                ><br />
+                <span class="error" id="dobError"
+                  >Date of Birth is required</span
+                >
+              </div>
+
+              <div class="basic-input-box ms-2">
+                <h6 style="padding: 10px 0; font-size: 14px; margin-top: -20px">
+                  Marital Status<sup>*</sup> :
+                </h6>
+                <!-- <label for="panCard">Pan Card<sup>*</sup> :</label><br> -->
+                <div class="marital-container">
+                  <div class="marital-box">
+                    <input
+                      class="marital-input"
+                      type="radio"
+                      id="married"
+                      name="marital-status"
+                      value="married"
+                      required
+                    />
+                    <label for="married">
+                      <!-- Male SVG -->
+                      <img src="images/married.png" alt="" srcset="" />
+                      <span>Married</span>
+                    </label>
+                  </div>
+                  <div class="marital-box">
+                    <input
+                      class="marital-input"
+                      type="radio"
+                      id="unmarried"
+                      name="marital-status"
+                      value="single"
+                      required
+                    />
+                    <label for="unmarried">
+                      <!-- Female SVG -->
+                      <img src="images/unmarried.png" alt="" />
+                      <span>Unmarried</span>
+                    </label>
+                  </div>
+                </div>
+                <br />
+                <span class="error" id="maritalError"
+                  >Marital Status is required</span
+                >
+              </div>
+
+              <div class="basic-input-box btns-group text-center">
+                <a href="#"
+                  ><input
+                    type="button"
+                    id="submitotpbtn3"
+                    value="Apply Now"
+                    class="btn-next otpbtn"
+                    onclick="validateForm3()"
+                /></a>
+              </div>
+            </form>
+
+            <!-- form-4 -->
+            <form
+              id="form4"
+              class="form-step align-items-center justify-content-center"
+            >
+              <h6 style="padding: 20px; font-size: 14px; margin-top: 20px">
+                Type of Employment<sup>*</sup> :
+              </h6>
+
+              <div
+                class="basic-input-box -flex align-items-center justify-content-center ms-2"
+              >
+                <!-- <label for="panCard">Pan Card<sup>*</sup> :</label><br> -->
+                <div class="employment-container">
+                  <div style="height: 100px" class="employment-box">
+                    <label for="Self-employed">
+                      <!-- self-employed SVG -->
+                      <img src="images/self-employed.png" alt="" srcset="" />
+                      <h6>self employed</h6>
+                      <span></span>
+                      <input
+                        class="employment-input"
+                        type="radio"
+                        id="Self-employed"
+                        name="employment"
+                        value="self employed"
+                        required
+                      />
+                    </label>
+                  </div>
+
+                  <div style="height: 100px" class="employment-box">
+                    <label for="salaried">
+                      <!-- salaried SVG -->
+                      <img src="images/salaried.png" alt="" srcset="" />
+                      <h6>salaried</h6>
+                      <!-- <span>Earn Regular Monthly Income</span> -->
+                      <span></span>
+                      <input
+                        class="employment-input"
+                        type="radio"
+                        id="salaried"
+                        name="employment"
+                        value="salaried"
+                        required
+                      />
+                    </label>
+                  </div>
+
+                  <!-- <div style="height: 100px" class="employment-box">
+                    <label for="businessowner">
+                      <img src="images/business-owner.png" alt="" srcset="" />
+                      <h6>Business Owner</h6>
+                      <span></span>
+                      <input
+                        class="employment-input"
+                        type="radio"
+                        id="businessowner"
+                        name="employment"
+                        value="businessowner"
+                        required
+                      />
+                    </label>
+                  </div> -->
+
+                  <!-- <div style="height: 100px" class="employment-box">
+                    <label for="student">
+                      <img src="images/student.png" alt="" srcset="" />
+                      <h6>Student</h6>
+                      <span></span>
+                      <input
+                        class="employment-input"
+                        type="radio"
+                        id="student"
+                        name="employment"
+                        value="student"
+                        required
+                      />
+                    </label>
+                  </div> -->
+                  <!-- <div style="height: 100px" class="employment-box">
+                    <label for="retired">
+                      <img src="images/retired.png" alt="" srcset="" />
+                      <h6>Retired</h6>
+                      <span></span>
+                      <input
+                        class="employment-input"
+                        type="radio"
+                        id="retired"
+                        name="employment"
+                        value="retired"
+                        required
+                      />
+                    </label>
+                  </div> -->
+                  <!-- <div style="height: 100px" class="employment-box">
+                    <label for="homemaker">
+                      <img src="images/home-maker.png" alt="" srcset="" />
+                      <h6>Homemaker</h6>
+                      <span></span>
+                      <input
+                        class="employment-input"
+                        type="radio"
+                        id="homemaker"
+                        name="employment"
+                        value="homemaker"
+                        required
+                      />
+                    </label>
+                  </div> -->
+                </div>
+                <br />
+                <span class="error" id="employmentError"
+                  >Please fill Employment Type</span
+                >
+              </div>
+
+              <div class="basic-input-box btns-group text-center">
+                <a href="#"
+                  ><input
+                    type="button"
+                    id="submitotpbtn4"
+                    value="Apply Now"
+                    class="btn-next otpbtn"
+                    onclick="validateForm4()"
+                /></a>
+              </div>
+            </form>
+
+            <!-- form-5 -->
+            <form
+              id="form5"
+              class="form-step align-items-center justify-content-center"
+            >
+              <div class="basic-input-box ms-3">
+                <select name="income" id="Income">
+                  <option value="">Select Your Income</option>
+                  <option value="No Income">No Income</option>
+                  <option value="0-250000">Less than 2.5 Lakh</option>
+                  <option value="250000-750000">2.5 Lakh to 7.5 Lakh</option>
+                  <option value="750000-1500000">7.5 Lakh to 15 Lakh</option>
+                  <option value="1500000-3000000">15 Lakh to 30 lakh</option>
+                  <option value="3000000+">30 Lakh & Above</option>
+                </select>
+                <label class="basic-input-box-title" for="panCard"
+                  >Income<sup>*</sup> :</label
+                ><br />
+                <span class="error" id="incomeError"
+                  >Please Select your Income</span
+                >
+              </div>
+
+              <div class="basic-input-box ms-3">
+                <input
+                  style="text-transform: uppercase"
+                  type="text"
+                  name="pancard"
+                  id="panCard"
+                  placeholder="A F D Z T 1 2 3 4 F"
+                  required
+                />
+                <label class="basic-input-box-title" for="panCard"
+                  >Pan Card<sup>*</sup> :</label
+                ><br />
+                <span style="font-size: 12px; padding-left: 10px; margin: 0">
+                  If incorrect Pan is provided, the loan will be rejected</span
+                ><br />
+                <span class="error" id="panCardError"
+                  >PAN Card is required</span
+                >
+                <span class="error" id="panCardvalidError">Invalid Pan</span>
+              </div>
+              <div class="basic-input-box ms-3">
+                <input
+                  type="text"
+                  name="currentpincode"
+                  id="current-pincode"
+                  placeholder="400607"
+                  pattern="[1-9][0-9]{5}"
+                  title="Please enter a valid 6-digit PIN code"
+                  inputmode="numeric"
+                  maxlength="6"
+                  required
+                />
+                <label class="basic-input-box-title" for="current-pincode"
+                  >Current Pincode<sup>*</sup> :</label
+                ><br />
+                <span class="error" id="currentpincodeError"
+                  >Please Enter Pincode</span
+                >
+              </div>
+
+              <div class="basic-input-box btns-group text-center">
+                <a href="#"
+                  ><input
+                    type="button"
+                    id="submitotpbtn5"
+                    value="Apply Now"
+                    class="btn-next otpbtn"
+                    onclick="validateForm5()"
+                /></a>
+              </div>
+            </form>
+
+            <!-- form-6 -->
+            <div
+              id="form6"
+              class="form-step align-items-center justify-content-center pt- brand-section hidden"
+            >
+              <div class=" " style="display: block; flex-direction: column">
+                <h3 class="zeroscore text-center hidden">
+                  You don't have Credit Score.
+                </h3>
+                <h3 class="approve text-center hidden">
+                  Your Credit Score is
+                  <input
+                    type="text"
+                    class="loan-price"
+                    id="rangeValue2"
+                    value="400"
+                    oninput="updateSlider2(this.value)"
+                  />
+                </h3>
+                <h3 class="not-approve text-center hidden">
+                  Your Credit Score is
+                  <!-- <span> -->
+                  <input
+                    type="text"
+                    class="loan-price"
+                    id="rangeValue3"
+                    value="400"
+                    oninput="updateSlider2(this.value)"
+                  />
+                  <!-- </span> <br> -->
+                </h3>
+              </div>
+              <div class="credit-meter-section d-flex justify-content-center">
+                <div class="credit-meter-container">
+                  <div
+                    class="range-box d-flex text-center justify-content-center position-relative"
+                  >
+                    <p class="range-text">POOR <br />300-579</p>
+                    <p class="range-text">FAIR <br />580-669</p>
+                    <p class="range-text">GOOD <br />670-739</p>
+                    <!-- <p class="range-text">VERY GOOD <br>740-799</p> -->
+                    <p class="range-text">
+                      EXCELLENT <br />
+                      800-850
+                    </p>
+                    <input
+                      class="ranges"
+                      type="range"
+                      name=""
+                      id="nocredit_remove"
+                      min="300"
+                      max="850"
+                      value="400"
+                      oninput="updateInput2(this.value)"
+                    />
+                  </div>
+                  <div
+                    class="credit-meter-info d-flex py-2 align-items-center justify-content-center"
+                  >
+                    <h6 class="text-center">
+                      <span class="zeroscore-sub-text hidden"
+                        >Sorry! We cannot offer a loan right now, please try
+                        after 90 days.
+                      </span>
+                      <span class="approve-sub-text hidden">
+                        <b>CONGRATULATIONS!!!</b> <br />you are eligible for
+                        Loan!
+                      </span>
+                      <span class="not-approve-sub-text hidden">
+                        <b>SORRY!!!</b> not eligible for Loan <br />
+                        Try after 90 days!
+                      </span>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="basic-input-box btns-group text-center">
+                <a href="./loan.html"
+                  ><input
+                    type="button"
+                    id="submitotpbtn4"
+                    value="Get Loan"
+                    class="btn-next otpbtn journey-btn hidden"
+                /></a>
+              </div>
+              <p
+                style="padding: 5px; margin: 0; font-size: 12px"
+                class="score-report hidden text-center"
+              >
+                Your credit report is sent on your mail Id
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- form section end -->
+
+    <!-- otp section start -->
+    <!-- <section id="otp-section-container"> -->
+    <section id="otp-section-container">
+      <div class="otp-section">
+        <div class="otp-container">
+          <h2>OTP Verification</h2>
+          <p>
+            We have sent the 4-digit OTP to<br />
+            <b id="phone-number">+91-95112XXX36</b>
+            <a>
+              <svg
+                class="feather feather-edit"
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+                style="cursor: pointer; margin-left: 4px"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                ></path>
+                <path
+                  d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                ></path>
+              </svg>
+            </a>
+          </p>
+          <form>
+            <p class="invalid-otp" style="display: none; color: #2700c2">
+              Invalid OTP!
+            </p>
+            <div class="form-otp-box">
+              <input
+                autocomplete="one-time-code"
+                maxlength="1"
+                type="tel"
+                style="text-align: center; font-weight: bold"
+                id="otp1"
+                oninput="moveToNext(this, 'otp2')"
+              />
+              <input
+                autocomplete="one-time-code"
+                maxlength="1"
+                type="tel"
+                style="text-align: center; font-weight: bold"
+                id="otp2"
+                oninput="moveToNext(this, 'otp3')"
+              />
+              <input
+                autocomplete="one-time-code"
+                maxlength="1"
+                type="tel"
+                style="text-align: center; font-weight: bold"
+                id="otp3"
+                oninput="moveToNext(this, 'otp4')"
+              />
+              <input
+                autocomplete="one-time-code"
+                maxlength="1"
+                type="tel"
+                style="text-align: center; font-weight: bold"
+                id="otp4"
+                oninput="moveToNext(this, 'otp4')"
+              />
+            </div>
+            <div class="resend-otp-box">
+              <p class="resend-timer-box">
+                Resend OTP in <span id="timer">00:30</span>
+              </p>
+              <a
+                class="resend-otp"
+                id="resendOtp"
+                style="
+                  display: none;
+                  color: #007bff;
+                  cursor: pointer;
+                  pointer-events: auto;
+                "
+                >Resend OTP</a
+              >
+            </div>
+
+            <button
+              type="button"
+              id="verifyOTP"
+              class="primaryBtn btn btn-primary"
+              style="background-color: #2a3485; opacity: 1"
+            >
+              Verify OTP
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+    <div id="loadingIndicator" style="display: none">
+      <div class="spinner"></div>
+      <!-- You can style this in CSS -->
+      Loading...
     </div>
+    <!-- otp section end -->
+  </body>
+  <script>
+    // Get the pincode input element
+    const pincodeInput = document.getElementById("current-pincode");
 
-    <!-- OTP Modal -->
-    <div class="modal-overlay" id="otpModal">
-        <div class="modal-content">
-            <h2>Enter OTP</h2>
-            <p class="otp-message">We've sent a 6-digit OTP to your mobile number</p>
-            <p class="mobile-display" id="mobileDisplay"></p>
-            
-            <div class="otp-inputs">
-                <input type="text" maxlength="1" class="otp-input" data-index="0">
-                <input type="text" maxlength="1" class="otp-input" data-index="1">
-                <input type="text" maxlength="1" class="otp-input" data-index="2">
-                <input type="text" maxlength="1" class="otp-input" data-index="3">
-                <input type="text" maxlength="1" class="otp-input" data-index="4">
-                <input type="text" maxlength="1" class="otp-input" data-index="5">
-            </div>
+    // Add an event listener to prevent non-digit characters
+    pincodeInput.addEventListener("input", function (event) {
+      // Replace any non-digit character with an empty string
+      this.value = this.value.replace(/\D/g, "");
+    });
+  </script>
+  <script>
+    function convertDate() {
+      // Get the input value
+      const dobInput = document.getElementById("dob").value;
 
-            <p class="error-message" id="errorMessage"></p>
+      // Check if the date is in dd-mm-yyyy format using a regular expression
+      const regex = /^(\d{2})-(\d{2})-(\d{4})$/;
+      const match = dobInput.match(regex);
 
-            <button class="verify-btn" id="verifyBtn">Verify OTP</button>
-            <button class="resend-btn">Resend OTP</button>
-        </div>
-    </div>
+      if (match) {
+        // Convert dd-mm-yyyy to yyyy-mm-dd
+        const day = match[1];
+        const month = match[2];
+        const year = match[3];
+        const convertedDate = `${year}-${month}-${day}`;
 
-    <script src="script.js"></script>
-</body>
+        // Set the converted date back to the input field
+        document.getElementById("dob").value = convertedDate;
+
+        // Optionally, log the converted date for testing
+        console.log("Converted Date:", convertedDate);
+      }
+    }
+  </script>
+  <script src="form_script.js"></script>
 </html>
