@@ -1,4 +1,6 @@
 let currentStep = 1;
+let deviceId = null; // Store deviceId for the session
+let txId = null;
 let formData = {};
 const submitButton1 = document.getElementById("submitotpbtn1");
 const submitButton2 = document.getElementById("submitotpbtn2");
@@ -8,6 +10,41 @@ const submitButton5 = document.getElementById("submitotpbtn5");
 const verifyOTPSubmitButton = document.getElementById("verifyOTP");
 const resendOtpButton = document.getElementById("resendOtp");
 const prevBtns = document.querySelectorAll(".btn-prev");
+
+function generateDeviceId() {
+  const timestamp = Date.now();
+  const random = Math.random().toString(36).substring(2, 15);
+  const random2 = Math.random().toString(36).substring(2, 15);
+  // Format: device-{timestamp}-{random} (length: ~40-50 chars)
+  return `device-${timestamp}-${random}${random2}`;
+}
+
+// Initialize deviceId - persist across page refreshes using sessionStorage
+function initializeDeviceId() {
+  // Try to get existing deviceId from sessionStorage
+  let storedDeviceId = sessionStorage.getItem('deviceId');
+  
+  if (!storedDeviceId) {
+    // Generate new deviceId if not exists
+    storedDeviceId = generateDeviceId();
+    sessionStorage.setItem('deviceId', storedDeviceId);
+    console.log('✅ New Device ID Generated:', storedDeviceId);
+  } else {
+    console.log('✅ Existing Device ID Retrieved:', storedDeviceId);
+  }
+  
+  return storedDeviceId;
+}
+
+// Initialize deviceId and txId from sessionStorage
+deviceId = initializeDeviceId();
+
+// Try to restore txId if page was refreshed after generateOTP
+const storedTxId = sessionStorage.getItem('txId');
+if (storedTxId) {
+  txId = storedTxId;
+  console.log('✅ Transaction ID Restored:', txId);
+}
 prevBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     if (currentStep >= 2) {
@@ -41,6 +78,7 @@ productCards.forEach((card) => {
     card.classList.add("selected")
     selectedProduct = card.dataset.product
     selectedProductId = productIdMap[selectedProduct]
+    console.log(`Selected Product: ${selectedProduct}, Product ID: ${selectedProductId}`)
   })
 })
 
@@ -143,10 +181,10 @@ submitButton1.addEventListener("click", async () => {
   // Show the OTP section
   document.getElementById("otp-section-container").style.display = "block";
   const otpInputs = document.querySelectorAll(".form-otp-box input");
-  const dummyOTP = "1234";
-  otpInputs.forEach((input, index) => {
-    input.value = dummyOTP[index];
-  });
+  // const dummyOTP = "1234";
+  // otpInputs.forEach((input, index) => {
+  //   input.value = dummyOTP[index];
+  // });
   document.querySelector(".hero-heading").classList.add("hidden");
   document.querySelector(".nav-btn").classList.remove("hidden");
   document.querySelector(".progress-container").classList.remove("hidden");
@@ -185,102 +223,141 @@ document
 
 verifyOTPSubmitButton.addEventListener("click", async () => {
   const mobile = document.getElementById("mobile").value;
-  console.log('mobile :'+mobile);
   const otp = Array.from(document.querySelectorAll(".form-otp-box input"))
     .map((input) => input.value)
     .join("");
-  if (otp.length === 4) await verifyOTP(mobile,otp);
+  
+  if (otp.length === 6) {
+    // Disable verify button during API call
+    verifyOTPSubmitButton.disabled = true;
+    
+    // Check URL parameter for m=1 mode
+    const urlParams = new URLSearchParams(window.location.search);
+    const isModeM1 = urlParams.get('m') === '1';
+
+    // Call validate OTP API
+    const isValid = await verifyOTP(mobile, otp);
+    
+    if (isValid) {
+      if (isModeM1) {
+        // Mode M1: Redirect to thank you page
+        setTimeout(() => {
+          sessionStorage.setItem("userName", formData.name);
+          sessionStorage.setItem("selectedProduct", selectedProduct);
+          window.location.href = "thankyou.html";
+        }, 500);
+      } else {
+        // Normal Flow: Close modal and show next step
+        closeModal();
+        showForm(currentStep);
+      }
+    } else {
+      // Show error for invalid OTP
+      const errorMsg = document.querySelector(".invalid-otp");
+      errorMsg.style.display = "block";
+      errorMsg.textContent = "Invalid OTP! Please try again.";
+    }
+    
+    verifyOTPSubmitButton.disabled = false;
+  }
 });
 function closeModal() {
   document.getElementById("otp-section-container").style.display = "none";
 }
+async function verifyOTP(mobileNumber, otp) {
+  console.log('=== Calling Validate OTP API ===');
+  console.log('Mobile Number:', mobileNumber);
+  console.log('Device ID:', deviceId);
+  console.log('Transaction ID:', txId);
+  console.log('OTP:', otp);
 
-// async function verifyOTP(mobile,curretOTP) {
-//   // const otp = document.getElementById('otp').value;
+  try {
+    const response = await fetch('ttps://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/bajaj/validateOTP', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        txId: txId,
+        mobileNumber: mobileNumber,
+        otp: otp
+      })
+    });
 
-//   // Example OTP for demonstration
-//   // alert('OTP verified successfully!');
-//   try {
-//     const response = await fetch(
-//       "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/creditscore_verifyotp",
-//       // "http://localhost/creditscore_verifyotp",
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ mobile:mobile,otp: curretOTP }),
-//       }
-//     );
+    const data = await response.json();
+    console.log('Validate OTP Response:', data);
 
-//     // Check if the response is OK (status code in the range 200-299)
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! Status: ${response.status}`);
-//     }
+    if (data.success && data.data.statusCode === "7001") {
+      console.log('✅ OTP Validated Successfully');
+      
+      // Store additional data from response
+      // formData.secretId = data.data.bflId || "APP_" + Date.now();
+      // formData.access_token = data.data.access_token;
+      
+      // Clarity tracking
+      // if (typeof clarity !== 'undefined') {
+      //   clarity('set', 'mobile', formData.mobile);
+      //   clarity('set', 'application_id', formData.secretId);
+      //   clarity('set', 'name', formData.name);
+      // }
 
-//     // Parse the JSON data from the response
-//     const data = await response.json();
-
-//     // Log the data or use it as needed
-//     console.log(data);
-//     formData.secretId = data.secretId;
-//     closeModal();
-//     showForm(currentStep);
-//     clarity('set', 'mobile', formData.mobile);
-//     clarity('set', 'application_id', formData.secretId);
-//     clarity('set', 'name', formData.name);
-//     console.log(`clarity : analytics : mobile : ${formData.mobile} ,name : ${formData.name} , applicationId = ${formData.secretId}`); 
-//   } catch (error) {
-//     console.error("Error in verifying OTP:", error);
-//     document.querySelector(".invalid-otp").style.display = "block";
-//     // Handle the error as needed
-//   }
-// }
-
-async function verifyOTP(mobile, curretOTP) {
-  const DUMMY_OTP = "1234";
-  
-  // Get URL parameters
-  const urlParams = new URLSearchParams(window.location.search);
-  const isModeM1 = urlParams.get('m') === '1';
-
-  if (curretOTP === DUMMY_OTP) {
-    console.log("OTP verified successfully");
-    
-    formData.secretId = "DUMMY_" + Date.now();
-    
-    // Clarity tracking
-    if (typeof clarity !== 'undefined') {
-      clarity('set', 'mobile', formData.mobile);
-      clarity('set', 'application_id', formData.secretId);
-      clarity('set', 'name', formData.name);
-    }
-
-    // Logic for URL parameter m=1
-    if (isModeM1) {
-      // Use setTimeout as requested
-      setTimeout(() => {
-        // Store data in sessionStorage
-        sessionStorage.setItem("userName", formData.name);
-        sessionStorage.setItem("selectedProduct", selectedProduct);
-        
-        // Redirect to thank you page
-        window.location.href = "thankyou.html";
-      }, 500); // 500ms delay
+      // console.log(`Analytics: mobile: ${formData.mobile}, name: ${formData.name}, applicationId: ${formData.secretId}`);
+      return true;
     } else {
-      // Normal Flow: Close modal and show next step
-      closeModal();
-      showForm(currentStep);
+      console.error('❌ OTP Validation Failed:', data.data?.description);
+      return false;
     }
-    
-    console.log(`Analytics: mobile: ${formData.mobile}, name: ${formData.name}, applicationId: ${formData.secretId}`);
-  } else {
-    // Show error for wrong OTP
-    const errorMsg = document.querySelector(".invalid-otp");
-    errorMsg.style.display = "block";
-    errorMsg.textContent = "Invalid OTP! Use 1234 for testing";
+  } catch (error) {
+    console.error('❌ Error calling validateOTP API:', error);
+    return false;
   }
 }
+
+
+// async function verifyOTP(mobile, curretOTP) {
+//   const DUMMY_OTP = "1234";
+  
+//   // Get URL parameters
+//   const urlParams = new URLSearchParams(window.location.search);
+//   const isModeM1 = urlParams.get('m') === '1';
+
+//   if (curretOTP === DUMMY_OTP) {
+//     console.log("OTP verified successfully");
+    
+//     formData.secretId = "DUMMY_" + Date.now();
+    
+//     // Clarity tracking
+//     if (typeof clarity !== 'undefined') {
+//       clarity('set', 'mobile', formData.mobile);
+//       clarity('set', 'application_id', formData.secretId);
+//       clarity('set', 'name', formData.name);
+//     }
+
+//     // Logic for URL parameter m=1
+//     if (isModeM1) {
+//       // Use setTimeout as requested
+//       setTimeout(() => {
+//         // Store data in sessionStorage
+//         sessionStorage.setItem("userName", formData.name);
+//         sessionStorage.setItem("selectedProduct", selectedProduct);
+        
+//         // Redirect to thank you page
+//         window.location.href = "thankyou.html";
+//       }, 500); // 500ms delay
+//     } else {
+//       // Normal Flow: Close modal and show next step
+//       closeModal();
+//       showForm(currentStep);
+//     }
+    
+//     console.log(`Analytics: mobile: ${formData.mobile}, name: ${formData.name}, applicationId: ${formData.secretId}`);
+//   } else {
+//     // Show error for wrong OTP
+//     const errorMsg = document.querySelector(".invalid-otp");
+//     errorMsg.style.display = "block";
+//     errorMsg.textContent = "Invalid OTP! Use 1234 for testing";
+//   }
+// }
 
 function startTimer(duration, display) {
   let timer = duration,
@@ -367,6 +444,7 @@ employmentInputs.forEach((input) => {
 async function validateForm1() {
   const showError = document.getElementById("NameError"); // Validate first name
   const fullname = document.getElementById("name").value;
+  console.log('Device ID:', deviceId);
   if (fullname === "") {
     showError.style.display = "block";
     return false;
@@ -401,37 +479,42 @@ async function validateForm1() {
   formData.step = "step1";
   console.log(formData);
 
-  // try {
-  //   const response = await fetch(
-  //     "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/creditscore_getotp",
-  //     // https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/getotp
-  //     // "http://localhost/creditscore_getotp",
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ mobile: formData.mobile, name: fullname }),
-  //     }
-  //   );
+  try {
+    const response = await fetch(
+      "ttps://asia-south1-ads-ai-101.cloudfunctions.net/loan_api/bajaj/generateOTP",
+      // https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/getotp
+      // "http://localhost//api/generateOTP",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ mobileNumber: formData.mobile,deviceId: deviceId }),
+      }
+    );
 
-  //   // Check if the response is OK (status code in the range 200-299)
-  //   if (!response.ok) {
-  //     throw new Error(`HTTP error! Status: ${response.status}`);
-  //   }
+    // Check if the response is OK (status code in the range 200-299)
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
 
-  //   // Parse the JSON data from the response
-  //   const data = await response.json();
-
-  //   // Log the data or use it as needed
-  //   console.log(data);
-
-  //   // Do something with the data
-  //   // For example, update the state or display it in the UI
-  // } catch (error) {
-  //   console.error("Error in sending OTP:", error);
-  //   // Handle the error as needed
-  // }
+    // Parse the JSON data from the response
+    const data = await response.json();
+    if (data.success && data.data.txId) {
+          // Store txId for later use in validateOTP
+          txId = data.data.txId;
+          console.log('✅ OTP Generated Successfully');
+          console.log('Transaction ID:', txId);
+          return true;
+    } else {
+      console.error('❌ Failed to generate OTP:', data.message);
+      alert('Failed to generate OTP. Please try again.');
+      return false;
+    }
+  } catch (error) {
+    console.error("Error in sending OTP:", error);
+    // Handle the error as needed
+  }
 }
 
 function validateForm2() {

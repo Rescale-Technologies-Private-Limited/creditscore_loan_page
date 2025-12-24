@@ -1246,7 +1246,7 @@ form:nth-child(3) {
 .otp-container {
   position: absolute;
   /* width: 100%; */
-  max-width: 300px;
+  max-width: 400px;
   margin: 0;
   background-color: #ebebeb;
   border-radius: 8px;
@@ -1276,7 +1276,7 @@ form:nth-child(3) {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .otp-section .otp-container form .form-otp-box input {
