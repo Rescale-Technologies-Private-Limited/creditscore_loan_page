@@ -272,7 +272,7 @@ async function verifyOTP(mobileNumber, otp) {
   console.log('OTP:', otp);
 
   try {
-    const response = await fetch('ttps://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/validateOTP', {
+    const response = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/validateOTP', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
