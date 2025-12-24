@@ -481,7 +481,7 @@ async function validateForm1() {
 
   try {
     const response = await fetch(
-      "ttps://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/generateOTP",
+      "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/generateOTP",
       // https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/getotp
       // "http://localhost//api/generateOTP",
       {
