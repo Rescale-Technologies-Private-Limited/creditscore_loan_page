@@ -386,28 +386,44 @@ src="https://www.facebook.com/tr?id=3476568695975636&ev=PageView&noscript=1"
           <div
             class="d-flex form-box align-items-center justify-content-center"
           >
-            <!-- form-2 -->
             <form
-              id="form2"
+            id="form2"
+            class="form-step form-2 align-items-center justify-content-center"
+          >
+            <!-- Name Field -->
+            <div class="basic-input-box ms-2">
+              <input
+                type="text"
+                name="confirmName"
+                id="confirmName"
+                placeholder="Enter your full name"
+                required
+              />
+              <label class="basic-input-box-title" for="confirmName">
+                Confirm Your Full Name <sup>*</sup> :
+              </label><br />
+              <span class="error" id="nameError" style="display: none;">Name is required</span>
+            </div>
+          
+            <!-- Button -->
+            <div class="basic-input-box btns-group text-center">
+              <a href="#">
+                <input
+                  type="button"
+                  id="submitotpbtn2"
+                  value="Verify Now"
+                  class="btn-next otpbtn"
+                  onclick="validateForm2()"
+                />
+              </a>
+            </div>
+          </form>
+          <!-- form-2-end -->
+            <!-- form-3 -->
+            <form
+              id="form3"
               class="form-step form-2 align-items-center justify-content-center"
             >
-              <div class="basic-input-box ms-2">
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="xyz@gmail.com"
-                  required
-                />
-                <label class="basic-input-box-title" for="email"
-                  >Email ID <sup>*</sup> :</label
-                ><br />
-                <span class="error" id="emailError">Email is required</span>
-                <span class="error" id="emailvalidError"
-                  >Enter a valid email</span
-                >
-              </div>
-
               <div class="basic-input-box ms-2">
                 <h6 style="padding: 10px 0; font-size: 14px; margin-top: -20px">
                   Gender<sup>*</sup> :
@@ -419,7 +435,7 @@ src="https://www.facebook.com/tr?id=3476568695975636&ev=PageView&noscript=1"
                       type="radio"
                       id="male"
                       name="gender"
-                      value="male"
+                      value="Male"
                       required
                     />
                     <label for="male">
@@ -434,7 +450,7 @@ src="https://www.facebook.com/tr?id=3476568695975636&ev=PageView&noscript=1"
                       type="radio"
                       id="female"
                       name="gender"
-                      value="female"
+                      value="Female"
                       required
                     />
                     <label for="female">
@@ -452,17 +468,18 @@ src="https://www.facebook.com/tr?id=3476568695975636&ev=PageView&noscript=1"
                 <a href="#"
                   ><input
                     type="button"
-                    id="submitotpbtn2"
+                    id="submitotpbtn3"
                     value="Apply Now"
                     class="btn-next otpbtn"
-                    onclick="validateForm2()"
+                    onclick="validateForm3()"
                 /></a>
               </div>
             </form>
 
-            <!-- form-3 -->
+            <!-- form-3-end-->
+            <!-- form-4 --> 
             <form
-              id="form3"
+              id="form4"
               class="form-step align-items-center justify-content-center"
             >
               <div class="basic-input-box dob-box ms-2">
@@ -484,49 +501,6 @@ src="https://www.facebook.com/tr?id=3476568695975636&ev=PageView&noscript=1"
                 >
               </div>
 
-              <div class="basic-input-box ms-2">
-                <h6 style="padding: 10px 0; font-size: 14px; margin-top: -20px">
-                  Marital Status<sup>*</sup> :
-                </h6>
-                <!-- <label for="panCard">Pan Card<sup>*</sup> :</label><br> -->
-                <div class="marital-container">
-                  <div class="marital-box">
-                    <input
-                      class="marital-input"
-                      type="radio"
-                      id="married"
-                      name="marital-status"
-                      value="married"
-                      required
-                    />
-                    <label for="married">
-                      <!-- Male SVG -->
-                      <img src="images/married.png" alt="" srcset="" />
-                      <span>Married</span>
-                    </label>
-                  </div>
-                  <div class="marital-box">
-                    <input
-                      class="marital-input"
-                      type="radio"
-                      id="unmarried"
-                      name="marital-status"
-                      value="single"
-                      required
-                    />
-                    <label for="unmarried">
-                      <!-- Female SVG -->
-                      <img src="images/unmarried.png" alt="" />
-                      <span>Unmarried</span>
-                    </label>
-                  </div>
-                </div>
-                <br />
-                <span class="error" id="maritalError"
-                  >Marital Status is required</span
-                >
-              </div>
-
               <div class="basic-input-box btns-group text-center">
                 <a href="#"
                   ><input
@@ -534,14 +508,53 @@ src="https://www.facebook.com/tr?id=3476568695975636&ev=PageView&noscript=1"
                     id="submitotpbtn3"
                     value="Apply Now"
                     class="btn-next otpbtn"
-                    onclick="validateForm3()"
+                    onclick="validateForm4()"
                 /></a>
               </div>
             </form>
 
-            <!-- form-4 -->
+            <!-- form-4-end-->
+            <!-- form-5 -->   
             <form
-              id="form4"
+              id="form5"
+              class="form-step align-items-center justify-content-center"
+            >
+              <div class="basic-input-box ms-3">
+                <input
+                  style="text-transform: uppercase"
+                  type="text"
+                  name="pancard"
+                  id="panCard"
+                  placeholder="A F D Z T 1 2 3 4 F"
+                  required
+                />
+                <label class="basic-input-box-title" for="panCard"
+                  >Pan Card<sup>*</sup> :</label
+                ><br />
+                <span style="font-size: 12px; padding-left: 10px; margin: 0">
+                  If incorrect Pan is provided, the loan will be rejected</span
+                ><br />
+                <span class="error" id="panCardError"
+                  >PAN Card is required</span
+                >
+                <span class="error" id="panCardvalidError">Invalid Pan</span>
+              </div>
+
+              <div class="basic-input-box btns-group text-center">
+                <a href="#"
+                  ><input
+                    type="button"
+                    id="submitotpbtn4"
+                    value="Apply Now"
+                    class="btn-next otpbtn"
+                    onclick="validateForm5()"
+                /></a>
+              </div>
+            </form>
+            <!-- form-5-end-->
+            <!-- form-6 -->    
+            <form
+              id="form6"
               class="form-step align-items-center justify-content-center"
             >
               <h6 style="padding: 20px; font-size: 14px; margin-top: 20px">
@@ -564,7 +577,7 @@ src="https://www.facebook.com/tr?id=3476568695975636&ev=PageView&noscript=1"
                         type="radio"
                         id="Self-employed"
                         name="employment"
-                        value="self employed"
+                        value="Self employed"
                         required
                       />
                     </label>
@@ -582,73 +595,11 @@ src="https://www.facebook.com/tr?id=3476568695975636&ev=PageView&noscript=1"
                         type="radio"
                         id="salaried"
                         name="employment"
-                        value="salaried"
+                        value="Salaried"
                         required
                       />
                     </label>
                   </div>
-
-                  <!-- <div style="height: 100px" class="employment-box">
-                    <label for="businessowner">
-                      <img src="images/business-owner.png" alt="" srcset="" />
-                      <h6>Business Owner</h6>
-                      <span></span>
-                      <input
-                        class="employment-input"
-                        type="radio"
-                        id="businessowner"
-                        name="employment"
-                        value="businessowner"
-                        required
-                      />
-                    </label>
-                  </div> -->
-
-                  <!-- <div style="height: 100px" class="employment-box">
-                    <label for="student">
-                      <img src="images/student.png" alt="" srcset="" />
-                      <h6>Student</h6>
-                      <span></span>
-                      <input
-                        class="employment-input"
-                        type="radio"
-                        id="student"
-                        name="employment"
-                        value="student"
-                        required
-                      />
-                    </label>
-                  </div> -->
-                  <!-- <div style="height: 100px" class="employment-box">
-                    <label for="retired">
-                      <img src="images/retired.png" alt="" srcset="" />
-                      <h6>Retired</h6>
-                      <span></span>
-                      <input
-                        class="employment-input"
-                        type="radio"
-                        id="retired"
-                        name="employment"
-                        value="retired"
-                        required
-                      />
-                    </label>
-                  </div> -->
-                  <!-- <div style="height: 100px" class="employment-box">
-                    <label for="homemaker">
-                      <img src="images/home-maker.png" alt="" srcset="" />
-                      <h6>Homemaker</h6>
-                      <span></span>
-                      <input
-                        class="employment-input"
-                        type="radio"
-                        id="homemaker"
-                        name="employment"
-                        value="homemaker"
-                        required
-                      />
-                    </label>
-                  </div> -->
                 </div>
                 <br />
                 <span class="error" id="employmentError"
@@ -660,182 +611,209 @@ src="https://www.facebook.com/tr?id=3476568695975636&ev=PageView&noscript=1"
                 <a href="#"
                   ><input
                     type="button"
-                    id="submitotpbtn4"
+                    id="submitotpbtn5"
                     value="Apply Now"
                     class="btn-next otpbtn"
-                    onclick="validateForm4()"
+                    onclick="validateForm6()"
                 /></a>
               </div>
             </form>
-
-            <!-- form-5 -->
+            <!-- form-6-end-->
+            <!-- form-7 -->
             <form
-              id="form5"
+              id="form7"
               class="form-step align-items-center justify-content-center"
             >
-              <div class="basic-input-box ms-3">
-                <select name="income" id="Income">
-                  <option value="">Select Your Income</option>
-                  <option value="No Income">No Income</option>
-                  <option value="0-250000">Less than 2.5 Lakh</option>
-                  <option value="250000-750000">2.5 Lakh to 7.5 Lakh</option>
-                  <option value="750000-1500000">7.5 Lakh to 15 Lakh</option>
-                  <option value="1500000-3000000">15 Lakh to 30 lakh</option>
-                  <option value="3000000+">30 Lakh & Above</option>
-                </select>
-                <label class="basic-input-box-title" for="panCard"
-                  >Income<sup>*</sup> :</label
-                ><br />
-                <span class="error" id="incomeError"
-                  >Please Select your Income</span
-                >
-              </div>
-
               <div class="basic-input-box ms-3">
                 <input
                   style="text-transform: uppercase"
                   type="text"
-                  name="pancard"
-                  id="panCard"
-                  placeholder="A F D Z T 1 2 3 4 F"
-                  required
-                />
-                <label class="basic-input-box-title" for="panCard"
-                  >Pan Card<sup>*</sup> :</label
-                ><br />
-                <span style="font-size: 12px; padding-left: 10px; margin: 0">
-                  If incorrect Pan is provided, the loan will be rejected</span
-                ><br />
-                <span class="error" id="panCardError"
-                  >PAN Card is required</span
-                >
-                <span class="error" id="panCardvalidError">Invalid Pan</span>
-              </div>
-              <div class="basic-input-box ms-3">
-                <input
-                  type="text"
-                  name="currentpincode"
-                  id="current-pincode"
-                  placeholder="400607"
-                  pattern="[1-9][0-9]{5}"
-                  title="Please enter a valid 6-digit PIN code"
-                  inputmode="numeric"
+                  name="pincode"
+                  id="pincode"
+                  placeholder="Enter 6-digit Pincode"
                   maxlength="6"
                   required
                 />
-                <label class="basic-input-box-title" for="current-pincode"
-                  >Current Pincode<sup>*</sup> :</label
+                <label class="basic-input-box-title" for="pincode"
+                  >Pincode<sup>*</sup> :</label
                 ><br />
-                <span class="error" id="currentpincodeError"
-                  >Please Enter Pincode</span
-                >
+                <span style="font-size: 12px; padding-left: 10px; margin: 0">
+                   Please enter a valid 6-digit pincode</span
+                ><br />
+                <span class="error" id="pincodeError" style="display: none;">Pincode is required</span>
+                <span class="error" id="pincodeValidError" style="display: none;">Invalid Pincode</span>
+              </div>
+
+              <div class="basic-input-box ms-3">
+                  <input
+                    type="text"
+                    name="city"
+                    id="city"
+                  
+                    required
+                  />
+                  <label class="basic-input-box-title" for="city">
+                    City<sup>*</sup> :
+                  </label><br />
+              
+                  <span class="error" id="cityError" style="display: none;">City is required</span>
+                </div>
+
+              <div class="basic-input-box btns-group text-center">
+                <a href="#"
+                  ><input
+                    type="button"
+                    id="submitotpbtn7"
+                    value="Apply Now"
+                    class="btn-next otpbtn"
+                    onclick="validateForm7()"
+                /></a>
+              </div>
+            </form>
+            <!-- form-7-end -->
+            <!-- form-8 -->
+             <form
+              id="form8"
+              class="form-step align-items-center justify-content-center"
+            >
+              <h3 class="form-title">Accept key terms to view loan offer</h3>
+              <p class="form-subtitle">Check the boxes to give consent.</p>
+
+              <div class="checkbox-group">
+                  <label class="checkbox-option">
+                      <input type="checkbox" id="consent1">
+                      <span class="checkbox-label">I accept the <a href="#" class="link-orange">terms and conditions.</a></span>
+                  </label>
+                  
+                  <label class="checkbox-option">
+                      <input type="checkbox" id="consent2">
+                      <span class="checkbox-label">I consent to share my credit information.</span>
+                  </label>
+                  <label class="checkbox-option">
+                      <input type="checkbox" id="consent3">
+                      <span class="checkbox-label">I agree to receive promotional communication. (Optional)</span>
+                  </label>
               </div>
 
               <div class="basic-input-box btns-group text-center">
                 <a href="#"
                   ><input
                     type="button"
-                    id="submitotpbtn5"
+                    id="submitotpbtn8"
                     value="Apply Now"
                     class="btn-next otpbtn"
-                    onclick="validateForm5()"
+                    onclick="validateForm8()"
                 /></a>
               </div>
             </form>
-
-            <!-- form-6 -->
+            <!-- form-7-end -->
+            <!-- form-9 -->
             <div
-              id="form6"
-              class="form-step align-items-center justify-content-center pt- brand-section hidden"
+              id="form9"
+              class="form-step align-items-center justify-content-center pt-5 brand-section hidden"
+              style="max-width: 500px; margin: 0 auto;"
             >
-              <div class=" " style="display: block; flex-direction: column">
-                <h3 class="zeroscore text-center hidden">
-                  You don't have Credit Score.
-                </h3>
-                <h3 class="approve text-center hidden">
-                  Your Credit Score is
-                  <input
-                    type="text"
-                    class="loan-price"
-                    id="rangeValue2"
-                    value="400"
-                    oninput="updateSlider2(this.value)"
-                  />
-                </h3>
-                <h3 class="not-approve text-center hidden">
-                  Your Credit Score is
-                  <!-- <span> -->
-                  <input
-                    type="text"
-                    class="loan-price"
-                    id="rangeValue3"
-                    value="400"
-                    oninput="updateSlider2(this.value)"
-                  />
-                  <!-- </span> <br> -->
-                </h3>
-              </div>
-              <div class="credit-meter-section d-flex justify-content-center">
-                <div class="credit-meter-container">
-                  <div
-                    class="range-box d-flex text-center justify-content-center position-relative"
-                  >
-                    <p class="range-text">POOR <br />300-579</p>
-                    <p class="range-text">FAIR <br />580-669</p>
-                    <p class="range-text">GOOD <br />670-739</p>
-                    <!-- <p class="range-text">VERY GOOD <br>740-799</p> -->
-                    <p class="range-text">
-                      EXCELLENT <br />
-                      800-850
+              <!-- Loan Approval Card - Like the Image -->
+              <div class="loan-offer-card text-center" style="display: none;">
+                <h2 class="mb-4" style="font-size: 28px; font-weight: 600; color: #333;">
+                  Your approved loan offer
+                </h2>
+            
+                <div
+                  class="approval-box"
+                  style="
+                    background: linear-gradient(135deg, #e8f5e8, #d0f0d0);
+                    border-radius: 20px;
+                    padding: 40px 20px;
+                    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+                    margin: 20px 0;
+                  "
+                >
+                  <div class="approval-message" style="margin-bottom: 30px;">
+                    <span style="font-size: 48px; margin-right: 10px;">🎉</span>
+                    <p
+                      style="
+                        font-size: 22px;
+                        font-weight: 600;
+                        color: #2e7d32;
+                        margin: 15px 0;
+                      "
+                    >
+                      Your Easy EMI Loan has been approved
                     </p>
-                    <input
-                      class="ranges"
-                      type="range"
-                      name=""
-                      id="nocredit_remove"
-                      min="300"
-                      max="850"
-                      value="400"
-                      oninput="updateInput2(this.value)"
-                    />
                   </div>
-                  <div
-                    class="credit-meter-info d-flex py-2 align-items-center justify-content-center"
-                  >
-                    <h6 class="text-center">
-                      <span class="zeroscore-sub-text hidden"
-                        >Sorry! We cannot offer a loan right now, please try
-                        after 90 days.
-                      </span>
-                      <span class="approve-sub-text hidden">
-                        <b>CONGRATULATIONS!!!</b> <br />you are eligible for
-                        Loan!
-                      </span>
-                      <span class="not-approve-sub-text hidden">
-                        <b>SORRY!!!</b> not eligible for Loan <br />
-                        Try after 90 days!
-                      </span>
-                    </h6>
+            
+                  <div class="approved-amount" style="margin: 30px 0;">
+                    <h1
+                      id="approvedAmountDisplay"
+                      style="
+                        font-size: 56px;
+                        font-weight: bold;
+                        color: #2e7d32;
+                        margin: 0;
+                      "
+                    >
+                      ₹45,000
+                    </h1>
+                  </div>
+            
+                  <div class="category-info" style="margin-top: 30px;">
+                    <p
+                      id="categoryDisplay"
+                      style="
+                        background: #ffffff;
+                        display: inline-block;
+                        padding: 10px 30px;
+                        border-radius: 50px;
+                        font-size: 18px;
+                        color: #424242;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                      "
+                    >
+                      Category: Smart TV
+                    </p>
                   </div>
                 </div>
+            
+                <!-- Call to Action Button -->
+                <!-- <div class="basic-input-box btns-group text-center mt-4">
+                  <a href="./loan.html">
+                    <input
+                      type="button"
+                      id="submitotpbtn9"
+                      value="Continue to Shop"
+                      class="btn-next otpbtn"
+                      style="
+                        background: #ff6b00;
+                        color: white;
+                        font-size: 18px;
+                        padding: 14px 40px;
+                        border: none;
+                        border-radius: 50px;
+                        cursor: pointer;
+                      "
+                    />
+                  </a>
+                </div> -->
+            
+                
               </div>
-              <div class="basic-input-box btns-group text-center">
-                <a href="./loan.html"
-                  ><input
-                    type="button"
-                    id="submitotpbtn4"
-                    value="Get Loan"
-                    class="btn-next otpbtn journey-btn hidden"
-                /></a>
+            
+              <!-- Fallback: If not approved or error (optional) -->
+              <div class="not-eligible text-center" style="display: none;">
+                <h3 style="color: #d32f2f; font-size: 24px;">
+                  Sorry, you are not eligible at this moment.
+                </h3>
+                <p style="font-size: 16px; color: #666; margin: 20px 0;">
+                  Please try again after 90 days.
+                </p>
+                <a href="./index.html">
+                  <button class="btn-next otpbtn" style="background: #ccc; border: none;">
+                    Go Back
+                  </button>
+                </a>
               </div>
-              <p
-                style="padding: 5px; margin: 0; font-size: 12px"
-                class="score-report hidden text-center"
-              >
-                Your credit report is sent on your mail Id
-              </p>
             </div>
-          </div>
         </div>
       </div>
     </section>

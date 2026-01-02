@@ -7,6 +7,10 @@ const submitButton2 = document.getElementById("submitotpbtn2");
 const submitButton3 = document.getElementById("submitotpbtn3");
 const submitButton4 = document.getElementById("submitotpbtn4");
 const submitButton5 = document.getElementById("submitotpbtn5");
+const submitButton6 = document.getElementById("submitotpbtn6");
+const submitButton7 = document.getElementById("submitotpbtn7");
+const submitButton8 = document.getElementById("submitotpbtn8");
+
 const verifyOTPSubmitButton = document.getElementById("verifyOTP");
 const resendOtpButton = document.getElementById("resendOtp");
 const prevBtns = document.querySelectorAll(".btn-prev");
@@ -96,7 +100,7 @@ function updateProgressBar() {
   const progressBar = document.getElementById("progress-bar");
   // const progressText = document.getElementById("progress-text");
   const progressHeading = document.getElementById("progress-heading");
-  const progressPercentage = (currentStep / 6) * 100;
+  const progressPercentage = (currentStep / 8) * 100;
 
   progressBar.style.width = progressPercentage + "%";
   // progressText.textContent = `${currentStep}/7`;
@@ -120,13 +124,39 @@ function updateProgressBar() {
     case 6:
       progressHeading.textContent = "";
       break;
+    case 7:
+      progressHeading.textContent = "";
+      break;
+    case 8:
+      progressHeading.textContent = "";
+      break;
   }
 }
 
+function loadForm2() {
+  const nameInput = document.getElementById("confirmName");
+  const nameError = document.getElementById("nameError");
+
+  if (formData.name) {
+    nameInput.value = formData.name;
+    nameError.style.display = "none"; // ✅ hide error
+  } else {
+    nameError.style.display = "none"; // keep hidden initially
+  }
+}
+document.getElementById("confirmName").addEventListener("input", function () {
+  if (this.value.trim()) {
+    document.getElementById("nameError").style.display = "none";
+  }
+});
+
 function showForm(step) {
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= 9; i++) {
     document.getElementById(`form${i}`).style.display =
       i === step ? "block" : "none";
+  }
+   if (step === 2) {
+    loadForm2();
   }
   updateProgressBar();
 }
@@ -221,6 +251,104 @@ document
     });
   });
 
+
+  async function callPostVerificationAPIs(mobileNumber) {
+  console.log('=== Calling Post-Verification APIs ===');
+  
+  try {
+    // 1. Call readConsent API with mobileNumber and deviceId
+    console.log('Calling readConsent API...');
+    const consentResponse = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/readConsent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        mobileNumber: mobileNumber,
+        deviceId: deviceId
+      })
+    });
+
+    const consentData = await consentResponse.json();
+    console.log('readConsent Response:', consentData);
+
+    if (consentData.success) {
+      console.log('✅ Consent Read Successfully');
+      
+    } else {
+      console.warn('⚠️ readConsent failed:', consentData.message);
+    }
+
+    const readCartResponse = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/readFromMyCart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        mobileNumber: mobileNumber,
+      })
+    });
+
+    const readFromMyCartData = await readCartResponse.json();
+    console.log('readConsent Response:', readFromMyCartData);
+
+    if (readFromMyCartData.success) {
+      console.log('✅ Consent Read Successfully');
+    } else {
+      console.warn('⚠️ readConsent failed:',readFromMyCartData.message);
+    }
+
+    // 3. Call cdLoanRead API with mobileNumber
+    console.log('Calling cdLoanRead API...');
+    const loanResponse = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        mobileNumber: mobileNumber,
+        eventCode: "PDP_DETAILS",
+        assetCategory: formData.optionTitle,
+        sfdcCategory: formData.productId
+      })
+    });
+
+    const loanData = await loanResponse.json();
+    console.log('cdLoanRead Response:', loanData);
+
+    if (loanData.success) {
+      console.log('✅ CD Loan Data Read Successfully');
+      
+      // 4. Stores response in formData.loanData
+      formData.loanData = loanData.data;
+    } else {
+      console.warn('⚠️ cdLoanRead failed:', loanData.message);
+    }
+
+    const loanReadResponse = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanRead', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        mobileNumber: mobileNumber,
+      })
+    });
+
+    const loanReadData = await loanReadResponse.json();
+    console.log('readConsent Response:', loanReadData);
+
+    if (loanReadData.success) {
+      console.log('✅ Consent Read Successfully');
+    } else {
+      console.warn('⚠️ readConsent failed:', loanReadData.message);
+    }
+
+  } catch (error) {
+    console.error('❌ Error calling post-verification APIs:', error);
+    // Don't block the flow even if these APIs fail
+  }
+}
 verifyOTPSubmitButton.addEventListener("click", async () => {
   const mobile = document.getElementById("mobile").value;
   const otp = Array.from(document.querySelectorAll(".form-otp-box input"))
@@ -239,6 +367,10 @@ verifyOTPSubmitButton.addEventListener("click", async () => {
     const isValid = await verifyOTP(mobile, otp);
     
     if (isValid) {
+       const loadingIndicator = document.getElementById("loadingIndicator");
+       loadingIndicator.style.display = "block";
+       await callPostVerificationAPIs(mobile);
+       loadingIndicator.style.display = "none";
       if (isModeM1) {
         // Mode M1: Redirect to thank you page
         setTimeout(() => {
@@ -315,7 +447,7 @@ async function verifyOTP(mobileNumber, otp) {
 
 
 // async function verifyOTP(mobile, curretOTP) {
-//   const DUMMY_OTP = "1234";
+//   const DUMMY_OTP = "123456";
   
 //   // Get URL parameters
 //   const urlParams = new URLSearchParams(window.location.search);
@@ -517,28 +649,95 @@ async function validateForm1() {
   }
 }
 
-function validateForm2() {
-  // Validate email
-  const emailError = document.getElementById("emailError");
-  const emailvalidError = document.getElementById("emailvalidError");
-  const email = document.getElementById("email").value;
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (email === "") {
-    emailError.style.display = "block";
-    emailvalidError.style.display = "none";
-    // isValid = false;
-    return false;
-  } else if (!emailPattern.test(email)) {
-    emailvalidError.style.display = "block";
-    emailError.style.display = "none";
-    // isValid = false;
-    return false;
-  } else {
-    emailError.style.display = "none";
-    emailvalidError.style.display = "none";
+function splitFullName(fullName) {
+  const parts = fullName.trim().split(/\s+/);
+
+  if (parts.length === 1) {
+    return {
+      firstName: parts[0],
+      surName: "NA"
+    };
   }
 
-  // Validate Gender
+  return {
+    firstName: parts[0],
+    surName: parts[parts.length - 1]
+  };
+}
+
+
+async function validateForm2() {
+  const nameError = document.getElementById("nameError");
+  const fullName = document.getElementById("confirmName").value.trim();
+
+  // ❌ Validation
+  if (!fullName) {
+    nameError.style.display = "block";
+    return false;
+  } else {
+    nameError.style.display = "none";
+  }
+
+  // Save data
+  formData.fullName = fullName;
+  formData.step = "step2";
+
+  // Split name
+  const { firstName, surName } = splitFullName(fullName);
+
+  console.log("Split Name:", { firstName, surName });
+
+  try {
+    // 🔹 STEP 1: CD Loan Insert
+    const cdResponse = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        mobileNumber: formData.mobile,
+        eventCode: "CD_PD_01",
+        fullName
+      })
+    });
+
+    const cdResult = await cdResponse.json();
+    console.log("CD Loan Insert Response:", cdResult);
+
+    if (!cdResponse.ok || cdResult.success === false) {
+      alert(cdResult.message || "CD Loan Insert failed");
+      return false;
+    }
+
+    // 🔹 STEP 2: Softpull API
+    const softpullResponse = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/softpull", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        mobileNumber: formData.mobile,
+        firstName,
+        surName
+      })
+    });
+
+    const softpullResult = await softpullResponse.json();
+    console.log("Softpull Response:", softpullResult);
+
+    // ⚠️ Softpull failure should NOT block journey
+    if (!softpullResponse.ok || softpullResult.success === false) {
+      console.warn("⚠️ Softpull failed, continuing journey");
+    }
+
+    // ✅ Move to next step
+    currentStep++;
+    showForm(currentStep);
+
+  } catch (error) {
+    console.error("API Error:", error);
+    alert("Server error. Please try again.");
+  }
+}
+
+
+async function validateForm3() {
   const genderError = document.getElementById("genderError");
   const gender = document.querySelector('input[name="gender"]:checked');
   if (!gender) {
@@ -547,24 +746,46 @@ function validateForm2() {
   } else {
     genderError.style.display = "none";
   }
+  formData.gender = gender.value;
+  formData.step = "step3";
 
-  if (email && gender) {
-    console.log("API Calling..............2FORM", currentStep);
+  // ✅ Payload for API
+  const payload = {
+    mobileNumber: formData.mobile, // already stored from step-1
+    eventCode: "CD_PD_02",
+    gender: formData.gender
+  };
+
+  console.log("Calling API with payload:", payload);
+
+  try {
+    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    console.log("API Response:", result);
+
+    if (!response.ok || result.success === false) {
+      alert(result.message || "Something went wrong");
+      return false;
+    }
+
+    // ✅ API success → go next
     currentStep++;
     showForm(currentStep);
-    console.log(email, gender.value);
-    formData.email = email;
-    formData.gender = gender.value;
-    formData.step = "step2";
-    console.log(formData);
-  } else {
-    // alert('Please fill in all fields correctly.');
+
+  } catch (error) {
+    console.error("API Error:", error);
+    alert("Server error. Please try again.");
   }
 }
 
-function validateForm3() {
-  // let isValid = true;
-  // Validate Date of Birth
+async function validateForm4() {
   const dobError = document.getElementById("dobError");
   const dob = document.getElementById("dob").value;
   if (dob === "") {
@@ -574,165 +795,46 @@ function validateForm3() {
   } else {
     dobError.style.display = "none";
   }
-
-  const maritalError = document.getElementById("maritalError");
-  const maritalStatus = document.querySelector(
-    'input[name="marital-status"]:checked'
-  );
-  if (!maritalStatus) {
-    maritalError.style.display = "block";
-    // isValid = false;
-    return false;
-  } else {
-    maritalError.style.display = "none";
-  }
-
-  if (dob && maritalStatus) {
-    // currentStep++;
-    console.log("API Calling..............3FORM", currentStep);
-    showForm(++currentStep);
-    formData.maritalStatus = maritalStatus.value;
-    formData.dob = dob;
-    formData.step = "step3";
-    console.log(formData);
-  }
-}
-
-function validateForm4() {
-  const employmentError = document.getElementById("employmentError");
-  const employment = document.querySelector('input[name="employment"]:checked');
-
-  if (!employment) {
-    employmentError.style.display = "block";
-    return false;
-  } else {
-    employmentError.style.display = "none";
-  }
-  console.log("API Calling..............4FORM", currentStep);
-  showForm(++currentStep);
-  formData.employment = employment.value;
+  formData.dob = dob;
   formData.step = "step4";
-  console.log(formData);
+
+  // ✅ Payload for API
+  const payload = {
+    mobileNumber: formData.mobile, // already stored from step-1
+    eventCode: "CD_PD_03",
+    date_of_birth: formData.dob
+  };
+
+  console.log("Calling API with payload:", payload);
+
+  try {
+    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    console.log("API Response:", result);
+
+    if (!response.ok || result.success === false) {
+      alert(result.message || "Something went wrong");
+      return false;
+    }
+
+    // ✅ API success → go next
+    currentStep++;
+    showForm(currentStep);
+
+  } catch (error) {
+    console.error("API Error:", error);
+    alert("Server error. Please try again.");
+  }
 }
-
-// async function validateForm5() {
-//   const incomeSelect = document.getElementById("Income");
-//   const incomeError = document.getElementById("incomeError");
-
-//   if (incomeSelect.value === "") {
-//     incomeError.style.display = "block";
-//     return false;
-//   } else {
-//     incomeError.style.display = "none";
-//   }
-
-//   const pancardError = document.getElementById("panCardError");
-//   const panCardvalidError = document.getElementById("panCardvalidError");
-//   const panCard = document.getElementById("panCard").value;
-//   // const pincode= document.getElementById("current-pincode").value;
-//   // const pincodeError= document.getElementById("currentpincodeError");
-//   const panCardPattern = /^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$/;
-//   if (panCard === "") {
-//     pancardError.textContent = "PAN Card is required";
-//     pancardError.style.display = "block";
-//     panCardvalidError.style.display = "none";
-//     return false;
-//   } else if (!panCardPattern.test(panCard)) {
-//     panCardvalidError.style.display = "block";
-//     pancardError.style.display = "none";
-//     return false;
-//   } else {
-//     pancardError.style.display = "none";
-//     panCardvalidError.style.display = "none";
-//   }
-
-//   const currentpincode = document.getElementById("current-pincode");
-//   const currentpincodeError = document.getElementById("currentpincodeError");
-//   if (currentpincode.value === "") {
-//     currentpincodeError.style.display = "block";
-//     return false;
-//   } else {
-//     currentpincodeError.style.display = "none";
-//   }
-
-//   if (incomeSelect && panCard && currentpincode) {
-//     formData.salary = incomeSelect.value;
-//     formData.pan = panCard;
-//     // Disable the button
-//     submitButton5.disabled = true;
-//     // Show the loading indicator
-//     const loadingIndicator = document.getElementById("loadingIndicator");
-//     loadingIndicator.style.display = "block";
-//     formData.pincode = currentpincode.value;
-//     formData.step = "step5";
-//     console.log("API Calling..............5FORM", currentStep);
-
-//     try {
-//       console.log(formData);
-//       const response = await fetch(
-//         "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/creditscore_submitForm",
-//         // "http://localhost/creditscore_submitForm",
-//         {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify(formData),
-//         }
-//       );
-
-//       // Check if the response is OK (status code in the range 200-299)
-//       if (!response.ok) {
-//         throw new Error(`HTTP error! Status: ${response.status}`);
-//       }
-
-//       // Parse the JSON data from the response
-//       const data = await response.json();
-//       //   {
-//       //     "credit_score": 724,
-//       //     "fetch_date": "2024-08-23T08:30:48.358408Z"
-//       // }
-//       // Storing the object in localStorage as a JSON string
-
-//       // Log the data or use it as needed
-//       submitButton5.disabled = false;
-//       loadingIndicator.style.display = "none";
-//       console.log(data);
-//       showForm(++currentStep);
-//       closeprogress();
-//       Congratulations();
-//       // if (data?.score === 0 || data?.score == null || data === null) {
-//       document.getElementById("nocredit_remove").style.display = "none";
-//       // }
-//       updateVisibility(data?.score ?? 300);
-//       updateSlider2(data?.score ?? 300);
-//       updateInput2(data?.score ?? 300);
-//       formData.credit_score = data?.score || null;
-//       localStorage.setItem("loan", JSON.stringify(formData));
-//       console.log(formData);
-//     } catch (error) {
-//       showForm(++currentStep);
-//       closeprogress();
-//       updateVisibility(300);
-//       updateSlider2(300);
-//       updateInput2(300);
-//       document.getElementById("Congress-box").style.display = "none";
-//       console.error("Error in Submitting the Form:", error);
-//     }
-//   }
-// }
 
 async function validateForm5() {
-  const incomeSelect = document.getElementById("Income");
-  const incomeError = document.getElementById("incomeError");
-
-  if (incomeSelect.value === "") {
-    incomeError.style.display = "block";
-    return false;
-  } else {
-    incomeError.style.display = "none";
-  }
-
   const pancardError = document.getElementById("panCardError");
   const panCardvalidError = document.getElementById("panCardvalidError");
   const panCard = document.getElementById("panCard").value;
@@ -751,74 +853,314 @@ async function validateForm5() {
     pancardError.style.display = "none";
     panCardvalidError.style.display = "none";
   }
+  formData.pan = panCard;
+  formData.step = "step5";
 
-  const currentpincode = document.getElementById("current-pincode");
-  const currentpincodeError = document.getElementById("currentpincodeError");
+  // ✅ Payload for API
+  const payload = {
+    mobileNumber: formData.mobile, // already stored from step-1
+    eventCode: "CD_PD_04",
+    pan: formData.pan
+  };
+
+  console.log("Calling API with payload:", payload);
+
+  try {
+    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    console.log("API Response:", result);
+
+    if (!response.ok || result.success === false) {
+      alert(result.message || "Something went wrong");
+      return false;
+    }
+
+    // ✅ API success → go next
+    currentStep++;
+    showForm(currentStep);
+
+  } catch (error) {
+    console.error("API Error:", error);
+    alert("Server error. Please try again.");
+  }
+}
+
+
+async function validateForm6() {
+   const employmentError = document.getElementById("employmentError");
+  const employment = document.querySelector('input[name="employment"]:checked');
+
+  if (!employment) {
+    employmentError.style.display = "block";
+    return false;
+  } else {
+    employmentError.style.display = "none";
+  }
+  formData.employment = employment.value;
+  formData.step = "step6";
+
+  // ✅ Payload for API
+  const payload = {
+    mobileNumber: formData.mobile, // already stored from step-1
+    eventCode: "CD_PD_05",
+    employmentType: formData.employment
+  };
+
+  console.log("Calling API with payload:", payload);
+
+  try {
+    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    console.log("API Response:", result);
+
+    if (!response.ok || result.success === false) {
+      alert(result.message || "Something went wrong");
+      return false;
+    }
+
+    // ✅ API success → go next
+    currentStep++;
+    showForm(currentStep);
+
+  } catch (error) {
+    console.error("API Error:", error);
+    alert("Server error. Please try again.");
+  }
+}
+const PINCODE_API_URL = "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/getProductByPincode";
+document.getElementById("pincode").addEventListener("input", async function () {
+  const pincode = this.value.trim();
+
+  // Reset city on change
+  document.getElementById("city").value = "";
+
+  // Validate pincode length
+  if (pincode.length !== 6 || !/^\d{6}$/.test(pincode)) {
+    return;
+  }
+
+  try {
+    const response = await fetch(PINCODE_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        mobileNumber: formData.mobile,
+        pincode: pincode
+      })
+    });
+
+    const result = await response.json();
+    console.log("API Response:", result);
+
+    if (result.success && result.data?.pinCodeMasterList) {
+      const b2bCity =
+        result.data.pinCodeMasterList.B2B?.[0]?.city || "";
+      const wheelsCity =
+        result.data.pinCodeMasterList.WHEELS?.[0]?.City || "";
+
+      const city = b2bCity || wheelsCity;
+
+      if (city) {
+        document.getElementById("city").value = city;
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching city:", error);
+  }
+});
+
+async function validateForm7() {
+  const currentpincode = document.getElementById("pincode");
+  const currentpincodeError = document.getElementById("pincodeError");
   if (currentpincode.value === "") {
     currentpincodeError.style.display = "block";
     return false;
   } else {
     currentpincodeError.style.display = "none";
   }
+  formData.pincode = currentpincode.value;
+  formData.step = "step7";
 
-  if (incomeSelect && panCard && currentpincode) {
-    formData.salary = incomeSelect.value;
-    formData.pan = panCard;
-    formData.pincode = currentpincode.value;
-    formData.step = "step5";
+  // ✅ Payload for API
+  const payload = {
+    mobileNumber: formData.mobile, // already stored from step-1
+    eventCode: "CD_PD_06",
+    pincode: formData.pincode
+  };
 
-    // UI Updates
-    submitButton5.disabled = true;
-    const loadingIndicator = document.getElementById("loadingIndicator");
-    loadingIndicator.style.display = "block";
+  console.log("Calling API with payload:", payload);
 
-    console.log("Simulating API Call with Dummy Data...");
+  try {
+    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
 
-    try {
-      // 1. Simulate Network Latency (1.5 seconds)
-      await new Promise(resolve => setTimeout(resolve, 1500));
+    const result = await response.json();
+    console.log("API Response:", result);
 
-      // 2. Define Dummy Response Data
-      const dummyData = {
-        score: 750, // You can change this value to test different UI states (300, 500, etc.)
-        fetch_date: new Date().toISOString()
-      };
-
-      // 3. Handle the Dummy Data (Replacing original logic)
-      const data = dummyData; 
-      
-      submitButton5.disabled = false;
-      loadingIndicator.style.display = "none";
-      
-      console.log("Dummy Response Received:", data);
-
-      // Existing UI logic continues here
-      showForm(++currentStep);
-      closeprogress();
-      Congratulations();
-      
-      document.getElementById("nocredit_remove").style.display = "none";
-      
-      updateVisibility(data?.score ?? 300);
-      updateSlider2(data?.score ?? 300);
-      updateInput2(data?.score ?? 300);
-      
-      formData.credit_score = data?.score || null;
-      localStorage.setItem("loan", JSON.stringify(formData));
-      console.log("Final Form Data Saved:", formData);
-
-    } catch (error) {
-      // This catch block will only trigger if there is a JS error in your logic
-      showForm(++currentStep);
-      closeprogress();
-      updateVisibility(300);
-      updateSlider2(300);
-      updateInput2(300);
-      document.getElementById("Congress-box").style.display = "none";
-      console.error("Error in Logic:", error);
+    if (!response.ok || result.success === false) {
+      alert(result.message || "Something went wrong");
+      return false;
     }
+
+    // ✅ API success → go next
+    currentStep++;
+    showForm(currentStep);
+
+  } catch (error) {
+    console.error("API Error:", error);
+    alert("Server error. Please try again.");
   }
 }
+
+async function validateForm8() {
+  const consent1 = document.getElementById('consent1').checked;
+  const consent2 = document.getElementById('consent2').checked;
+  // consent3 is optional
+
+  if (!consent1 || !consent2) {
+    alert('Please accept the required terms and conditions.');
+    return false;
+  }
+
+  submitButton8.disabled = true;
+  const loadingIndicator = document.getElementById("loadingIndicator");
+  loadingIndicator.style.display = "block";
+
+  
+
+  try {
+    // Helper to make POST requests
+    const apiPost = async (endpoint, data) => {
+      const response = await fetch(`https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err.message || `HTTP ${response.status}`);
+      }
+
+      return await response.json();
+    };
+
+    console.log('Step 1: Reading current consent status...');
+
+    try {
+      const readConsentRes = await apiPost('/readConsent', { mobileNumber: formData.mobile });
+      if (readConsentRes.success) {
+        console.log('✅ Consent read successfully');
+      } else {
+        console.warn('⚠️ readConsent failed, continuing with other APIs...');
+      }
+    } catch (error) {
+      console.warn('⚠️ readConsent error:', error.message, '- continuing with other APIs...');
+    }
+
+
+    console.log('Step 2: Inserting CD_CONSENT event...');
+    const consentInsertRes = await apiPost('/cdLoanInsert', {
+      mobileNumber: formData.mobile,
+      eventCode: "CD_CONSENT"
+    });
+
+    if (!consentInsertRes.success) {
+      throw new Error(consentInsertRes.message || 'Consent insertion failed');
+    }
+
+    console.log('Step 3: Inserting CD_KYC event...');
+    const kycInsertRes = await apiPost('/cdLoanInsert', {
+     mobileNumber: formData.mobile,
+      eventCode: "CD_KYC"
+    });
+
+    if (!kycInsertRes.success) {
+      throw new Error(kycInsertRes.message || 'KYC insertion failed');
+    }
+
+    console.log('Step 4: Reading final loan data...');
+    const loanReadRes = await apiPost('/cdLoanRead', {mobileNumber: formData.mobile });
+
+    if (!loanReadRes.success) {
+      throw new Error(loanReadRes.message || 'Failed to read loan data');
+    }
+
+    // Extract the fields you want from the decrypted response
+    const loanData = loanReadRes.data.cDLoanData || {};
+
+    const aproveStatus = loanData.aproveStatus || loanData.approvalStatus || null;
+    const approvedAmountStr = loanData.approvedLoanAmt || loanData.eligibleLoanAmt || "0";
+    const approvedAmount = parseInt(approvedAmountStr.replace(/,/g, '')) || 0;
+
+    const assetCategory = loanData.assetCategory || 'N/A'; // "Washing Machine"
+
+    console.log('=== Loan Offer Details ===');
+    console.log('Approved Status :', aproveStatus);
+    console.log('Approved Amount :', approvedAmount);
+    console.log('Asset Category  :', assetCategory);
+
+   
+    // Populate the beautiful approval card
+    const approvalCard = document.querySelector(".loan-offer-card");
+    const notEligible = document.querySelector(".not-eligible");
+    
+    if (aproveStatus === "Approved" && approvedAmount && approvedAmount !== "N/A") {
+      approvalCard.style.display = "block";
+      notEligible.style.display = "none";
+    
+      document.getElementById("approvedAmountDisplay").textContent = 
+        `₹${parseInt(approvedAmount).toLocaleString('en-IN')}`;
+    
+      document.getElementById("categoryDisplay").textContent = 
+        `Category: ${assetCategory || 'Consumer Durable'}`;
+    
+    } else {
+      approvalCard.style.display = "none";
+      notEligible.style.display = "block";
+    }
+
+     loadingIndicator.style.display = "none";
+     submitButton8.disabled = false;
+     currentStep++;
+     showForm(currentStep);
+     closeprogress();
+
+  } catch (error) {
+
+    console.error('Error during consent flow:', error);
+    alert('Something went wrong: ' + error.message);
+    loadingIndicator.style.display = "none";
+  } finally {
+    // Re-enable button
+    submitButton8.disabled = false;
+    submitButton8.value = "Apply Now";
+  }
+}
+
 
 function Congratulations() {
   // document.querySelectorAll('.Congress-box').classList.remove('hidden');
