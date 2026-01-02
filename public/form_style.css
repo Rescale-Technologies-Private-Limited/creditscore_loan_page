@@ -1894,15 +1894,7 @@ h1 {
         tap-highlight-color: transparent;
     }
 
-    /* Optional: Slightly larger touch target */
-    .checkbox-option::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 12px;
-        z-index: 1; /* Keep it behind the checkbox and label */
-        pointer-events: none; /* This prevents it from intercepting clicks */
-    }
+    
 }
 
 /* Extra small phones (≤ 360px) */
