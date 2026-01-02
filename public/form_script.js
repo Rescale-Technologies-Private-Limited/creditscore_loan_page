@@ -785,15 +785,51 @@ async function validateForm3() {
   }
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  const dobInput = document.getElementById("dob");
+  const today = new Date();  // January 02, 2026
+
+  // Calculate the date 21 years ago
+  const maxDate = new Date(
+    today.getFullYear() - 21,
+    today.getMonth(),
+    today.getDate()
+  );
+
+  // Format as YYYY-MM-DD
+  const maxDateStr = maxDate.toISOString().split('T')[0];  // "2005-01-02"
+
+  dobInput.setAttribute("max", maxDateStr);
+
+  // Hide error initially
+  document.getElementById("dobError").style.display = "none";
+});
+
 async function validateForm4() {
   const dobError = document.getElementById("dobError");
   const dob = document.getElementById("dob").value;
   if (dob === "") {
+    dobError.textContent = "Date of Birth is required";
     dobError.style.display = "block";
     // isValid = false;
     return false;
   } else {
     dobError.style.display = "none";
+  }
+  const birthDate = new Date(dob);
+  const today = new Date();  // January 02, 2026
+
+  // Calculate exact age
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+
+  if (age < 21) {
+    dobError.textContent = "You must be at least 21 years old to apply.";
+    dobError.style.display = "block";
+    return false;
   }
   formData.dob = dob;
   formData.step = "step4";
