@@ -258,7 +258,7 @@ document
   try {
     // 1. Call readConsent API with mobileNumber and deviceId
     console.log('Calling readConsent API...');
-    const consentResponse = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/readConsent', {
+    const consentResponse = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/readConsent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -279,7 +279,7 @@ document
       console.warn('⚠️ readConsent failed:', consentData.message);
     }
 
-    const readCartResponse = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/readFromMyCart', {
+    const readCartResponse = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/readFromMyCart', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -300,7 +300,7 @@ document
 
     // 3. Call cdLoanRead API with mobileNumber
     console.log('Calling cdLoanRead API...');
-    const loanResponse = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/cdLoanInsert', {
+    const loanResponse = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -325,7 +325,7 @@ document
       console.warn('⚠️ cdLoanRead failed:', loanData.message);
     }
 
-    const loanReadResponse = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/cdLoanRead', {
+    const loanReadResponse = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanRead', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -404,7 +404,7 @@ async function verifyOTP(mobileNumber, otp) {
   console.log('OTP:', otp);
 
   try {
-    const response = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/validateOTP', {
+    const response = await fetch('https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/validateOTP', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -613,7 +613,7 @@ async function validateForm1() {
 
   try {
     const response = await fetch(
-      "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/generateOTP",
+      "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/generateOTP",
       // https://asia-south1-ads-ai-101.cloudfunctions.net/card_api/getotp
       // "http://localhost//api/generateOTP",
       {
@@ -689,7 +689,7 @@ async function validateForm2() {
 
   try {
     // 🔹 STEP 1: CD Loan Insert
-    const cdResponse = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/cdLoanInsert", {
+    const cdResponse = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -708,7 +708,7 @@ async function validateForm2() {
     }
 
     // 🔹 STEP 2: Softpull API
-    const softpullResponse = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/softpull", {
+    const softpullResponse = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/softpull", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -759,7 +759,7 @@ async function validateForm3() {
   console.log("Calling API with payload:", payload);
 
   try {
-    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/cdLoanInsert", {
+    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -808,7 +808,7 @@ async function validateForm4() {
   console.log("Calling API with payload:", payload);
 
   try {
-    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/cdLoanInsert", {
+    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -866,7 +866,7 @@ async function validateForm5() {
   console.log("Calling API with payload:", payload);
 
   try {
-    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/cdLoanInsert", {
+    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -916,7 +916,7 @@ async function validateForm6() {
   console.log("Calling API with payload:", payload);
 
   try {
-    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/cdLoanInsert", {
+    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -941,7 +941,7 @@ async function validateForm6() {
     alert("Server error. Please try again.");
   }
 }
-const PINCODE_API_URL = "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/getProductByPincode";
+const PINCODE_API_URL = "https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/getProductByPincode";
 document.getElementById("pincode").addEventListener("input", async function () {
   const pincode = this.value.trim();
 
@@ -1007,7 +1007,7 @@ async function validateForm7() {
   console.log("Calling API with payload:", payload);
 
   try {
-    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api/cdLoanInsert", {
+    const response = await fetch("https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/cdLoanInsert", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -1052,7 +1052,7 @@ async function validateForm8() {
   try {
     // Helper to make POST requests
     const apiPost = async (endpoint, data) => {
-      const response = await fetch(`https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj/api${endpoint}`, {
+      const response = await fetch(`https://asia-south1-ads-ai-101.cloudfunctions.net/loan_api_1/bajaj${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
