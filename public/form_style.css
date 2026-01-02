@@ -1846,6 +1846,7 @@ h1 {
 }
 
 /* Mobile phones (≤ 480px) */
+/* Mobile phones (≤ 480px) */
 @media (max-width: 480px) {
     .form-title {
         font-size: 17px;
@@ -1869,6 +1870,7 @@ h1 {
         border-radius: 12px;
         flex-direction: row;
         align-items: center;
+        position: relative; /* Keep this if you want the ::before */
     }
 
     .checkbox-option input[type="checkbox"] {
@@ -1876,11 +1878,15 @@ h1 {
         height: 20px;
         margin-right: 12px;
         margin-top: 0;
+        position: relative; /* This ensures checkbox stays on top */
+        z-index: 2; /* Brings checkbox above the ::before element */
     }
 
     .checkbox-label {
         font-size: 14px;
         line-height: 1.5;
+        position: relative; /* This ensures label stays on top */
+        z-index: 2; /* Brings label above the ::before element */
     }
 
     /* Make the entire checkbox area tappable on mobile */
@@ -1894,6 +1900,8 @@ h1 {
         position: absolute;
         inset: 0;
         border-radius: 12px;
+        z-index: 1; /* Keep it behind the checkbox and label */
+        pointer-events: none; /* This prevents it from intercepting clicks */
     }
 }
 
