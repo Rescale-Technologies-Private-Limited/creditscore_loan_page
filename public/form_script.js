@@ -787,23 +787,21 @@ async function validateForm3() {
 
 document.addEventListener("DOMContentLoaded", function () {
   const dobInput = document.getElementById("dob");
-  const today = new Date();  // January 02, 2026
+  const today = new Date();
 
-  // Calculate the date 21 years ago
+  // Calculate the date 23 years ago
   const maxDate = new Date(
-    today.getFullYear() - 21,
+    today.getFullYear() - 23,
     today.getMonth(),
     today.getDate()
   );
 
-  // Format as YYYY-MM-DD
-  const maxDateStr = maxDate.toISOString().split('T')[0];  // "2005-01-02"
-
+  const maxDateStr = maxDate.toISOString().split("T")[0];
   dobInput.setAttribute("max", maxDateStr);
 
-  // Hide error initially
   document.getElementById("dobError").style.display = "none";
 });
+
 
 async function validateForm4() {
   const dobError = document.getElementById("dobError");
@@ -826,8 +824,8 @@ async function validateForm4() {
     age--;
   }
 
-  if (age < 21) {
-    dobError.textContent = "You must be at least 21 years old to apply.";
+  if (age <= 23) {
+    dobError.textContent = "You must be above 23 years old to apply.";
     dobError.style.display = "block";
     return false;
   }
