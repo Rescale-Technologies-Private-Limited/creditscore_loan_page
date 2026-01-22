@@ -1,0 +1,46 @@
+#name: Deploy to Firebase Hosting
+
+#on:
+#  push:
+#    branches:
+#      - main  # Adjust if you want to trigger on a different branch
+ ## To disable automatic deployment on every push and instead only deploy when you manually click “Run workflow  ############
+name: Manual Deploy 
+on:
+   workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Replace Localhost URLs with Production API URL
+        run: |
+          find . -type f \( -name "*.js" -o -name "*.ts" -o -name "*.json" -o -name "*.env" \) -exec sed -i 's|http://localhost:5000/api|https://asia-south1-ads-ai-101.cloudfunctions.net/voters_api/api|g' {} +
+
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'   # Updated Node.js version to meet Firebase CLI requirements
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+        # Ensure your build script outputs to dist/invoice-frontend/browser
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" ## GCP key added in  Settings → Secrets → Actions
+         # projectId: "ads-ai-101"   # Use your actual project ID here test
+         # hostingSite: "campaign-invoice"
+          projectId: "ads-ai-101"   # Use your actual project ID here
+          hostingSite: "testingranjat" # use your project site 
+          channelId: "live" 
+
