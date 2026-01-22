@@ -572,11 +572,11 @@ header {
 @media (max-width: 1024px) {
     .landing-container {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 0rem;
     }
     .login-card {
-        max-width: 400px;
-        margin: 0 auto;
+        max-width: 350px;
+        margin: 0 1rem;
     }
     .landing-left h2 {
         font-size: 3rem;
@@ -585,18 +585,18 @@ header {
 
 @media (max-width: 768px) {
     header {
-        padding: 1rem 1.5rem;
+        padding: 0.2rem 1.5rem;
     }
     .logo-text h1 {
         font-size: 1.3rem;
     }
     .landing {
-        padding: 2rem 1.5rem 2rem;
+        padding: 0.2rem 1.5rem 2rem;
     }
     .landing-left h2 {
         font-size: 1.1rem;
         letter-spacing: -0.5px;
-        margin: 0.8rem 0 1rem;
+        margin: 0.8rem 1.5rem 1rem;
     }
     .landing-left h2 br {
         display: none;
@@ -607,10 +607,11 @@ header {
     .promo-banner {
         font-size: 1.35rem;
         white-space: nowrap;
+        margin-left:1.5rem;
     }
     .welcome-subtitle {
         margin-bottom: 1.5rem;
-        font-size: 1.10rem;
+        font-size: 1.028rem;
         line-height: 1.8;
         margin-bottom: 40px;
     }
