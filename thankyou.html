@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Multyfi</title>
+    <!-- Reuse the same stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Override body background only for this page */
+        body {
+            background-color: #ffffff !important;
+            background-image: none !important;
+        }
+
+        .thank-you-container {
+            background: white;
+            border-radius: 30px;
+            padding: 60px 40px;
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            margin: 40px auto;
+            animation: slideIn 0.6s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Make success icon nicer with same blue theme as login */
+        .success-icon {
+            width: 110px;               /* slightly bigger = more celebratory */
+            height: 110px;
+            background: #10b981;        /* emerald green – fresh & successful */
+            /* or use gradient: background: linear-gradient(135deg, #10b981, #059669); */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.25); /* subtle green glow */
+        }
+
+            .checkmark {
+            width: 58px;
+            height: 58px;
+            border: 6px solid white;     /* thicker = bolder & premium */
+            border-radius: 50%;
+            position: relative;
+            box-sizing: border-box;
+        }
+        
+        .checkmark::after {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: -4px;
+            width: 22px;
+            height: 38px;
+            border: solid white;
+            border-width: 0 6px 6px 0;
+            transform: rotate(45deg);
+        }
+
+        /* Rest of your existing styles can stay or be moved to styles.css if you want */
+    </style>
+</head>
+<body>
+
+    <!-- Header – same as index.html -->
+    <header>
+        <div class="header-left">
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a href="index.html" class="logo">
+                <div class="logo-text">
+                    <h1>MULTYFI</h1>
+                    <p>SEBI Registered Stock Advisor</p>
+                </div>
+            </a>
+        </div>
+    </header>
+
+    <div class="thank-you-container">
+        <div class="success-icon">
+            <div class="checkmark"></div>
+        </div>
+
+        <h1 style="color: #1e293b; font-size: 2.4rem; margin-bottom: 16px;">
+            Congratulations!
+        </h1>
+
+        <p class="success-message" style="font-size: 1.25rem; color: #475569; margin-bottom: 40px;">
+            Your registration has been completed successfully.
+        </p>
+
+        <div class="info-box" style="background: #f0f7ff; border-left: 5px solid #3b82f6; padding: 28px; border-radius: 16px; margin: 0 auto 40px; max-width: 580px;">
+            <h3 style="color: #2563eb; margin-bottom: 12px;">🎁 Your Free Subscription will be Active Soon</h3>
+            <p style="color: #334155;">You will receive <strong>1 month of free access</strong> to our premium stock recommendations and expert analysis.</p>
+        </div>
+
+        <div class="benefits-list" style="max-width: 580px; margin: 0 auto 40px; text-align: left;">
+            <div class="benefit-item" style="display: flex; align-items: center; gap: 14px; margin-bottom: 18px;">
+                <div style="width: 28px; height: 28px; background: #3b82f6; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">✓</div>
+                <span>Daily stock recommendations from SEBI registered analysts</span>
+            </div>
+            <div class="benefit-item" style="display: flex; align-items: center; gap: 14px; margin-bottom: 18px;">
+                <div style="width: 28px; height: 28px; background: #3b82f6; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">✓</div>
+                <span>Real-time trade alerts and updates</span>
+            </div>
+            <div class="benefit-item" style="display: flex; align-items: center; gap: 14px; margin-bottom: 18px;">
+                <div style="width: 28px; height: 28px; background: #3b82f6; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">✓</div>
+                <span>Expert analysis on equity, futures, options & commodities</span>
+            </div>
+            <div class="benefit-item" style="display: flex; align-items: center; gap: 14px;">
+                <div style="width: 28px; height: 28px; background: #3b82f6; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">✓</div>
+                <span>Access to our premium dashboard and mobile apps</span>
+            </div>
+        </div>
+
+        <div class="cta-buttons" style="margin-top: 30px;">
+            <a href="index.html" class="btn btn-secondary" style="
+                padding: 14px 40px;
+                background: white;
+                color: #3b82f6;
+                border: 2px solid #3b82f6;
+                border-radius: 12px;
+                font-weight: 600;
+                text-decoration: none;
+                transition: all 0.3s;
+            ">
+                ← Back to Home
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

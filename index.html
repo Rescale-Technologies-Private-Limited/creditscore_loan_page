@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multyfi - SEBI Registered Stock Advisor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-left">
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a href="#" class="logo">
+                <div class="logo-text">
+                    <h1>MULTYFI</h1>
+                    <p>SEBI Registered Stock Advisor</p>
+                </div>
+            </a>
+        </div>
+    </header> 
+    
+    <!-- Landing Section -->
+    <section class="landing">
+        <div class="landing-container">
+            <div class="landing-left">
+                <div class="trusted-badge">Trusted by Profitable Investors</div>
+                <h2>
+                    SEBI Registered
+                    <br>
+                    <span class="blue">RESEARCH</span> <span class="gold">Analysts</span>
+                </h2>
+            </div>
+            <div class="landing-right">
+                <div class="promo-banner">
+                    Get 1 month Free Subscription 🎉
+                </div>
+
+                <!-- Progress Container -->
+                <div id="progressContainer">
+                    <p id="statusMessage"><span class="spinner"></span> Please wait...</p>
+                    <div id="progressWrapper">
+                        <div id="progressBar">10%</div>
+                    </div>
+                </div>
+
+                <div class="login-card" id="loginCard">
+                    <div class="login-header">
+                        <h2>Login</h2>
+                        <div class="header-line"></div>
+                    </div>
+                    <div class="login-body">
+                        <h1 class="welcome-title">Welcome,</h1>
+                        <p class="welcome-subtitle">Check today's stock recommendations.</p>
+                       
+                        <div class="phone-input-container">
+                            <div class="country-code">
+                                <img src="https://flagcdn.com/w40/in.png" alt="India Flag" class="flag-icon">
+                                <span>+91</span>
+                            </div>
+                            <input type="tel" id="phoneInput" class="phone-input" placeholder="Enter mobile number" maxlength="10">
+                        </div>
+                       
+                        <button class="login-btn" id="loginBtn" disabled>Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OTP Popup Modal -->
+    <div class="modal-overlay" id="otpModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Enter OTP</h2>
+            </div>
+            <div class="modal-body">
+                <p class="otp-instruction">Enter the 4-digit OTP sent to your mobile number</p>
+                <p class="phone-display" id="phoneDisplay"></p>
+                
+                <div class="otp-input-container">
+                    <input type="text" class="otp-box" maxlength="1" data-index="0" inputmode="numeric">
+                    <input type="text" class="otp-box" maxlength="1" data-index="1" inputmode="numeric">
+                    <input type="text" class="otp-box" maxlength="1" data-index="2" inputmode="numeric">
+                    <input type="text" class="otp-box" maxlength="1" data-index="3" inputmode="numeric">
+                </div>
+                
+                <p class="error-message" id="errorMessage"></p>
+                
+                <button class="verify-btn" id="verifyBtn">Verify OTP</button>
+                
+                <div class="resend-section">
+                    <p id="resendText">Didn't receive OTP? <a href="#" id="resendLink">Resend</a></p>
+                    <p id="timerText" style="display: none;">Resend OTP in <span id="countdown">30</span>s</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Feature Section -->
+    <section class="features">
+        <div class="features-hero">
+            <p class="hero-tagline">UNLOCK PROFITABLE INVESTMENTS WITH EXPERT STRATEGIES!</p>
+            <h2>What Do You Get</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Equity Trades</h3>
+                <p>Stock market trades with short to medium-term investment strategies.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Future Trades</h3>
+                <p>Trading recommendations on futures contracts with potential high returns.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Options Trades</h3>
+                <p>Expert analysis and strategies for trading stock and index options.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Commodities Trades</h3>
+                <p>Insights and trade calls for commodities like gold, silver, and crude oil.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    // Phone input validation
+    const phoneInput = document.getElementById('phoneInput');
+    const loginBtn = document.getElementById('loginBtn');
+    const otpModal = document.getElementById('otpModal');
+    const phoneDisplay = document.getElementById('phoneDisplay');
+    const verifyBtn = document.getElementById('verifyBtn');
+    const errorMessage = document.getElementById('errorMessage');
+    const otpBoxes = document.querySelectorAll('.otp-box');
+    const resendLink = document.getElementById('resendLink');
+    const resendText = document.getElementById('resendText');
+    const timerText = document.getElementById('timerText');
+    const countdown = document.getElementById('countdown');
+
+    // Default OTP for testing
+    const DEFAULT_OTP = '1234';
+    
+    // Timer variables
+    let timerInterval;
+    let timeLeft = 30;
+
+    // Enable/disable login button based on phone number with Indian mobile validation
+    phoneInput.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/\D/g, '');
+        validateIndianMobile(e.target.value);
+    });
+
+    // Function to validate Indian mobile number
+    function validateIndianMobile(phoneNumber) {
+        // Indian mobile number regex (10 digits, starts with 6-9)
+        const mobilePattern = /^[6-9]\d{9}$/;
+        loginBtn.disabled = !mobilePattern.test(phoneNumber);
+    }
+
+    // Show progress bar and OTP modal on login
+    loginBtn.addEventListener('click', () => {
+        const phoneNumber = phoneInput.value;
+        
+        // Show progress container
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const statusMessage = document.getElementById('statusMessage');
+        
+        progressContainer.classList.add('show');
+        
+        const messages = [
+            "Don't click back or refresh.",
+            "Validating and finding best deals for you.",
+            "Congratulations, You are almost ready for 1 month free subscription."
+        ];
+        
+        let progress = 10;
+        let messageIndex = 0;
+        let interval;
+        
+        progressBar.style.width = progress + "%";
+        progressBar.textContent = progress + "%";
+        statusMessage.innerHTML = '<span class="spinner"></span> ' + messages[messageIndex];
+
+        interval = setInterval(() => {
+            progress += 10;
+            messageIndex = (messageIndex + 1) % messages.length;
+            progressBar.style.width = progress + "%";
+            progressBar.textContent = progress + "%";
+            statusMessage.innerHTML = '<span class="spinner"></span> ' + messages[messageIndex];
+            
+            if (progress >= 100) {
+                clearInterval(interval);
+                // Show OTP modal after progress completes
+                setTimeout(() => {
+                    progressContainer.classList.remove('show');
+                    phoneDisplay.textContent = `+91 ${phoneNumber}`;
+                    otpModal.style.display = 'flex';
+                    errorMessage.textContent = '';
+                    errorMessage.style.display = 'none';
+                    clearOTP();
+                    otpBoxes[0].focus();
+                    startResendTimer();
+                }, 500);
+            }
+        }, 400);
+    });
+
+    // Close modal on outside click
+    otpModal.addEventListener('click', (e) => {
+        if (e.target === otpModal) {
+            otpModal.style.display = 'none';
+            clearOTP();
+            stopResendTimer();
+        }
+    });
+
+    // OTP input handling with improved auto-focus
+    otpBoxes.forEach((box, index) => {
+        box.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '');
+            
+            if (errorMessage.style.display !== 'none') {
+                errorMessage.textContent = '';
+                errorMessage.style.display = 'none';
+            }
+            
+            if (e.target.value && index < otpBoxes.length - 1) {
+                otpBoxes[index + 1].focus();
+            }
+        });
+
+        box.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace') {
+                if (!e.target.value && index > 0) {
+                    otpBoxes[index - 1].focus();
+                }
+            }
+            
+            if (e.key === 'ArrowRight' && index < otpBoxes.length - 1) {
+                otpBoxes[index + 1].focus();
+            }
+            
+            if (e.key === 'ArrowLeft' && index > 0) {
+                otpBoxes[index - 1].focus();
+            }
+        });
+
+        box.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const pastedData = e.clipboardData.getData('text').replace(/\D/g, '');
+            
+            for (let i = 0; i < pastedData.length && index + i < otpBoxes.length; i++) {
+                otpBoxes[index + i].value = pastedData[i];
+            }
+            
+            if (index + pastedData.length < otpBoxes.length) {
+                otpBoxes[index + pastedData.length].focus();
+            } else {
+                otpBoxes[otpBoxes.length - 1].focus();
+            }
+        });
+    });
+
+    // Verify OTP
+    verifyBtn.addEventListener('click', () => {
+        const enteredOTP = Array.from(otpBoxes).map(box => box.value).join('');
+        
+        if (enteredOTP.length !== 4) {
+            errorMessage.textContent = 'Please enter complete OTP';
+            errorMessage.style.display = 'block';
+            return;
+        }
+    
+        if (enteredOTP === DEFAULT_OTP) {
+            phoneInput.value = '';
+            loginBtn.disabled = true;
+            stopResendTimer();
+            window.location.href = 'thankyou.html';
+        } else {
+            clearOTP();
+            otpBoxes[0].focus();
+            
+            errorMessage.textContent = 'Invalid OTP. Please try again.';
+            errorMessage.style.display = 'block';
+            
+            const modalBody = document.querySelector('.modal-body');
+            modalBody.classList.add('error-shake');
+            setTimeout(() => modalBody.classList.remove('error-shake'), 600);
+        }
+    });
+
+
+    // Resend OTP with timer
+    resendLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (timeLeft > 0) return; // Don't allow resend if timer is active
+        
+        errorMessage.textContent = '';
+        errorMessage.style.display = 'none';
+        clearOTP();
+        alert('OTP resent successfully! (Test OTP: 1234)');
+        startResendTimer();
+    });
+
+    // Start resend timer
+    function startResendTimer() {
+        timeLeft = 30;
+        resendText.style.display = 'none';
+        timerText.style.display = 'block';
+        countdown.textContent = timeLeft;
+        
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            countdown.textContent = timeLeft;
+            
+            if (timeLeft <= 0) {
+                stopResendTimer();
+            }
+        }, 1000);
+    }
+
+    // Stop resend timer
+    function stopResendTimer() {
+        clearInterval(timerInterval);
+        resendText.style.display = 'block';
+        timerText.style.display = 'none';
+        timeLeft = 0;
+    }
+
+    // Clear OTP inputs
+    function clearOTP() {
+        otpBoxes.forEach(box => box.value = '');
+        errorMessage.textContent = '';
+        errorMessage.style.display = 'none';
+    }
+
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        if (navMenu) navMenu.classList.toggle('active');
+    });
+
+    // Scroll to login
+    function scrollToLogin() {
+        const loginCard = document.getElementById('loginCard');
+        loginCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // WhatsApp function
+    function openWhatsApp() {
+        const phoneNumber = '919876543210';
+        const message = 'Hello, I am interested in your services.';
+        window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    }
+</script>
+
+</body>
+</html>
