@@ -26,11 +26,11 @@ jobs:
         with:
           node-version: '20'   # Updated Node.js version to meet Firebase CLI requirements
 
-      - name: Install Dependencies
-        run: npm install
+      #- name: Install Dependencies
+       # run: npm install
 
-      - name: Build Project
-        run: npm run build
+      #- name: Build Project
+       # run: npm run build
         # Ensure your build script outputs to dist/invoice-frontend/browser
 
       - name: Deploy to Firebase Hosting
