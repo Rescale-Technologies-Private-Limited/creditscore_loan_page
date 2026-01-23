@@ -298,7 +298,7 @@ header {
     flex: 1;
     border: none;
     padding: 14px 16px;
-    font-size: 16px;
+    font-size: 15px;
     outline: none;
     font-family: inherit;
 }
@@ -597,13 +597,20 @@ header {
     .logo-text h1 {
         font-size: 1.3rem;
     }
+    .login-card {
+       
+        width: 100%;
+        max-width: 320px;
+        
+    }
     .landing {
         padding: 0.2rem 1.5rem 2rem;
     }
     .landing-left h2 {
         font-size: 1.1rem;
         letter-spacing: -0.5px;
-        margin: 0.8rem 1.5rem 1rem;
+        margin-left:2rem;
+        margin-bottom: 12px;
     }
     .landing-left h2 br {
         display: none;
@@ -612,13 +619,13 @@ header {
         display: none;
     }
     .promo-banner {
-        font-size: 1.35rem;
+        font-size: 1.22rem;
         white-space: nowrap;
         margin-left:1.5rem;
     }
     .welcome-subtitle {
         margin-bottom: 1.5rem;
-        font-size: 1.028rem;
+        font-size: 14px;
         line-height: 1.8;
         margin-bottom: 40px;
     }
