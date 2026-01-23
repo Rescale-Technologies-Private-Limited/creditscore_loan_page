@@ -574,9 +574,16 @@ header {
         grid-template-columns: 1fr;
         gap: 0rem;
     }
+    
     .login-card {
-        max-width: 350px;
-        margin: 0 1rem;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 8px 35px rgba(0,0,0,0.12);
+        border-top: 5px solid #0084FF;
+        overflow: hidden;
+        width: 90%;
+        max-width: 420px;
+        margin: 0 20 0 20;
     }
     .landing-left h2 {
         font-size: 3rem;
